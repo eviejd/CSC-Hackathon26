@@ -1051,6 +1051,34 @@
     letter-spacing: 0.04em;
     }
 
+    /* Price tag — overlaid on the food photo so price reads at a
+    glance, the same way .best-tag calls out the top match. Lives on
+    .result-card (not inside .food-card-image-container) so it survives
+    the image's onerror fallback, which replaces the container's
+    contents if the photo fails to load. */
+    .price-tag {
+    position: absolute;
+
+    top: 10px;
+    left: 12px;
+    z-index: 2;
+
+    background: var(--color-primary);
+
+    color: #fff;
+
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    padding: 0.3rem 0.7rem;
+
+    border-radius: var(--radius-pill);
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+    letter-spacing: 0.01em;
+    }
+
     /* =========================================================
     SKELETON LOADING CARDS
     ========================================================= */
@@ -1319,6 +1347,18 @@
 
     min-width: 0;
     overflow-wrap: anywhere;
+    flex: 1 1 auto;
+    }
+
+    .meal-item-price {
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    color: var(--color-ink-soft);
+
+    flex: none;
+    margin-left: auto;
+    white-space: nowrap;
     }
 
     .meal-macro-row {

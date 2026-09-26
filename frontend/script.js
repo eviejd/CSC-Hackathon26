@@ -226,6 +226,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
     card.innerHTML = `
         ${isBest ? '<span class="best-tag">Best match</span>' : ""}
+        ${priceTagMarkup(item)}
         ${imageMarkup}
         <div class="result-card-header">
         <span class="result-name">${escapeHtml(item.name)}</span>
@@ -257,6 +258,22 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     function formatRemaining(value, label) {
     const over = value < 0;
     return `${Math.abs(value)}${label} ${over ? "over" : "remaining"}`;
+    }
+
+    // ---------------------------------------------------------
+    // Price helpers
+    // Always treat price as a number, never as a string, and never
+    // fall back to $0 for a missing/invalid value.
+    // ---------------------------------------------------------
+    function formatPrice(value) {
+    const num = Number(value);
+    if (value === null || value === undefined || !Number.isFinite(num)) return null;
+    return `$${num.toFixed(2)}`;
+    }
+
+    function priceTagMarkup(item) {
+    const formatted = formatPrice(item.price);
+    return formatted ? `<span class="price-tag">${escapeHtml(formatted)}</span>` : "";
     }
 
     function showError(message) {
@@ -388,6 +405,8 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const searchCategorySelect = document.getElementById("search-category");
     const minCalories = document.getElementById("min-calories");
     const maxCalories = document.getElementById("max-calories");
+    const minPrice = document.getElementById("min-price");
+    const maxPrice = document.getElementById("max-price");
     const minProtein = document.getElementById("min-protein");
     const maxProtein = document.getElementById("max-protein");
     const minCarbs = document.getElementById("min-carbs");
@@ -500,7 +519,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
     [
         minCalories, maxCalories, minProtein, maxProtein,
-        minCarbs, maxCarbs, minFat, maxFat,
+        minCarbs, maxCarbs, minFat, maxFat, minPrice, maxPrice,
         targetCalories, targetProtein, targetCarbs, targetFat,
     ].forEach((el) => {
         let handle = null;
@@ -544,7 +563,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         searchCategorySelect.value = "all";
         [
         minCalories, maxCalories, minProtein, maxProtein, minCarbs, maxCarbs, minFat, maxFat,
-        targetCalories, targetProtein, targetCarbs, targetFat,
+        minPrice, maxPrice, targetCalories, targetProtein, targetCarbs, targetFat,
         ].forEach((el) => (el.value = ""));
         sortSelect.value = "relevance";
         activeQuickFilter = null;
@@ -571,6 +590,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         ["min_protein", minProtein], ["max_protein", maxProtein],
         ["min_carbs", minCarbs], ["max_carbs", maxCarbs],
         ["min_fat", minFat], ["max_fat", maxFat],
+        ["min_price", minPrice], ["max_price", maxPrice],
         ["target_calories", targetCalories], ["target_protein", targetProtein],
         ["target_carbs", targetCarbs], ["target_fat", targetFat],
     ];
@@ -655,6 +675,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         : "";
 
     card.innerHTML = `
+        ${priceTagMarkup(item)}
         ${imageMarkup}
         <div class="result-card-header">
         <span class="result-name">${escapeHtml(item.name)}</span>
@@ -686,17 +707,21 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
     /* =========================================================
     BUILD MY MEAL
-    Flow: Choose Restaurant -> Choose Meal Type -> Generate Meal.
-    Every request is scoped to exactly one restaurant (the existing
-    `restaurant` property on each menu item is the only source of truth —
-    see validateMealRestaurant below) and one Meal Type. There are no
-    Calorie/Protein targets or a Category filter here anymore; the server
-    picks a fitting combination based on how each meal type is defined.
+    Flow: choose a restaurant, calorie/protein targets, optionally a
+    category and a max budget, then Generate/Find My Meal. The server
+    (/api/build-meal) combines real menu items (2-3 per meal) that land
+    close to the targets; every item in every combo satisfies
+    item.price <= max budget whenever a budget is set. The `restaurant`
+    property on each returned item is the only source of truth for
+    which restaurant it belongs to — see validateMealRestaurant below.
     ========================================================= */
 
     const buildMealForm = document.getElementById("build-meal-form");
     const buildMealRestaurantSelect = document.getElementById("build-meal-restaurant");
-    const buildMealTypeSelect = document.getElementById("build-meal-type");
+    const buildMealCaloriesInput = document.getElementById("build-meal-calories");
+    const buildMealProteinInput = document.getElementById("build-meal-protein");
+    const buildMealCategorySelect = document.getElementById("build-meal-category");
+    const buildMealBudgetInput = document.getElementById("build-meal-budget");
     const buildMealSubmitBtn = document.getElementById("build-meal-submit-btn");
 
     const buildMealEmpty = document.getElementById("build-meal-empty");
@@ -708,41 +733,10 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
     let buildMealInitialized = false;
 
-    // The restaurant currently selected for the meal builder. This is the
-    // single source of truth for which restaurant's items are allowed —
-    // every item returned by the server is checked against it before it
-    // is ever shown or added to a meal.
-    let buildMealSelectedRestaurant = "";
-
-    // Recently generated combinations, kept only for this browser session
-    // and scoped per restaurant + meal type, so regenerating tends to
-    // avoid repeating "same main + same side + same drink" while still
-    // respecting the selected restaurant and meal type.
-    const RECENT_COMBOS_LIMIT = 8;
-    const recentCombosByKey = new Map();
-
-    function recentComboKey(restaurant, mealType) {
-    return `${restaurant}::${mealType}`;
-    }
-
-    function rememberCombo(restaurant, mealType, itemIds) {
-    const key = recentComboKey(restaurant, mealType);
-    const list = recentCombosByKey.get(key) || [];
-    list.push(itemIds);
-    while (list.length > RECENT_COMBOS_LIMIT) list.shift();
-    recentCombosByKey.set(key, list);
-    }
-
-    function recentCombosFor(restaurant, mealType) {
-    return recentCombosByKey.get(recentComboKey(restaurant, mealType)) || [];
-    }
-
     async function initBuildMeal() {
     buildMealInitialized = true;
-    await populateBuildMealRestaurants();
+    await Promise.all([populateBuildMealRestaurants(), populateBuildMealCategories()]);
     buildMealForm.addEventListener("submit", handleBuildMealSubmit);
-    buildMealRestaurantSelect.addEventListener("change", handleBuildMealRestaurantChange);
-    buildMealTypeSelect.addEventListener("change", handleBuildMealTypeChange);
     }
 
     async function populateBuildMealRestaurants() {
@@ -758,16 +752,12 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         return;
         }
 
-        const placeholder = document.createElement("option");
-        placeholder.value = "";
-        placeholder.disabled = true;
-        placeholder.selected = true;
-        placeholder.textContent = "Select a restaurant…";
-        buildMealRestaurantSelect.appendChild(placeholder);
+        const allOption = document.createElement("option");
+        allOption.value = "all";
+        allOption.textContent = "All restaurants";
+        allOption.selected = true;
+        buildMealRestaurantSelect.appendChild(allOption);
 
-        // Restaurants come straight from the existing menu data (via the
-        // /api/restaurants endpoint, which derives its list from the same
-        // menu.json items) — no separate, hard-coded restaurant list.
         restaurants.forEach((name) => {
         const opt = document.createElement("option");
         opt.value = name;
@@ -780,103 +770,51 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
     }
 
-    // ---------------------------------------------------------
-    // Changing the restaurant always resets the current meal
-    // selection/results, then — if a meal type was already chosen —
-    // immediately regenerates using only the newly selected
-    // restaurant's items.
-    // ---------------------------------------------------------
-    function handleBuildMealRestaurantChange() {
-    const value = buildMealRestaurantSelect.value;
-    buildMealSelectedRestaurant = value && value !== "all" ? value : "";
-
-    // Clear/reset any previously generated meal — never leave results on
-    // screen that could reflect a different restaurant.
-    buildMealGrid.innerHTML = "";
-    buildMealTargetSummary.innerHTML = "";
-
-    if (!buildMealSelectedRestaurant) {
-        buildMealTypeSelect.disabled = true;
-        buildMealSubmitBtn.disabled = true;
-        setBuildMealState("empty");
-        buildMealEmpty.innerHTML = "Choose a restaurant to start building your meal.";
-        return;
+    async function populateBuildMealCategories() {
+    try {
+        const res = await fetch(`${API_BASE}/categories`);
+        if (!res.ok) throw new Error(`Server returned ${res.status}`);
+        const categories = await res.json();
+        categories.forEach((cat) => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = formatCategory(cat);
+        buildMealCategorySelect.appendChild(opt);
+        });
+    } catch (err) {
+        console.error("Failed to load categories for Build My Meal:", err);
     }
-
-    buildMealTypeSelect.disabled = false;
-    buildMealSubmitBtn.disabled = false;
-
-    if (buildMealTypeSelect.value) {
-        // A meal type is already chosen — recalculate right away so the
-        // displayed results update immediately for the new restaurant.
-        generateBuildMeal();
-    } else {
-        setBuildMealState("empty");
-        buildMealEmpty.innerHTML = "Choose a meal type, then tap Generate Meal.";
-    }
-    }
-
-    function handleBuildMealTypeChange() {
-    // A different meal type means the previous result no longer applies —
-    // clear it and wait for the user to generate again.
-    buildMealGrid.innerHTML = "";
-    buildMealTargetSummary.innerHTML = "";
-    setBuildMealState("empty");
-    buildMealEmpty.innerHTML = "Tap Generate Meal to build your meal.";
-    }
-
-    function resetBuildMealForm() {
-    if (buildMealRestaurantSelect.querySelector('option[value=""]')) {
-        buildMealRestaurantSelect.value = "";
-    }
-    buildMealTypeSelect.value = "high_protein";
-    buildMealTypeSelect.disabled = true;
-    buildMealSelectedRestaurant = "";
-    buildMealSubmitBtn.disabled = true;
-    buildMealGrid.innerHTML = "";
-    buildMealTargetSummary.innerHTML = "";
-    setBuildMealState("empty");
-    buildMealEmpty.innerHTML = "Choose a restaurant to start building your meal.";
     }
 
     function handleBuildMealSubmit(event) {
     event.preventDefault();
-    generateBuildMeal();
-    }
 
-    function generateBuildMeal() {
-    // A restaurant must be selected before a meal can be generated — this
-    // is enforced here regardless of what the select element currently
-    // shows, so the meal builder can never run against "all" restaurants.
-    if (!buildMealSelectedRestaurant) {
+    const calories = Number(buildMealCaloriesInput.value);
+    const protein = Number(buildMealProteinInput.value);
+    const restaurant = buildMealRestaurantSelect.value || "all";
+    const category = buildMealCategorySelect.value || "all";
+
+    if (Number.isNaN(calories) || Number.isNaN(protein) || calories <= 0 || protein <= 0) {
         setBuildMealState("error");
-        buildMealError.textContent = "Choose a restaurant before building your meal.";
+        buildMealError.textContent = "Enter valid calorie and protein numbers.";
         return;
     }
 
-    const mealType = buildMealTypeSelect.value;
-    if (!mealType) {
+    let maxPrice = null;
+    if (buildMealBudgetInput.value.trim() !== "") {
+        const parsedBudget = Number(buildMealBudgetInput.value);
+        if (Number.isNaN(parsedBudget) || parsedBudget <= 0) {
         setBuildMealState("error");
-        buildMealError.textContent = "Choose a meal type before generating a meal.";
+        buildMealError.textContent = "Max budget must be a number greater than zero.";
         return;
+        }
+        maxPrice = parsedBudget;
     }
 
-    fetchBuildMeal({
-        restaurant: buildMealSelectedRestaurant,
-        meal_type: mealType,
-        exclude: recentCombosFor(buildMealSelectedRestaurant, mealType),
-    });
+    fetchBuildMeal({ restaurant, calories, protein, category, max_price: maxPrice });
     }
 
     async function fetchBuildMeal(payload) {
-    // Defense in depth: never let a request reach the server without a
-    // specific, non-"all" restaurant attached to it.
-    if (!payload.restaurant || payload.restaurant.toLowerCase() === "all") {
-        setBuildMealState("error");
-        buildMealError.textContent = "Choose a restaurant before building your meal.";
-        return;
-    }
-
     setBuildMealState("loading");
     buildMealSubmitBtn.disabled = true;
 
@@ -893,7 +831,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         }
 
         const data = await res.json();
-        renderBuildMealResult(data);
+        renderBuildMealResult(data, payload);
     } catch (err) {
         console.error("Build My Meal request failed:", err);
         buildMealError.textContent = "Couldn't reach the server. Is the Flask backend running?";
@@ -905,58 +843,65 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
     // The `restaurant` property on each menu item is the source of truth.
     // Even if the underlying data or state changed unexpectedly, this
-    // rejects any item that doesn't belong to the currently selected
-    // restaurant before it could ever be displayed or added to the meal.
-    // Restaurant is never inferred from name/category/image/id.
+    // rejects any item that doesn't belong to the requested restaurant
+    // before it could ever be displayed. When "all" restaurants was
+    // requested, any item is allowed. Restaurant is never inferred from
+    // name/category/image/id.
     function validateMealRestaurant(meal, restaurant) {
     if (!meal || !Array.isArray(meal.items) || meal.items.length === 0) return false;
+    if (!restaurant || restaurant.toLowerCase() === "all") return true;
     return meal.items.every((item) => item.restaurant === restaurant);
     }
 
-    function renderBuildMealResult(data) {
-    const { restaurant, meal_type: mealType, meal_type_label: mealTypeLabel, was_surprise: wasSurprise, meal } = data;
+    function renderBuildMealResult(data, payload) {
+    const meals = data.meals || [];
+    const validMeals = meals.filter((meal) => validateMealRestaurant(meal, payload.restaurant));
 
-    if (!meal || !validateMealRestaurant(meal, restaurant)) {
+    if (validMeals.length === 0) {
         setBuildMealState("empty");
         renderEmptyState(buildMealEmpty, {
         title: "No meal combination found",
-        message: "Try a different meal type for this restaurant.",
+        message: payload.max_price
+            ? "Try raising your budget, or adjusting your calorie/protein targets."
+            : "Try adjusting your calorie, protein, restaurant, or category filters.",
         showClear: true,
         onClear: resetBuildMealForm,
         });
         return;
     }
 
-    // Keep this combination in the session's recent history so the next
-    // "Generate Meal" click for this restaurant + meal type tends to
-    // avoid repeating it.
-    rememberCombo(restaurant, mealType, meal.items.map((item) => item.id));
+    const restaurantLabel = payload.restaurant && payload.restaurant.toLowerCase() !== "all"
+        ? payload.restaurant
+        : "All restaurants";
 
     buildMealTargetSummary.innerHTML = `
-        <span class="target-chip">${escapeHtml(restaurant)}</span>
-        <span class="target-chip">Meal Type: ${escapeHtml(mealTypeLabel)}</span>
-        ${wasSurprise ? '<span class="target-chip">Surprise Me</span>' : ""}
+        <span class="target-chip">${escapeHtml(restaurantLabel)}</span>
+        <span class="target-chip">${payload.calories} kcal</span>
+        <span class="target-chip">${payload.protein}g protein</span>
+        ${payload.max_price ? `<span class="target-chip">Budget: ${escapeHtml(formatPrice(payload.max_price))}</span>` : ""}
     `;
 
     buildMealGrid.innerHTML = "";
-    buildMealGrid.appendChild(buildMealCard(meal));
+    validMeals.forEach((meal) => buildMealGrid.appendChild(buildMealCard(meal)));
 
     setBuildMealState("content");
     }
 
     function buildMealCard(meal) {
     const card = document.createElement("article");
-    card.className = "meal-card";
+    card.className = "meal-card" + (meal.is_best ? " is-best" : "");
 
     const itemsMarkup = meal.items
         .map((item) => {
         const thumb = item.image
             ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.parentElement.innerHTML=''">`
             : "";
+        const price = formatPrice(item.price);
         return `
             <div class="meal-item-row">
             <div class="meal-item-thumb">${thumb}</div>
             <span class="meal-item-name">${escapeHtml(item.name)}</span>
+            ${price ? `<span class="meal-item-price">${escapeHtml(price)}</span>` : ""}
             </div>
         `;
         })
@@ -964,10 +909,12 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
     const carbs = meal.totals.carbs_g != null ? `${meal.totals.carbs_g}g carbs` : "";
     const fat = meal.totals.fat_g != null ? `${meal.totals.fat_g}g fat` : "";
+    const totalPrice = formatPrice(meal.totals.price);
 
     card.innerHTML = `
         <div class="meal-card-header">
         <span class="meal-name">${escapeHtml(meal.name)}</span>
+        ${meal.is_best ? '<span class="best-tag">Best match</span>' : ""}
         </div>
         <div class="meal-item-list">${itemsMarkup}</div>
         <div class="meal-macro-row">
@@ -975,9 +922,26 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         <span><strong>${meal.totals.protein_g}g</strong> protein</span>
         ${carbs ? `<span><strong>${carbs}</strong></span>` : ""}
         ${fat ? `<span><strong>${fat}</strong></span>` : ""}
+        ${totalPrice ? `<span><strong>${totalPrice}</strong> total</span>` : ""}
         </div>
     `;
     return card;
+    }
+
+    function resetBuildMealForm() {
+    buildMealCaloriesInput.value = "";
+    buildMealProteinInput.value = "";
+    buildMealBudgetInput.value = "";
+    if (buildMealRestaurantSelect.querySelector('option[value="all"]')) {
+        buildMealRestaurantSelect.value = "all";
+    }
+    if (buildMealCategorySelect.querySelector('option[value="all"]')) {
+        buildMealCategorySelect.value = "all";
+    }
+    buildMealGrid.innerHTML = "";
+    buildMealTargetSummary.innerHTML = "";
+    setBuildMealState("empty");
+    buildMealEmpty.innerHTML = "Enter your targets and pick a restaurant to build your meal.";
     }
 
     function setBuildMealState(state) {

@@ -153,6 +153,7 @@
                         <button type="button" class="quick-filter-btn" data-quick="low_carb">Low Carb</button>
                         <button type="button" class="quick-filter-btn" data-quick="low_fat">Low Fat</button>
                         <button type="button" class="quick-filter-btn" data-quick="best_efficiency">Best Protein Efficiency</button>
+                        <button type="button" class="quick-filter-btn" data-quick="budget_friendly">Budget Friendly</button>
                     </div>
                 </div>
 
@@ -161,6 +162,14 @@
 
                     <div class="more-filters-body">
                         <div class="range-filters-grid">
+                            <div class="range-field">
+                                <span class="field-label">Price ($)</span>
+                                <div class="range-inputs">
+                                    <input type="number" id="min-price" min="0" step="0.01" placeholder="Min" aria-label="Minimum Price">
+                                    <span class="range-sep" aria-hidden="true">–</span>
+                                    <input type="number" id="max-price" min="0" step="0.01" placeholder="Max" aria-label="Maximum Price">
+                                </div>
+                            </div>
                             <div class="range-field">
                                 <span class="field-label">Calories</span>
                                 <div class="range-inputs">
@@ -229,6 +238,8 @@
                         <select id="sort-select">
                             <option value="relevance">Best match to search</option>
                             <option value="macro_match">Best match to macro goal</option>
+                            <option value="price_asc">Cheapest first</option>
+                            <option value="price_desc">Most expensive first</option>
                             <option value="protein_desc">Highest protein</option>
                             <option value="protein_asc">Lowest protein</option>
                             <option value="calories_asc">Lowest calories</option>
@@ -287,11 +298,17 @@
                         </div>
                     </div>
 
-                    <div class="field">
-                        <label for="build-meal-category">Category</label>
-                        <select id="build-meal-category" name="category">
-                            <option value="all" selected>All categories</option>
-                        </select>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="build-meal-category">Category</label>
+                            <select id="build-meal-category" name="category">
+                                <option value="all" selected>All categories</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="build-meal-budget">Max budget ($, optional)</label>
+                            <input type="number" id="build-meal-budget" name="max_price" min="0" step="0.01" placeholder="e.g. 15">
+                        </div>
                     </div>
 
                     <button type="submit" class="cta" id="build-meal-submit-btn">Find my meal</button>

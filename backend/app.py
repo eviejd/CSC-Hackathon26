@@ -44,7 +44,15 @@ SORT_OPTIONS = {
     "name_asc": ("name", False),
     "name_desc": ("name", True),
     "efficiency_desc": ("_efficiency", True),
+    "price_asc": ("price", False),
+    "price_desc": ("price", True),
 }
+
+# Used by the "budget_friendly" quick filter and by the bare "cheap"
+# keyword in free-text search (e.g. "cheap chicken"). Items at or under
+# this price are considered "cheap" for those purposes only — it never
+# affects explicit min/max/exact price filtering.
+CHEAP_PRICE_THRESHOLD = 10.0
 
 
 def load_menu():
@@ -73,6 +81,119 @@ def _parse_query_number(raw):
         return float(raw)
     except (TypeError, ValueError):
         return None
+
+
+#
+# ---------------------------------------------------------------
+# Price filtering
+#
+# Reusable, numeric-safe price logic shared by /api/search,
+# /api/match, and /api/build-meal so price comparisons never get
+# duplicated (or done as string comparisons) across the app.
+# ---------------------------------------------------------------
+#
+
+def _price_matches(price, min_price=None, max_price=None, exact_price=None):
+    """Single-item price predicate. `price` should already be a number
+    (or None) — pass it through _as_number(item.get("price")) first.
+
+    If no price constraint is supplied, every item passes (price
+    filtering simply isn't in effect). If a constraint *is* supplied,
+    an item with a missing/invalid price is excluded rather than
+    treated as if it cost $0.
+    """
+    if min_price is None and max_price is None and exact_price is None:
+        return True
+    if price is None:
+        return False
+    if exact_price is not None and price != exact_price:
+        return False
+    if min_price is not None and price < min_price:
+        return False
+    if max_price is not None and price > max_price:
+        return False
+    return True
+
+
+def filter_by_price(items, min_price=None, max_price=None, exact_price=None):
+    """Reusable list-level price filter, e.g.:
+
+        cheap_items = filter_by_price(items, max_price=10)
+        exact = filter_by_price(items, exact_price=9.9)
+
+    Always compares price as a number, never as a string, and always
+    excludes items with missing/invalid price data whenever a
+    constraint is supplied.
+    """
+    return [
+        item for item in items
+        if _price_matches(_as_number(item.get("price")), min_price, max_price, exact_price)
+    ]
+
+
+# Recognizes price expressions inside free-text search queries, e.g.
+# "chicken under $10", "between $8 and $12", "exactly $9.90", "cheap".
+# Patterns are tried in order (most specific first) and the matched
+# text is stripped out of the query so it doesn't also get treated as
+# a literal keyword to search for.
+_PRICE_BETWEEN_RE = re.compile(
+    r"\bbetween\s*\$?(\d+(?:\.\d+)?)\s*(?:and|-|to)\s*\$?(\d+(?:\.\d+)?)\b", re.IGNORECASE
+)
+_PRICE_DASH_RANGE_RE = re.compile(
+    r"\$(\d+(?:\.\d+)?)\s*-\s*\$?(\d+(?:\.\d+)?)|\$?(\d+(?:\.\d+)?)\s*-\s*\$(\d+(?:\.\d+)?)"
+)
+_PRICE_OR_LESS_RE = re.compile(r"\$(\d+(?:\.\d+)?)\s*or\s*less\b", re.IGNORECASE)
+_PRICE_OR_UNDER_RE = re.compile(r"\$(\d+(?:\.\d+)?)\s*or\s*under\b", re.IGNORECASE)
+_PRICE_OR_MORE_RE = re.compile(r"\$(\d+(?:\.\d+)?)\s*or\s*more\b", re.IGNORECASE)
+_PRICE_UNDER_RE = re.compile(
+    r"\b(?:under|below|less than|cheaper than)\s*\$?(\d+(?:\.\d+)?)\b", re.IGNORECASE
+)
+_PRICE_OVER_RE = re.compile(
+    r"\b(?:over|above|more than)\s*\$?(\d+(?:\.\d+)?)\b", re.IGNORECASE
+)
+_PRICE_EXACT_RE = re.compile(r"\bexactly\s*\$(\d+(?:\.\d+)?)\b", re.IGNORECASE)
+_PRICE_CHEAP_RE = re.compile(r"\bcheap\b", re.IGNORECASE)
+_PRICE_BARE_RE = re.compile(r"\$(\d+(?:\.\d+)?)\b")
+
+
+def _extract_price_filters(text):
+    """Pulls a price constraint out of free-text search, if any.
+
+    Returns (remaining_text, price_filters) where price_filters is a
+    dict with any of min_price/max_price/exact_price set. The matched
+    price phrase is removed from remaining_text so normal keyword
+    search isn't affected by it.
+    """
+    if not text:
+        return text, {}
+
+    for pattern, build in (
+        (_PRICE_BETWEEN_RE, lambda m: {
+            "min_price": min(float(m.group(1)), float(m.group(2))),
+            "max_price": max(float(m.group(1)), float(m.group(2))),
+        }),
+        (_PRICE_DASH_RANGE_RE, lambda m: {
+            "min_price": min(float(g) for g in m.groups() if g is not None),
+            "max_price": max(float(g) for g in m.groups() if g is not None),
+        }),
+        (_PRICE_OR_LESS_RE, lambda m: {"max_price": float(m.group(1))}),
+        (_PRICE_OR_UNDER_RE, lambda m: {"max_price": float(m.group(1))}),
+        (_PRICE_OR_MORE_RE, lambda m: {"min_price": float(m.group(1))}),
+        (_PRICE_UNDER_RE, lambda m: {"max_price": float(m.group(1))}),
+        (_PRICE_OVER_RE, lambda m: {"min_price": float(m.group(1))}),
+        (_PRICE_EXACT_RE, lambda m: {"exact_price": float(m.group(1))}),
+        (_PRICE_BARE_RE, lambda m: {"max_price": float(m.group(1))}),
+    ):
+        match = pattern.search(text)
+        if match:
+            remaining = (text[:match.start()] + " " + text[match.end():]).strip()
+            return remaining, build(match)
+
+    if _PRICE_CHEAP_RE.search(text):
+        remaining = _PRICE_CHEAP_RE.sub(" ", text).strip()
+        return remaining, {"max_price": CHEAP_PRICE_THRESHOLD}
+
+    return text, {}
 
 
 MIN_CALORIES_FOR_EFFICIENCY = 20 
@@ -131,6 +252,8 @@ def match_items():
     calories_target = payload.get("calories")
     protein_target = payload.get("protein")
     category = payload.get("category")
+    max_price = _parse_query_number(payload.get("max_price"))
+    min_price = _parse_query_number(payload.get("min_price"))
 
     if not restaurant:
         return jsonify({"error": "restaurant is required"}), 400
@@ -160,6 +283,9 @@ def match_items():
         and isinstance(i["calories"], (int, float))
         and i["calories"] <= calories_target
     ]
+
+    if min_price is not None or max_price is not None:
+        candidates = filter_by_price(candidates, min_price=min_price, max_price=max_price)
 
     if not candidates:
         return jsonify({"target": {"calories": calories_target, "protein": protein_target}, "matches": []})
@@ -216,7 +342,12 @@ def search_items():
     args = request.args
 
     search_raw = (args.get("search") or "").strip()
-    search_terms = _normalize_text(search_raw).split() if search_raw else []
+
+    # Pull any price expression ("under $10", "between $8 and $12",
+    # "cheap", ...) out of the free-text query before tokenizing the
+    # rest of it for normal keyword search.
+    search_text_for_terms, extracted_price = _extract_price_filters(search_raw)
+    search_terms = _normalize_text(search_text_for_terms).split() if search_text_for_terms else []
 
     restaurant = (args.get("restaurant") or "all").strip()
     category = (args.get("category") or "all").strip()
@@ -229,6 +360,19 @@ def search_items():
     max_carbs = _parse_query_number(args.get("max_carbs"))
     min_fat = _parse_query_number(args.get("min_fat"))
     max_fat = _parse_query_number(args.get("max_fat"))
+
+    # Explicit min/max/exact price query params always win over anything
+    # parsed out of the free-text search box; fall back to the extracted
+    # value only when the explicit param wasn't given.
+    min_price = _parse_query_number(args.get("min_price"))
+    max_price = _parse_query_number(args.get("max_price"))
+    exact_price = _parse_query_number(args.get("exact_price"))
+    if min_price is None:
+        min_price = extracted_price.get("min_price")
+    if max_price is None:
+        max_price = extracted_price.get("max_price")
+    if exact_price is None:
+        exact_price = extracted_price.get("exact_price")
 
     target_calories = _parse_query_number(args.get("target_calories"))
     target_protein = _parse_query_number(args.get("target_protein"))
@@ -297,6 +441,10 @@ def search_items():
         if max_fat is not None and (fat is None or fat > max_fat):
             continue
 
+        price = _as_number(item.get("price"))
+        if not _price_matches(price, min_price, max_price, exact_price):
+            continue
+
         efficiency = protein_efficiency(item)
         item["protein_per_100_cal"] = efficiency
 
@@ -309,6 +457,8 @@ def search_items():
         if quick == "low_fat" and (fat is None or fat > 10):
             continue
         if quick == "best_efficiency" and efficiency is None:
+            continue
+        if quick == "budget_friendly" and (price is None or price > CHEAP_PRICE_THRESHOLD):
             continue
 
         if has_target:
@@ -365,6 +515,9 @@ def search_items():
             "diet": diet_filters,
             "quick": quick or None,
             "sort": sort_key,
+            "min_price": min_price,
+            "max_price": max_price,
+            "exact_price": exact_price,
         },
     }
 
@@ -412,8 +565,10 @@ def _meal_totals(combo_items):
     total_protein = 0.0
     total_carbs = 0.0
     total_fat = 0.0
+    total_price = 0.0
     has_carbs = False
     has_fat = False
+    has_price = True
 
     for item in combo_items:
         total_calories += _as_number(item.get("calories")) or 0
@@ -429,11 +584,21 @@ def _meal_totals(combo_items):
             total_fat += fat
             has_fat = True
 
+        price = _as_number(item.get("price"))
+        if price is not None:
+            total_price += price
+        else:
+            # Missing/invalid price on any item means the meal total
+            # price can't be trusted, so it's reported as unknown
+            # rather than silently treating that item as $0.
+            has_price = False
+
     return {
         "calories": round(total_calories, 1),
         "protein_g": round(total_protein, 1),
         "carbs_g": round(total_carbs, 1) if has_carbs else None,
         "fat_g": round(total_fat, 1) if has_fat else None,
+        "price": round(total_price, 2) if has_price else None,
     }
 
 
@@ -467,11 +632,18 @@ def build_meal():
     protein_target = _parse_query_number(payload.get("protein"))
     restaurant = (payload.get("restaurant") or "all")
     category = (payload.get("category") or "all")
+    # Accept either "max_price" or "budget" as the key for a per-item
+    # price cap on the meal builder.
+    max_budget = _parse_query_number(payload.get("max_price"))
+    if max_budget is None:
+        max_budget = _parse_query_number(payload.get("budget"))
 
     if calories_target is None or protein_target is None:
         return jsonify({"error": "calories and protein are required and must be numbers"}), 400
     if calories_target <= 0 or protein_target <= 0:
         return jsonify({"error": "calories and protein must be greater than zero"}), 400
+    if max_budget is not None and max_budget <= 0:
+        return jsonify({"error": "max_price/budget must be greater than zero"}), 400
 
     items = load_menu()
     candidates = list(items)
@@ -489,9 +661,16 @@ def build_meal():
     candidates = [i for i in candidates if _valid_item_for_meal(i)]
     candidates = [i for i in candidates if _as_number(i["calories"]) <= calories_target * 1.05]
 
+    # Every item used in a generated meal must individually satisfy
+    # item.price <= max_budget. Items with missing/invalid prices are
+    # excluded (never treated as free) whenever a budget is set.
+    if max_budget is not None:
+        candidates = filter_by_price(candidates, max_price=max_budget)
+
     if not candidates:
         return jsonify({
             "target": {"calories": calories_target, "protein_g": protein_target},
+            "max_price": max_budget,
             "meals": [],
         })
 
@@ -514,6 +693,7 @@ def build_meal():
     if not scored_meals:
         return jsonify({
             "target": {"calories": calories_target, "protein_g": protein_target},
+            "max_price": max_budget,
             "meals": [],
         })
 
@@ -538,6 +718,7 @@ def build_meal():
 
     return jsonify({
         "target": {"calories": calories_target, "protein_g": protein_target},
+        "max_price": max_budget,
         "meals": meals_out,
     })
 
