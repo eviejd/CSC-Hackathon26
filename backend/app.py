@@ -20,6 +20,17 @@ CORS(app)  # allow the frontend (served separately) to call this API
 
 DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "menu.json")
 
+# The frontend shows a handful of broad category filters. Each one maps to
+# the specific menu.json categories it should include.
+CATEGORY_GROUPS = {
+    "mains": ["burger", "chicken", "taco", "burrito", "quesadilla", "bowl", "dos-capas", "chikito"],
+    "sides": ["sides", "nachos"],
+    "breakfast": ["breakfast"],
+    "kids": ["kids"],
+    "desserts": ["desserts"],
+    "drinks": ["drinks"],
+}
+
 
 def load_menu():
     """Load the mock menu dataset from disk on every request.
@@ -71,15 +82,24 @@ def match_items():
 
     items = load_menu()
 
-    # 1. filter by restaurant
-    candidates = [i for i in items if i["restaurant"] == restaurant]
+    # 1. filter by restaurant (an "all" value means every restaurant)
+    if restaurant.lower() == "all":
+        candidates = list(items)
+    else:
+        candidates = [i for i in items if i["restaurant"] == restaurant]
 
     # 2. filter by category, if one was chosen and isn't "all"
     if category and category.lower() != "all":
-        candidates = [i for i in candidates if i["category"].lower() == category.lower()]
+        allowed = CATEGORY_GROUPS.get(category.lower(), [category.lower()])
+        candidates = [i for i in candidates if i["category"].lower() in allowed]
 
-    # 3. remove items above the calorie limit
-    candidates = [i for i in candidates if i["calories"] <= calories_target]
+    # 3. remove items above the calorie limit or with invalid calorie data
+    candidates = [
+        i for i in candidates
+        if i.get("calories") is not None
+        and isinstance(i["calories"], (int, float))
+        and i["calories"] <= calories_target
+    ]
 
     if not candidates:
         return jsonify({"target": {"calories": calories_target, "protein": protein_target}, "matches": []})

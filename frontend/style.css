@@ -1,9 +1,3 @@
-    /* =========================================================
-    MacroMap — design tokens
-    A "wayfinding" theme: your target is a destination, each
-    menu item is a waypoint on the route toward it.
-    ========================================================= */
-
     :root {
     --color-bg: #FFF9EF;
     --color-banner: #FFF4E3;
