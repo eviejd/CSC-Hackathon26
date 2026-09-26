@@ -1,12 +1,4 @@
-    const API_BASE = "http://127.0.0.1:5000/api";
-
-    const CATEGORY_ICONS = {
-    burger: '<i class="fa-solid fa-burger"></i>',
-    chicken: "🍗",
-    sides: "🍟",
-    desserts: "🍦",
-    drinks: "🥤",
-    };
+const API_BASE = "http://127.0.0.1:5000/api";
 
     // ---- element references ----
     const form = document.getElementById("match-form");
@@ -40,12 +32,11 @@
         return;
         }
 
-        const placeholder = document.createElement("option");
-        placeholder.value = "";
-        placeholder.textContent = "Choose a restaurant";
-        placeholder.disabled = true;
-        placeholder.selected = true;
-        restaurantSelect.appendChild(placeholder);
+        const allOption = document.createElement("option");
+        allOption.value = "all";
+        allOption.textContent = "All restaurants";
+        allOption.selected = true;
+        restaurantSelect.appendChild(allOption);
 
         restaurants.forEach((name) => {
         const opt = document.createElement("option");
@@ -81,12 +72,8 @@
 
     const calories = Number(document.getElementById("calories").value);
     const protein = Number(document.getElementById("protein").value);
-    const restaurant = restaurantSelect.value;
+    const restaurant = restaurantSelect.value || "all";
 
-    if (!restaurant) {
-        showError("Pick a restaurant first.");
-        return;
-    }
     if (Number.isNaN(calories) || Number.isNaN(protein) || calories < 0 || protein < 0) {
         showError("Enter valid calorie and protein numbers.");
         return;
@@ -148,14 +135,18 @@
     const card = document.createElement("article");
     card.className = "result-card" + (isBest ? " is-best" : "");
 
-    const icon = CATEGORY_ICONS[item.category] || "🍽️";
+    const imageMarkup = item.image
+        ? `<img class="food-card-image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'), { className: 'food-card-image food-card-placeholder', textContent: 'No image available' }))">`
+        : `<div class="food-card-image food-card-placeholder">No image available</div>`;
 
     card.innerHTML = `
         ${isBest ? '<span class="best-tag">Best match</span>' : ""}
+        ${imageMarkup}
         <div class="result-card-header">
-        <span class="result-name">${icon} ${escapeHtml(item.name)}</span>
+        <span class="result-name">${escapeHtml(item.name)}</span>
         <span class="match-badge">${item.match_score}% match</span>
         </div>
+        <p class="result-restaurant">${escapeHtml(item.restaurant)}</p>
         <dl class="macro-list">
         <span>Calories</span><strong>${item.calories} kcal</strong>
         <span>Protein</span><strong>${item.protein_g}g</strong>
@@ -165,8 +156,17 @@
         <p class="remaining">
         ${formatRemaining(item.remaining.calories, " kcal")} · ${formatRemaining(item.remaining.protein, "g protein")}
         </p>
+        <span class="category-chip">${escapeHtml(formatCategory(item.category))}</span>
     `;
     return card;
+    }
+
+    // "dos-capas" -> "Dos Capas"
+    function formatCategory(category) {
+    return String(category)
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
     }
 
     // Shows e.g. "50 kcal remaining" or "2g protein remaining" (or "over" if negative).

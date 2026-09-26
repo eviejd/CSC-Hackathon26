@@ -1,4 +1,4 @@
-    :root {
+:root {
     --color-bg: #FFFEFD;
     --color-surface: #EDE9E9;
     --color-border: #E3DFD2;
@@ -35,6 +35,7 @@
     body {
     margin: 0;
     background: var(--color-bg);
+    background-size: 480px auto;
     color: var(--color-ink);
     font-family: var(--font-body);
     line-height: 1.5;
@@ -269,6 +270,32 @@
     display: grid;
     gap: 0.6rem;
     animation: card-in 0.25s ease both;
+    overflow: hidden;
+    }
+
+    .food-card-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    margin: calc(var(--space-3) * -1) calc(var(--space-3) * -1) 0;
+    width: calc(100% + var(--space-3) * 2);
+    }
+
+    .food-card-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-2);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+    background: var(--color-surface);
+    border: 1px dashed var(--color-border);
+    box-sizing: border-box;
     }
 
     .result-card.is-best {
@@ -288,6 +315,24 @@
     font-family: var(--font-display);
     font-weight: 600;
     font-size: 1.05rem;
+    }
+
+    .result-restaurant {
+    margin: -0.4rem 0 0;
+    font-size: 0.82rem;
+    color: var(--color-ink-soft);
+    }
+
+    .category-chip {
+    justify-self: start;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-primary-dark);
+    background: var(--color-primary-tint);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-pill);
     }
 
     .match-badge {
@@ -324,7 +369,7 @@
 
     .best-tag {
     position: absolute;
-    top: -10px;
+    top: 10px;
     right: 12px;
     background: var(--color-accent);
     color: #fff;
@@ -332,6 +377,8 @@
     font-weight: 600;
     padding: 0.2rem 0.6rem;
     border-radius: var(--radius-pill);
+    z-index: 2;
+    box-shadow: 0 1px 4px rgba(23, 36, 31, 0.25);
     }
 
     @keyframes card-in {
