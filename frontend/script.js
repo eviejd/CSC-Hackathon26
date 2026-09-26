@@ -1,6 +1,5 @@
 const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
-    // ---- element references ----
     const form = document.getElementById("match-form");
     const restaurantSelect = document.getElementById("restaurant");
     const categoryGroup = document.getElementById("category-group");
@@ -14,15 +13,9 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const targetSummary = document.getElementById("target-summary");
     const resultsGrid = document.getElementById("results-grid");
 
-    // ---- state ----
     let selectedCategory = "all";
 
-    // ---------------------------------------------------------
-    // Image Presentation Helper
-    // Eliminates excessive whitespace and centers the food
-    // ---------------------------------------------------------
     const ITEM_IMAGE_OVERRIDES = {
-    // KFC items with significant empty top space
     "kfc-original-crispy-burger": { scale: 1.32, position: "center 65%" },
     "kfc-zinger-burger": { scale: 1.32, position: "center 65%" },
     "kfc-zinger-crunch-burger": { scale: 1.30, position: "center 65%" },
@@ -34,7 +27,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     "kfc-original-crispy-fillet-piece": { scale: 1.25, position: "center 58%" },
     "kfc-zinger-fillet-piece": { scale: 1.25, position: "center 58%" },
 
-    // McDonald's burgers & muffins with extra tile padding
     "mcdonalds-big-mac": { scale: 1.25, position: "center 58%" },
     "mcdonalds-quarter-pounder-cheese": { scale: 1.26, position: "center 58%" },
     "mcdonalds-cheeseburger": { scale: 1.28, position: "center 60%" },
@@ -54,7 +46,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     };
 
     function getImagePresentation(item) {
-    // 1. Direct explicit fields from JSON if present
     if (item.image_scale || item.image_position) {
         return {
         scale: item.image_scale || 1.15,
@@ -62,7 +53,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         };
     }
 
-    // 2. Specific item override
     if (ITEM_IMAGE_OVERRIDES[item.id]) {
         return ITEM_IMAGE_OVERRIDES[item.id];
     }
@@ -70,7 +60,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const category = (item.category || "").toLowerCase();
     const restaurant = (item.restaurant || "").toLowerCase();
 
-    // 3. Category / Restaurant heuristics
     if (restaurant.includes("kfc")) {
         if (category === "burger") return { scale: 1.30, position: "center 65%" };
         if (category === "chicken") return { scale: 1.22, position: "center 56%" };
@@ -86,13 +75,9 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         }
     }
 
-    // Default balanced zoom to remove surrounding transparent margins
     return { scale: 1.16, position: "center center" };
     }
 
-    // ---------------------------------------------------------
-    // Setup: load the restaurant list on page load
-    // ---------------------------------------------------------
     async function loadRestaurants() {
     try {
         const res = await fetch(`${API_BASE}/restaurants`);
@@ -123,9 +108,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
     }
 
-    // ---------------------------------------------------------
-    // Category buttons — single-select, mirrors value into hidden input
-    // ---------------------------------------------------------
     categoryGroup.addEventListener("click", (event) => {
     const btn = event.target.closest(".category-btn");
     if (!btn) return;
@@ -137,9 +119,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     categoryInput.value = selectedCategory;
     });
 
-    // ---------------------------------------------------------
-    // Form submission
-    // ---------------------------------------------------------
     form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -155,9 +134,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     await fetchMatches({ restaurant, calories, protein, category: selectedCategory });
     });
 
-    // ---------------------------------------------------------
-    // API call + rendering
-    // ---------------------------------------------------------
     async function fetchMatches(payload) {
     setState("loading");
     submitBtn.disabled = true;
@@ -247,7 +223,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return card;
     }
 
-    // "dos-capas" -> "Dos Capas"
     function formatCategory(category) {
     return String(category)
         .split("-")
@@ -260,11 +235,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return `${Math.abs(value)}${label} ${over ? "over" : "remaining"}`;
     }
 
-    // ---------------------------------------------------------
-    // Price helpers
-    // Always treat price as a number, never as a string, and never
-    // fall back to $0 for a missing/invalid value.
-    // ---------------------------------------------------------
+
     function formatPrice(value) {
     const num = Number(value);
     if (value === null || value === undefined || !Number.isFinite(num)) return null;
@@ -317,11 +288,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return div.innerHTML;
     }
 
-    // ---------------------------------------------------------
-    // Shared skeleton loading grid
-    // Used by Macro Match, Advanced Search, and Build My Meal so
-    // the layout stays stable while a request is in flight.
-    // ---------------------------------------------------------
     function buildSkeletonCard() {
     return `
         <div class="skeleton-card" aria-hidden="true">
@@ -342,10 +308,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return `<div class="skeleton-grid">${Array.from({ length: count }, buildSkeletonCard).join("")}</div>`;
     }
 
-    // ---------------------------------------------------------
-    // Shared structured empty state
-    // options: { title, message, showClear, onClear }
-    // ---------------------------------------------------------
     function renderEmptyState(container, options) {
     const { title, message, showClear, onClear } = options;
     container.innerHTML = `
@@ -360,12 +322,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
     }
 
-    // ---- init ----
     loadRestaurants();
-
-    /* =========================================================
-    ADVANCED SEARCH
-    ========================================================= */
 
     const tabMacroMatch = document.getElementById("tab-macro-match");
     const tabAdvancedSearch = document.getElementById("tab-advanced-search");
@@ -705,17 +662,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
 
 
-    /* =========================================================
-    BUILD MY MEAL
-    Flow: choose a restaurant, calorie/protein targets, optionally a
-    category and a max budget, then Generate/Find My Meal. The server
-    (/api/build-meal) combines real menu items (2-3 per meal) that land
-    close to the targets; every item in every combo satisfies
-    item.price <= max budget whenever a budget is set. The `restaurant`
-    property on each returned item is the only source of truth for
-    which restaurant it belongs to — see validateMealRestaurant below.
-    ========================================================= */
-
     const buildMealForm = document.getElementById("build-meal-form");
     const buildMealRestaurantSelect = document.getElementById("build-meal-restaurant");
     const buildMealCaloriesInput = document.getElementById("build-meal-calories");
@@ -841,12 +787,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
     }
 
-    // The `restaurant` property on each menu item is the source of truth.
-    // Even if the underlying data or state changed unexpectedly, this
-    // rejects any item that doesn't belong to the requested restaurant
-    // before it could ever be displayed. When "all" restaurants was
-    // requested, any item is allowed. Restaurant is never inferred from
-    // name/category/image/id.
     function validateMealRestaurant(meal, restaurant) {
     if (!meal || !Array.isArray(meal.items) || meal.items.length === 0) return false;
     if (!restaurant || restaurant.toLowerCase() === "all") return true;

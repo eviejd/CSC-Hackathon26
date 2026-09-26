@@ -48,10 +48,6 @@ SORT_OPTIONS = {
     "price_desc": ("price", True),
 }
 
-# Used by the "budget_friendly" quick filter and by the bare "cheap"
-# keyword in free-text search (e.g. "cheap chicken"). Items at or under
-# this price are considered "cheap" for those purposes only — it never
-# affects explicit min/max/exact price filtering.
 CHEAP_PRICE_THRESHOLD = 10.0
 
 
@@ -83,25 +79,8 @@ def _parse_query_number(raw):
         return None
 
 
-#
-# ---------------------------------------------------------------
-# Price filtering
-#
-# Reusable, numeric-safe price logic shared by /api/search,
-# /api/match, and /api/build-meal so price comparisons never get
-# duplicated (or done as string comparisons) across the app.
-# ---------------------------------------------------------------
-#
 
 def _price_matches(price, min_price=None, max_price=None, exact_price=None):
-    """Single-item price predicate. `price` should already be a number
-    (or None) — pass it through _as_number(item.get("price")) first.
-
-    If no price constraint is supplied, every item passes (price
-    filtering simply isn't in effect). If a constraint *is* supplied,
-    an item with a missing/invalid price is excluded rather than
-    treated as if it cost $0.
-    """
     if min_price is None and max_price is None and exact_price is None:
         return True
     if price is None:
@@ -116,26 +95,12 @@ def _price_matches(price, min_price=None, max_price=None, exact_price=None):
 
 
 def filter_by_price(items, min_price=None, max_price=None, exact_price=None):
-    """Reusable list-level price filter, e.g.:
-
-        cheap_items = filter_by_price(items, max_price=10)
-        exact = filter_by_price(items, exact_price=9.9)
-
-    Always compares price as a number, never as a string, and always
-    excludes items with missing/invalid price data whenever a
-    constraint is supplied.
-    """
     return [
         item for item in items
         if _price_matches(_as_number(item.get("price")), min_price, max_price, exact_price)
     ]
 
 
-# Recognizes price expressions inside free-text search queries, e.g.
-# "chicken under $10", "between $8 and $12", "exactly $9.90", "cheap".
-# Patterns are tried in order (most specific first) and the matched
-# text is stripped out of the query so it doesn't also get treated as
-# a literal keyword to search for.
 _PRICE_BETWEEN_RE = re.compile(
     r"\bbetween\s*\$?(\d+(?:\.\d+)?)\s*(?:and|-|to)\s*\$?(\d+(?:\.\d+)?)\b", re.IGNORECASE
 )
@@ -157,13 +122,6 @@ _PRICE_BARE_RE = re.compile(r"\$(\d+(?:\.\d+)?)\b")
 
 
 def _extract_price_filters(text):
-    """Pulls a price constraint out of free-text search, if any.
-
-    Returns (remaining_text, price_filters) where price_filters is a
-    dict with any of min_price/max_price/exact_price set. The matched
-    price phrase is removed from remaining_text so normal keyword
-    search isn't affected by it.
-    """
     if not text:
         return text, {}
 
@@ -342,10 +300,6 @@ def search_items():
     args = request.args
 
     search_raw = (args.get("search") or "").strip()
-
-    # Pull any price expression ("under $10", "between $8 and $12",
-    # "cheap", ...) out of the free-text query before tokenizing the
-    # rest of it for normal keyword search.
     search_text_for_terms, extracted_price = _extract_price_filters(search_raw)
     search_terms = _normalize_text(search_text_for_terms).split() if search_text_for_terms else []
 
@@ -361,9 +315,6 @@ def search_items():
     min_fat = _parse_query_number(args.get("min_fat"))
     max_fat = _parse_query_number(args.get("max_fat"))
 
-    # Explicit min/max/exact price query params always win over anything
-    # parsed out of the free-text search box; fall back to the extracted
-    # value only when the explicit param wasn't given.
     min_price = _parse_query_number(args.get("min_price"))
     max_price = _parse_query_number(args.get("max_price"))
     exact_price = _parse_query_number(args.get("exact_price"))
@@ -536,25 +487,12 @@ def search_items():
     return jsonify(response)
 
 
-#
-# ---------------------------------------------------------------
-# Build My Meal
-#
-# Finds small combinations (2-3 items) of existing menu items that
-# together land as close as possible to a target calorie/protein
-# goal. Never invents nutrition values, only combines real items.
-# ---------------------------------------------------------------
-#
-
 MEAL_COMBO_SIZES = (2, 3)
-MAX_MEAL_CANDIDATE_POOL = 45  # keeps combination count bounded even as the menu grows
+MAX_MEAL_CANDIDATE_POOL = 45 
 MAX_MEAL_RESULTS = 5
 
 
 def _valid_item_for_meal(item):
-    """An item can only be used in a meal combo if it has real, usable
-    calorie and protein numbers. Never lets a None slip through into
-    a comparison or arithmetic operation."""
     calories = _as_number(item.get("calories"))
     protein = _as_number(item.get("protein_g"))
     return calories is not None and protein is not None and calories > 0
@@ -588,9 +526,6 @@ def _meal_totals(combo_items):
         if price is not None:
             total_price += price
         else:
-            # Missing/invalid price on any item means the meal total
-            # price can't be trusted, so it's reported as unknown
-            # rather than silently treating that item as $0.
             has_price = False
 
     return {
@@ -632,8 +567,6 @@ def build_meal():
     protein_target = _parse_query_number(payload.get("protein"))
     restaurant = (payload.get("restaurant") or "all")
     category = (payload.get("category") or "all")
-    # Accept either "max_price" or "budget" as the key for a per-item
-    # price cap on the meal builder.
     max_budget = _parse_query_number(payload.get("max_price"))
     if max_budget is None:
         max_budget = _parse_query_number(payload.get("budget"))
@@ -655,16 +588,14 @@ def build_meal():
         allowed = CATEGORY_GROUPS.get(category.lower(), [category.lower()])
         candidates = [i for i in candidates if str(i.get("category", "")).lower() in allowed]
 
-    # Only items with real calorie/protein numbers can enter a combo, and a
-    # single item that already blows past the target isn't a useful building
-    # block for a 2-3 item meal.
     candidates = [i for i in candidates if _valid_item_for_meal(i)]
     candidates = [i for i in candidates if _as_number(i["calories"]) <= calories_target * 1.05]
 
-    # Every item used in a generated meal must individually satisfy
-    # item.price <= max_budget. Items with missing/invalid prices are
-    # excluded (never treated as free) whenever a budget is set.
     if max_budget is not None:
+        # Pre-filter out any single item priced above the whole budget: since all
+        # prices are non-negative, an item like that could never be part of a combo
+        # whose *total* fits the budget either, so dropping it early just shrinks
+        # the candidate pool before we generate combinations.
         candidates = filter_by_price(candidates, max_price=max_budget)
 
     if not candidates:
@@ -674,9 +605,6 @@ def build_meal():
             "meals": [],
         })
 
-    # Bound the combination search: bias the candidate pool toward items
-    # sized roughly like one part of a 2-3 item meal, then cap the pool so
-    # combination count stays small regardless of how large the menu gets.
     per_item_target = calories_target / 2.5
     candidates.sort(key=lambda i: abs(_as_number(i["calories"]) - per_item_target))
     candidate_pool = candidates[:MAX_MEAL_CANDIDATE_POOL]
@@ -687,6 +615,13 @@ def build_meal():
             continue
         for combo in itertools.combinations(candidate_pool, size):
             totals = _meal_totals(combo)
+            # The budget is a cap on what the whole meal costs, not just each item,
+            # so combos whose combined price breaks the budget are dropped here.
+            # totals["price"] is None only if some item in the combo had an
+            # invalid/missing price; treat that as failing the budget check too,
+            # since we can't confirm it's within budget.
+            if max_budget is not None and (totals["price"] is None or totals["price"] > max_budget):
+                continue
             score = _meal_score(totals, calories_target, protein_target)
             scored_meals.append((score, combo, totals))
 
@@ -697,8 +632,7 @@ def build_meal():
             "meals": [],
         })
 
-    # itertools.combinations never repeats a set of items in a different
-    # order, so "Burger + Nuggets" and "Nuggets + Burger" can't both appear.
+
     scored_meals.sort(key=lambda m: m[0])
     top_meals = scored_meals[:MAX_MEAL_RESULTS]
 

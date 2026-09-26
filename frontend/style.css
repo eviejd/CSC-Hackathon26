@@ -37,7 +37,6 @@
     --space-4: 2rem;
     --space-5: 3rem;
 
-    /* Max width for large responsive screens */
     --content-max-width: min(94%, 1480px);
     }
 
@@ -70,14 +69,10 @@
 
     -webkit-font-smoothing: antialiased;
 
-    /* Allows the pattern to sit behind the page content */
     position: relative;
     isolation: isolate;
     }
 
-    /* =========================================================
-    SUBTLE PAGE-WIDE BACKGROUND PATTERN
-    ========================================================= */
 
     body::before {
     content: "";
@@ -89,19 +84,12 @@
     background-size: 420px;
     background-position: center;
 
-    /* Keep the pattern subtle */
     opacity: 0.16;
 
-    /* Never interfere with clicks or scrolling */
     pointer-events: none;
 
-    /* Keep behind all page content */
     z-index: -1;
     }
-
-    /* =========================================================
-    RESPONSIVE MAIN CONTAINER
-    ========================================================= */
 
     .wrap {
     width: var(--content-max-width);
@@ -133,11 +121,6 @@
     color: inherit;
     text-decoration: none;
     }
-
-    
-    /* =========================================================
-    1 & 2. PROMINENT HEADER BRANDING & SUB-NAV
-    ========================================================= */
 
     .site-header {
     background: rgba(255, 244, 227, 0.94);
@@ -199,7 +182,6 @@
     font-weight: 600;
     }
 
-    /* Secondary Nav Bar Underneath Logo & Title */
 
     .header-nav-bar {
     border-top: 1px solid var(--color-border);
@@ -264,9 +246,6 @@
         0 2px 6px rgba(41, 31, 30, 0.05);
     }
 
-    /* =========================================================
-    3. MAIN CONTENT CONTAINER
-    ========================================================= */
 
     main.wrap {
     flex: 1;
@@ -279,10 +258,6 @@
 
     gap: var(--space-4);
     }
-
-    /* =========================================================
-    MODE SWITCHING TABS
-    ========================================================= */
 
     .mode-tabs {
     display: flex;
@@ -330,9 +305,6 @@
         0 2px 8px rgba(110, 40, 34, 0.25);
     }
 
-    /* =========================================================
-    PANELS & FORMS
-    ========================================================= */
 
     .panel {
     background: var(--color-primary);
@@ -414,10 +386,6 @@
     .panel .goal-subsection {
     border-top-color: rgba(255, 255, 255, 0.3);
     }
-
-    /* =========================================================
-    FORM CONTROLS
-    ========================================================= */
 
     .match-form {
     display: grid;
@@ -542,9 +510,6 @@
     cursor: not-allowed;
     }
 
-    /* =========================================================
-    ADVANCED SEARCH & EXTENDED FILTER LAYOUTS
-    ========================================================= */
 
     .search-panel {
     display: grid;
@@ -568,7 +533,6 @@
     gap: var(--space-3);
     }
 
-    /* 4-column desktop layout for macro ranges */
 
     .range-filters-grid {
     display: grid;
@@ -723,10 +687,6 @@
     background: var(--color-primary-tint);
     }
 
-    /* =========================================================
-    RESULTS & FLUID FOOD GRID
-    ========================================================= */
-
     .results-panel {
     display: flex;
     flex-direction: column;
@@ -812,10 +772,6 @@
     );
     }
 
-    /* =========================================================
-    FLUID RESPONSIVE FOOD GRID & BALANCED IMAGES
-    ========================================================= */
-
     .results-grid {
     display: grid;
 
@@ -836,7 +792,6 @@
 
     padding: var(--space-3);
 
-    /* Nearly opaque so the background pattern stays outside */
     background: rgba(255, 249, 239, 0.96);
 
     color: var(--color-ink);
@@ -861,7 +816,6 @@
     transform: scale(0.99);
     }
 
-    /* Fixed 1:1 image container to keep card sizes uniform */
     .food-card-image-container {
     width: calc(100% + var(--space-3) * 2);
     margin: calc(var(--space-3) * -1) calc(var(--space-3) * -1) 0;
@@ -879,7 +833,6 @@
     border-top-right-radius: var(--radius-md);
     }
 
-    /* Image scaling & centering */
     .food-card-image {
     width: 100%;
     height: 100%;
@@ -1051,11 +1004,6 @@
     letter-spacing: 0.04em;
     }
 
-    /* Price tag — overlaid on the food photo so price reads at a
-    glance, the same way .best-tag calls out the top match. Lives on
-    .result-card (not inside .food-card-image-container) so it survives
-    the image's onerror fallback, which replaces the container's
-    contents if the photo fails to load. */
     .price-tag {
     position: absolute;
 
@@ -1078,10 +1026,6 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
     letter-spacing: 0.01em;
     }
-
-    /* =========================================================
-    SKELETON LOADING CARDS
-    ========================================================= */
 
     .skeleton-grid {
     display: grid;
@@ -1170,9 +1114,6 @@
     }
     }
 
-    /* =========================================================
-    STRUCTURED EMPTY STATE
-    ========================================================= */
 
     .empty-state {
     display: flex;
@@ -1204,10 +1145,6 @@
     .empty-state .clear-btn {
     margin-top: 0.25rem;
     }
-
-    /* =========================================================
-    BUILD MY MEAL RESULTS
-    ========================================================= */
 
     .meal-results-grid {
     display: grid;
@@ -1404,14 +1341,6 @@
     font-weight: 600;
     }
 
-    /* =========================================================
-    HOVER-ONLY INTERACTIONS
-    Card lift, image zoom, and the logo scale only ever apply on
-    devices that genuinely support hover with a precise pointer,
-    so a tap on a touch screen can never leave a card "stuck" in
-    its hovered state.
-    ========================================================= */
-
     @media (hover: hover) and (pointer: fine) {
     .brand-logo-wrap:hover {
         transform: scale(1.04);
@@ -1435,14 +1364,6 @@
             0 8px 24px rgba(0, 0, 0, 0.12);
     }
     }
-
-    /* =========================================================
-    MOBILE / TOUCH RESPONSIVE PASS
-    Tablet and below, then phone-specific tightening. Uses fluid
-    sizing where possible; these breakpoints only step in for
-    layout changes (columns, stacking, nav) that fluid CSS alone
-    can't handle.
-    ========================================================= */
 
     @media (max-width: 768px) {
     .site-header {
@@ -1469,8 +1390,6 @@
     }
 
     @media (max-width: 480px) {
-    /* Header & nav: keep the title from ever clipping and let the
-        two nav pills wrap onto their own row instead of overflowing */
     .site-nav {
         flex-wrap: wrap;
         gap: 0.5rem;
@@ -1480,9 +1399,6 @@
         flex: 1 1 auto;
         justify-content: center;
     }
-
-    /* Mode tabs already wrap (see .mode-tabs above); make each pill
-        share the row evenly instead of shrinking unpredictably */
     .mode-tab {
         flex: 1 1 auto;
         padding-left: 0.9rem;
@@ -1490,7 +1406,6 @@
         font-size: 0.85rem;
     }
 
-    /* Filters & forms: one full-width column, comfortably spaced */
     .field-row,
     .search-filters-grid,
     .range-filters-grid {
@@ -1515,23 +1430,18 @@
         justify-self: stretch;
     }
 
-    /* Food & meal cards: single column, full width */
+
     .results-grid,
     .meal-results-grid,
     .skeleton-grid {
         grid-template-columns: 1fr;
     }
 
-    /* Fewer skeleton placeholders on phones so the loading state
-        doesn't force a long scroll before anything real can appear */
+
     .skeleton-grid > .skeleton-card:nth-child(n + 4) {
         display: none;
     }
     }
-
-    /* =========================================================
-    ANIMATIONS & ACCESSIBILITY
-    ========================================================= */
 
     @keyframes card-in {
     from {
