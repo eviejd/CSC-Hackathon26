@@ -1,4 +1,4 @@
-    :root {
+:root {
     --color-bg: #FFF9EF;
     --color-banner: #FFF4E3;
     --color-surface: #FFFEFD;
@@ -8,21 +8,13 @@
     --color-primary: #6E2822;
     --color-primary-dark: #501d19;
     --color-primary-tint: #E4EFEA;
-    --color-accent: #a18c70; 
+    --color-accent: #a18c70;
     --color-accent-tint: #FBEBD2;
     --color-error: #B3442F;
     --color-error-tint: #F7E6E1;
 
     --font-display: "Space Grotesk", "Segoe UI", sans-serif;
     --font-body: "Inter", "Segoe UI", sans-serif;
-    
-    @font-face {
-        font-family: "BM Hanna 11yrs Old";
-        src: url('BMHANNA_11yrs_otf.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-    }
 
     --radius-md: 14px;
     --radius-lg: 22px;
@@ -35,6 +27,18 @@
     --space-3: 1.25rem;
     --space-4: 2rem;
     --space-5: 3rem;
+    }
+
+    /* NOTE: this @font-face was nested inside :root in the supplied CSS,
+    which is invalid — nested at-rules like this are silently ignored by
+    browsers, so the custom font would never actually load. Moved to the
+    top level here so it works. */
+    @font-face {
+        font-family: "BM Hanna 11yrs Old";
+        src: url('BMHANNA_11yrs_otf.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
     }
 
     * { box-sizing: border-box; }
@@ -71,8 +75,8 @@
     /* ---------- header ---------- */
 
     .site-header {
-        padding: var(--space-4) 0 var(--space-3);
-        background-color: var(--color-banner);
+    padding: var(--space-4) 0 var(--space-3);
+    background-color: var(--color-banner);
     }
 
     .header-inner {
@@ -96,18 +100,18 @@
     }
 
     .brand-name {
-        font-family: "BM Hanna 11yrs Old", var(--font-display);
-        font-weight: 700;
-        font-size: 1.25rem;
-        color: var(--color-primary-dark);
+    font-family: "BM Hanna 11yrs Old", var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-primary-dark);
     }
 
     .tagline {
-        margin: 0;
-        color: var(--color-ink-soft);
-        font-size: 0.95rem;
-        font-family: "Quicksand", var(--font-body);
-        font-weight: 500;
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    font-family: "Quicksand", var(--font-body);
+    font-weight: 500;
     }
 
     /* ---------- panels ---------- */
@@ -126,9 +130,6 @@
     border-radius: var(--radius-md); /* smaller, sharper than 22px */
     padding: var(--space-4);
     box-shadow: none;
-    }
-    .panel {
-    background: var(--color-primary);
     color: #fff;
     }
 
@@ -154,9 +155,6 @@
     .panel .cta:hover {
         background: #615340; /* darker accent */
     }
-    .panel .state-message {
-    color: #F0D9BE;
-    }
 
     .panel .state-error {
         color: var(--color-error-tint);
@@ -172,6 +170,58 @@
 
     .panel .best-tag {
         color: #fff;
+    }
+
+    /* --- extra "on dark panel" overrides for the advanced-search panel ---
+    These weren't in the original redesign (it predates the search feature),
+    but the search panel uses the same .panel class, so without these its
+    hint text, results count, and the macro-goal <details> would render as
+    dark text on the dark panel background and be unreadable. */
+    .panel .hint-text {
+        color: #F0D9BE;
+    }
+
+    .panel .results-count {
+        color: #F0D9BE;
+    }
+
+    .panel .more-filters-details {
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .panel .more-filters-details summary,
+    .panel .more-filters-hint {
+        color: #F0D9BE;
+    }
+
+    .panel .goal-subsection {
+        border-top-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .panel .range-sep {
+        color: #F0D9BE;
+    }
+
+    /* Fix: .category-btn.is-active used to stand out because the panel
+    used to be light and the active pill was the dark primary color. Now
+    the panel itself IS that primary color, so the active pill was
+    invisible — swap it to the accent color, same treatment already used
+    for quick-filter-btn.is-active. */
+    .panel .category-btn.is-active,
+    .panel .quick-filter-btn.is-active {
+        background: var(--color-accent);
+        border-color: var(--color-accent);
+        color: var(--color-ink);
+    }
+
+    .panel .category-btn,
+    .panel .quick-filter-btn {
+        background: var(--color-surface);
+    }
+
+    .panel .category-btn:hover,
+    .panel .quick-filter-btn:hover {
+        border-color: var(--color-accent);
     }
 
     /* ---------- form ---------- */
@@ -452,12 +502,193 @@
     padding-bottom: var(--space-4);
     }
 
+    /* ---------- mode tabs ---------- */
+
+    .mode-tabs {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: var(--space-1);
+    }
+
+    .mode-tab {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.65rem 1.2rem;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: var(--color-bg);
+    color: var(--color-ink-soft);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .mode-tab:hover { border-color: var(--color-primary); }
+
+    .mode-tab.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+    }
+
+    /* ---------- advanced search ---------- */
+
+    .search-panel { display: grid; gap: var(--space-3); }
+
+    .search-box input[type="search"] {
+    width: 100%;
+    font-size: 1.05rem;
+    padding: 0.85rem 1rem;
+    }
+
+    .search-filters-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    }
+
+    .range-filters-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    }
+
+    .range-field { display: grid; gap: 0.4rem; }
+
+    .range-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    }
+
+    .range-inputs input { width: 100%; min-width: 0; }
+
+    .range-sep { color: var(--color-ink-soft); flex: none; }
+
+    .more-filters-details {
+    border: 1.5px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    }
+
+    .more-filters-details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    list-style: none;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    }
+
+    .more-filters-details summary::-webkit-details-marker { display: none; }
+
+    .more-filters-details summary::before {
+    content: "▸";
+    font-size: 0.8em;
+    transition: transform 0.15s ease;
+    }
+
+    .more-filters-details[open] summary::before { transform: rotate(90deg); }
+
+    .more-filters-hint {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--color-ink-soft);
+    }
+
+    .more-filters-details[open] summary { margin-bottom: var(--space-3); }
+
+    .more-filters-body {
+    display: grid;
+    gap: var(--space-3);
+    }
+
+    .goal-subsection {
+    border-top: 1px dashed var(--color-border);
+    padding-top: var(--space-3);
+    display: grid;
+    gap: var(--space-2);
+    }
+
+    .hint-text {
+    font-size: 0.82rem;
+    color: var(--color-ink-soft);
+    margin: 0 0 var(--space-2);
+    }
+
+    .quick-filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    }
+
+    .quick-filter-btn {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.45rem 0.9rem;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-ink-soft);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .quick-filter-btn:hover { border-color: var(--color-accent); }
+
+    .quick-filter-btn.is-active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+    }
+
+    .search-footer-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    }
+
+    .sort-field { min-width: 220px; }
+
+    .clear-btn {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-primary-dark);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .clear-btn:hover { border-color: var(--color-primary); background: var(--color-primary-tint); }
+
+    .results-count {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-ink-soft);
+    margin: 0 0 var(--space-3);
+    }
+
     /* ---------- responsive ---------- */
 
     @media (max-width: 560px) {
     .field-row { grid-template-columns: 1fr; }
     .panel { padding: var(--space-3); }
     .target-summary { flex-wrap: wrap; }
+    .search-filters-grid,
+    .range-filters-grid { grid-template-columns: 1fr; }
+    .mode-tabs { flex-wrap: wrap; }
+    .mode-tab { flex: 1; text-align: center; }
+    .search-footer-row { flex-direction: column; align-items: stretch; }
+    .clear-btn { width: 100%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
