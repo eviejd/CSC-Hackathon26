@@ -1,19 +1,28 @@
-:root {
-    --color-bg: #FFFEFD;
-    --color-surface: #EDE9E9;
+    :root {
+    --color-bg: #FFF9EF;
+    --color-banner: #FFF4E3;
+    --color-surface: #FFFEFD;
     --color-border: #E3DFD2;
     --color-ink: #291F1E;
     --color-ink-soft: #52645B;
     --color-primary: #6E2822;
     --color-primary-dark: #501d19;
     --color-primary-tint: #E4EFEA;
-    --color-accent: #E39B3B;
+    --color-accent: #86745c; 
     --color-accent-tint: #FBEBD2;
     --color-error: #B3442F;
     --color-error-tint: #F7E6E1;
 
     --font-display: "Space Grotesk", "Segoe UI", sans-serif;
     --font-body: "Inter", "Segoe UI", sans-serif;
+    
+    @font-face {
+        font-family: "BM Hanna 11yrs Old";
+        src: url('BMHANNA_11yrs_otf.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
 
     --radius-md: 14px;
     --radius-lg: 22px;
@@ -62,7 +71,8 @@
     /* ---------- header ---------- */
 
     .site-header {
-    padding: var(--space-4) 0 var(--space-3);
+        padding: var(--space-4) 0 var(--space-3);
+        background-color: var(--color-banner);
     }
 
     .header-inner {
@@ -71,7 +81,6 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: var(--space-1);
-    border-bottom: 1px solid var(--color-border);
     padding-bottom: var(--space-3);
     }
 
@@ -87,16 +96,18 @@
     }
 
     .brand-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-primary-dark);
+        font-family: "BM Hanna 11yrs Old", var(--font-display);
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--color-primary-dark);
     }
 
     .tagline {
-    margin: 0;
-    color: var(--color-ink-soft);
-    font-size: 0.95rem;
+        margin: 0;
+        color: var(--color-ink-soft);
+        font-size: 0.95rem;
+        font-family: "Quicksand", var(--font-body);
+        font-weight: 500;
     }
 
     /* ---------- panels ---------- */
@@ -109,11 +120,47 @@
     }
 
     .panel {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    background: var(--color-primary);
+    border: none;
+    border-top: 3px solid var(--color-surface);
+    border-radius: var(--radius-md); /* smaller, sharper than 22px */
     padding: var(--space-4);
-    box-shadow: var(--shadow-card);
+    box-shadow: none;
+    }
+    .panel {
+    background: var(--color-primary);
+    color: #fff;
+    }
+
+    .panel h1,
+    .panel h2 {
+        color: #fff;
+    }
+
+    .panel .field label,
+    .panel .field-label {
+        color: #F0D9BE; /* light warm tint, not full white — keeps hierarchy */
+    }
+
+    .panel .state-message {
+        color: #F0D9BE;
+    }
+
+    .panel .cta {
+        background: var(--color-accent);
+        color: var(--color-ink);
+    }
+
+    .panel .cta:hover {
+        background: #615340; /* darker accent */
+    }
+    .panel .state-message {
+    color: #F0D9BE;
+    }
+
+    .panel .state-error {
+        color: var(--color-error-tint);
+        background: rgba(0, 0, 0, 0.15);
     }
 
     /* ---------- form ---------- */
