@@ -1,6 +1,3 @@
-    // MacroMap frontend
-    // Talks to the Flask API at API_BASE. No frameworks, just fetch + DOM updates.
-
     const API_BASE = "http://127.0.0.1:5000/api";
 
     const CATEGORY_ICONS = {
