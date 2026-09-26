@@ -3,7 +3,7 @@
     <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MacroAwarePicks — Map your macros to the menu </title>
+    <title>MacroAwarePicks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
@@ -77,7 +77,7 @@
 
         <section class="panel results-panel" id="results-panel" aria-live="polite">
         <div id="results-empty" class="state-message">
-            Set your targets and pick a restaurant to see what fits.
+            Set your targets and pick a restaurant to see what fits
         </div>
 
         <div id="results-loading" class="state-message" hidden>
@@ -87,7 +87,7 @@
         <div id="results-error" class="state-message state-error" hidden></div>
 
         <div id="results-content" hidden>
-            <h2>Your Macro Map</h2>
+            <h2>Options mapped to your goals</h2>
 
             <div class="target-summary" id="target-summary"></div>
 
@@ -176,7 +176,6 @@
                 </div>
 
                 <div class="goal-subsection">
-                <p class="hint-text">Or match a macro goal — fill any of these and results rank by closeness to your goal instead of being filtered strictly.</p>
                 <div class="range-filters-grid">
                     <div class="field">
                     <label for="target-calories">Target calories</label>
@@ -200,8 +199,6 @@
                 <div class="field">
                 <span class="field-label">Dietary</span>
                 <div class="quick-filter-group" id="diet-filter-group" role="group" aria-label="Dietary filters">
-                    <!-- populated dynamically from /api/tags so we never claim a
-                        dietary property the data doesn't actually support -->
                 </div>
                 </div>
             </div>
