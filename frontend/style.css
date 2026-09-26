@@ -8,7 +8,7 @@
     --color-primary: #6E2822;
     --color-primary-dark: #501d19;
     --color-primary-tint: #E4EFEA;
-    --color-accent: #86745c; 
+    --color-accent: #a18c70; 
     --color-accent-tint: #FBEBD2;
     --color-error: #B3442F;
     --color-error-tint: #F7E6E1;
@@ -161,6 +161,17 @@
     .panel .state-error {
         color: var(--color-error-tint);
         background: rgba(0, 0, 0, 0.15);
+    }
+    .panel .result-card {
+    color: var(--color-ink);
+    }
+
+    .panel .result-name {
+        color: var(--color-ink);
+    }
+
+    .panel .best-tag {
+        color: #fff;
     }
 
     /* ---------- form ---------- */
@@ -348,7 +359,7 @@
     .result-card.is-best {
     border-color: var(--color-accent);
     background: var(--color-accent-tint);
-    box-shadow: 0 4px 18px rgba(227, 155, 59, 0.25);
+    box-shadow: 0 4px 18px rgba(180, 128, 59, 0.25);
     }
 
     .result-card-header {

@@ -1,4 +1,12 @@
-const API_BASE = "http://127.0.0.1:5000/api";
+    const API_BASE = "http://127.0.0.1:5000/api";
+
+    const CATEGORY_ICONS = {
+    burger: '<i class="fa-solid fa-burger"></i>',
+    chicken: "🍗",
+    sides: "🍟",
+    desserts: "🍦",
+    drinks: "🥤",
+    };
 
     // ---- element references ----
     const form = document.getElementById("match-form");
