@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Macro Aware Picks— Map your macros to the menu</title>
+    <title>Macro Aware Picks — Map your macros to the menu</title>
+    <meta name="description" content="Match your personal calorie and macro targets with real restaurant menus and meals." />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +23,7 @@
         <div class="wrap header-inner">
             <div class="brand-hero">
                 <div class="brand-logo-wrap">
-                    <img src="resources/LogoTransparentBkg.png" alt="MacroMap Logo" class="brand-logo">
+                    <img src="resources/LogoTransparentBkg.png" alt="Macro Aware Picks Logo" class="brand-logo">
                 </div>
                 <h1 class="brand-title">Macro Aware Picks</h1>
                 <p class="brand-tagline">Map your macros to the menu</p>
@@ -27,17 +34,17 @@
             <div class="wrap">
                 <nav class="site-nav" aria-label="Main Navigation">
                     <a href="index.html" class="nav-link is-current" aria-current="page">
-                        <i class="fa-solid fa-magnifying-glass"></i> Search &amp; Match
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Search &amp; Match
                     </a>
                     <a href="explore.html" class="nav-link">
-                        <i class="fa-solid fa-compass"></i> Explore Menu
+                        <i class="fa-solid fa-compass" aria-hidden="true"></i> Explore Menu
                     </a>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- 3. Expanded Adaptive Main Section -->
+    <!-- Main Content Container -->
     <main class="wrap">
 
         <nav class="mode-tabs" role="tablist" aria-label="Search mode">
@@ -71,7 +78,7 @@
 
                     <div class="field">
                         <span class="field-label">Category</span>
-                        <div class="category-group" id="category-group" role="group" aria-label="Category">
+                        <div class="category-group" id="category-group" role="group" aria-label="Category selection">
                             <button type="button" class="category-btn is-active" data-category="all">All</button>
                             <button type="button" class="category-btn" data-category="mains">Mains</button>
                             <button type="button" class="category-btn" data-category="sides">Sides &amp; Snacks</button>
@@ -156,33 +163,33 @@
                             <div class="range-field">
                                 <span class="field-label">Calories</span>
                                 <div class="range-inputs">
-                                    <input type="number" id="min-calories" min="0" step="1" placeholder="Min">
+                                    <input type="number" id="min-calories" min="0" step="1" placeholder="Min" aria-label="Minimum Calories">
                                     <span class="range-sep" aria-hidden="true">–</span>
-                                    <input type="number" id="max-calories" min="0" step="1" placeholder="Max">
+                                    <input type="number" id="max-calories" min="0" step="1" placeholder="Max" aria-label="Maximum Calories">
                                 </div>
                             </div>
                             <div class="range-field">
                                 <span class="field-label">Protein (g)</span>
                                 <div class="range-inputs">
-                                    <input type="number" id="min-protein" min="0" step="1" placeholder="Min">
+                                    <input type="number" id="min-protein" min="0" step="1" placeholder="Min" aria-label="Minimum Protein">
                                     <span class="range-sep" aria-hidden="true">–</span>
-                                    <input type="number" id="max-protein" min="0" step="1" placeholder="Max">
+                                    <input type="number" id="max-protein" min="0" step="1" placeholder="Max" aria-label="Maximum Protein">
                                 </div>
                             </div>
                             <div class="range-field">
                                 <span class="field-label">Carbs (g)</span>
                                 <div class="range-inputs">
-                                    <input type="number" id="min-carbs" min="0" step="1" placeholder="Min">
+                                    <input type="number" id="min-carbs" min="0" step="1" placeholder="Min" aria-label="Minimum Carbohydrates">
                                     <span class="range-sep" aria-hidden="true">–</span>
-                                    <input type="number" id="max-carbs" min="0" step="1" placeholder="Max">
+                                    <input type="number" id="max-carbs" min="0" step="1" placeholder="Max" aria-label="Maximum Carbohydrates">
                                 </div>
                             </div>
                             <div class="range-field">
                                 <span class="field-label">Fat (g)</span>
                                 <div class="range-inputs">
-                                    <input type="number" id="min-fat" min="0" step="1" placeholder="Min">
+                                    <input type="number" id="min-fat" min="0" step="1" placeholder="Min" aria-label="Minimum Fat">
                                     <span class="range-sep" aria-hidden="true">–</span>
-                                    <input type="number" id="max-fat" min="0" step="1" placeholder="Max">
+                                    <input type="number" id="max-fat" min="0" step="1" placeholder="Max" aria-label="Maximum Fat">
                                 </div>
                             </div>
                         </div>

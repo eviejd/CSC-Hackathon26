@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:5000/api";
+    const API_BASE = "http://127.0.0.1:5000/api";
 
     // ---- element references ----
     const form = document.getElementById("match-form");
@@ -16,6 +16,79 @@ const API_BASE = "http://127.0.0.1:5000/api";
 
     // ---- state ----
     let selectedCategory = "all";
+
+    // ---------------------------------------------------------
+    // Image Presentation Helper
+    // Eliminates excessive whitespace and centers the food
+    // ---------------------------------------------------------
+    const ITEM_IMAGE_OVERRIDES = {
+    // KFC items with significant empty top space
+    "kfc-original-crispy-burger": { scale: 1.32, position: "center 65%" },
+    "kfc-zinger-burger": { scale: 1.32, position: "center 65%" },
+    "kfc-zinger-crunch-burger": { scale: 1.30, position: "center 65%" },
+    "kfc-original-crispy-bacon-cheese-burger": { scale: 1.30, position: "center 65%" },
+    "kfc-original-crispy-bbq-bacon-stacker-burger": { scale: 1.32, position: "center 65%" },
+    "kfc-zinger-stacker-burger": { scale: 1.32, position: "center 65%" },
+    "kfc-double-tender-burger": { scale: 1.30, position: "center 65%" },
+    "kfc-wicked-burger": { scale: 1.30, position: "center 65%" },
+    "kfc-original-crispy-fillet-piece": { scale: 1.25, position: "center 58%" },
+    "kfc-zinger-fillet-piece": { scale: 1.25, position: "center 58%" },
+
+    // McDonald's burgers & muffins with extra tile padding
+    "mcdonalds-big-mac": { scale: 1.25, position: "center 58%" },
+    "mcdonalds-quarter-pounder-cheese": { scale: 1.26, position: "center 58%" },
+    "mcdonalds-cheeseburger": { scale: 1.28, position: "center 60%" },
+    "mcdonalds-double-quarter-pounder": { scale: 1.25, position: "center 58%" },
+    "mcdonalds-triple-cheeseburger": { scale: 1.25, position: "center 58%" },
+    "mcdonalds-hamburger": { scale: 1.28, position: "center 60%" },
+    "mcdonalds-mcchicken": { scale: 1.26, position: "center 58%" },
+    "mcdonalds-mcspicy-burger": { scale: 1.25, position: "center 58%" },
+    "mcdonalds-filet-o-fish": { scale: 1.25, position: "center 58%" },
+    "mcdonalds-dbl-filet-o-fish": { scale: 1.25, position: "center 58%" },
+    "mcdonalds-bacon-egg-muffin": { scale: 1.28, position: "center 62%" },
+    "mcdonalds-sausage-muffin": { scale: 1.28, position: "center 62%" },
+    "mcdonalds-deluxe-bacon-egg-mcmuffin": { scale: 1.26, position: "center 60%" },
+    "mcdonalds-dbl-saus-egg-muffin": { scale: 1.25, position: "center 60%" },
+    "mcdonalds-saus-egg-muffin": { scale: 1.26, position: "center 60%" },
+    "mcdonalds-hotcakes": { scale: 1.24, position: "center 55%" },
+    };
+
+    function getImagePresentation(item) {
+    // 1. Direct explicit fields from JSON if present
+    if (item.image_scale || item.image_position) {
+        return {
+        scale: item.image_scale || 1.15,
+        position: item.image_position || "center center",
+        };
+    }
+
+    // 2. Specific item override
+    if (ITEM_IMAGE_OVERRIDES[item.id]) {
+        return ITEM_IMAGE_OVERRIDES[item.id];
+    }
+
+    const category = (item.category || "").toLowerCase();
+    const restaurant = (item.restaurant || "").toLowerCase();
+
+    // 3. Category / Restaurant heuristics
+    if (restaurant.includes("kfc")) {
+        if (category === "burger") return { scale: 1.30, position: "center 65%" };
+        if (category === "chicken") return { scale: 1.22, position: "center 56%" };
+        return { scale: 1.20, position: "center 58%" };
+    }
+
+    if (restaurant.includes("mcdonald")) {
+        if (category === "burger") return { scale: 1.25, position: "center 58%" };
+        if (category === "breakfast") return { scale: 1.25, position: "center 60%" };
+        if (category === "desserts") return { scale: 1.14, position: "center 48%" };
+        if (category === "chicken" && !item.name.toLowerCase().includes("wrap")) {
+        return { scale: 1.24, position: "center 58%" };
+        }
+    }
+
+    // Default balanced zoom to remove surrounding transparent margins
+    return { scale: 1.16, position: "center center" };
+    }
 
     // ---------------------------------------------------------
     // Setup: load the restaurant list on page load
@@ -135,9 +208,16 @@ const API_BASE = "http://127.0.0.1:5000/api";
     const card = document.createElement("article");
     card.className = "result-card" + (isBest ? " is-best" : "");
 
+    const { scale, position } = getImagePresentation(item);
+    const styleString = `--img-scale: ${scale}; --img-pos: ${position};`;
+
     const imageMarkup = item.image
-        ? `<img class="food-card-image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'), { className: 'food-card-image food-card-placeholder', textContent: 'No image available' }))">`
-        : `<div class="food-card-image food-card-placeholder">No image available</div>`;
+        ? `<div class="food-card-image-container" style="${styleString}">
+            <img class="food-card-image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'food-card-placeholder\\'>No image available</div>'">
+        </div>`
+        : `<div class="food-card-image-container">
+            <div class="food-card-placeholder">No image available</div>
+        </div>`;
 
     card.innerHTML = `
         ${isBest ? '<span class="best-tag">Best match</span>' : ""}
@@ -169,7 +249,6 @@ const API_BASE = "http://127.0.0.1:5000/api";
         .join(" ");
     }
 
-    // Shows e.g. "50 kcal remaining" or "2g protein remaining" (or "over" if negative).
     function formatRemaining(value, label) {
     const over = value < 0;
     return `${Math.abs(value)}${label} ${over ? "over" : "remaining"}`;
@@ -180,9 +259,6 @@ const API_BASE = "http://127.0.0.1:5000/api";
     setState("error");
     }
 
-    // ---------------------------------------------------------
-    // Simple state machine for the results panel
-    // ---------------------------------------------------------
     function setState(state) {
     resultsEmpty.hidden = state !== "empty";
     resultsLoading.hidden = state !== "loading";
@@ -200,11 +276,9 @@ const API_BASE = "http://127.0.0.1:5000/api";
     loadRestaurants();
 
     /* =========================================================
-    ADVANCED SEARCH — additive feature, does not touch anything
-    above this line. Uses the new GET /api/search endpoint.
+    ADVANCED SEARCH
     ========================================================= */
 
-    // ---- tab switching ----
     const tabMacroMatch = document.getElementById("tab-macro-match");
     const tabAdvancedSearch = document.getElementById("tab-advanced-search");
     const macroMatchView = document.getElementById("macro-match-view");
@@ -226,7 +300,6 @@ const API_BASE = "http://127.0.0.1:5000/api";
     tabMacroMatch.addEventListener("click", () => activateTab("macro"));
     tabAdvancedSearch.addEventListener("click", () => activateTab("advanced"));
 
-    // ---- advanced search element references ----
     const searchInput = document.getElementById("search-input");
     const searchRestaurantSelect = document.getElementById("search-restaurant");
     const searchCategorySelect = document.getElementById("search-category");
@@ -254,11 +327,6 @@ const API_BASE = "http://127.0.0.1:5000/api";
     const searchResultsCount = document.getElementById("search-results-count");
     const searchResultsGrid = document.getElementById("search-results-grid");
 
-    // Human-friendly labels for the raw category values that live in menu.json
-    // (e.g. "dos-capas" -> "Dos Capas"); reuses the same formatter already
-    // defined above for the macro-match cards.
-
-    // Human-friendly labels for the built-in dietary filters
     const DIET_FILTER_LABELS = {
     vegetarian: "Vegetarian",
     spicy: "Spicy",
@@ -269,14 +337,14 @@ const API_BASE = "http://127.0.0.1:5000/api";
     };
 
     let advancedSearchInitialized = false;
-    let activeQuickFilter = null; // single-select, like the macro-match category buttons
-    let activeDietFilters = new Set(); // multi-select
+    let activeQuickFilter = null;
+    let activeDietFilters = new Set();
 
     async function initAdvancedSearch() {
     advancedSearchInitialized = true;
     await Promise.all([populateSearchRestaurants(), populateSearchCategories(), populateDietFilters()]);
     attachAdvancedSearchListeners();
-    runSearch(); // show the full (unfiltered) menu on first open
+    runSearch();
     }
 
     async function populateSearchRestaurants() {
@@ -337,18 +405,15 @@ const API_BASE = "http://127.0.0.1:5000/api";
     }
 
     function attachAdvancedSearchListeners() {
-    // debounced text search so we don't fire a request on every keystroke
     let debounceHandle = null;
     searchInput.addEventListener("input", () => {
         clearTimeout(debounceHandle);
         debounceHandle = setTimeout(runSearch, 300);
     });
 
-    [
-        searchRestaurantSelect,
-        searchCategorySelect,
-        sortSelect,
-    ].forEach((el) => el.addEventListener("change", runSearch));
+    [searchRestaurantSelect, searchCategorySelect, sortSelect].forEach((el) =>
+        el.addEventListener("change", runSearch)
+    );
 
     [
         minCalories, maxCalories, minProtein, maxProtein,
@@ -368,7 +433,7 @@ const API_BASE = "http://127.0.0.1:5000/api";
         const isAlreadyActive = btn.classList.contains("is-active");
         quickFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
         if (isAlreadyActive) {
-        activeQuickFilter = null; // click again to deselect
+        activeQuickFilter = null;
         } else {
         btn.classList.add("is-active");
         activeQuickFilter = btn.dataset.quick;
@@ -394,8 +459,10 @@ const API_BASE = "http://127.0.0.1:5000/api";
         searchInput.value = "";
         searchRestaurantSelect.value = "all";
         searchCategorySelect.value = "all";
-        [minCalories, maxCalories, minProtein, maxProtein, minCarbs, maxCarbs, minFat, maxFat,
-        targetCalories, targetProtein, targetCarbs, targetFat].forEach((el) => (el.value = ""));
+        [
+        minCalories, maxCalories, minProtein, maxProtein, minCarbs, maxCarbs, minFat, maxFat,
+        targetCalories, targetProtein, targetCarbs, targetFat,
+        ].forEach((el) => (el.value = ""));
         sortSelect.value = "relevance";
         activeQuickFilter = null;
         activeDietFilters.clear();
@@ -430,10 +497,6 @@ const API_BASE = "http://127.0.0.1:5000/api";
 
     if (activeQuickFilter) params.set("quick", activeQuickFilter);
     if (activeDietFilters.size > 0) params.set("diet", Array.from(activeDietFilters).join(","));
-
-    // Only override the default sort if the user picked one that isn't the
-    // implicit default already, so "Best match to macro goal" stays selected
-    // sensibly when a target is filled in.
     if (sortSelect.value) params.set("sort", sortSelect.value);
 
     return params;
@@ -480,13 +543,18 @@ const API_BASE = "http://127.0.0.1:5000/api";
     const card = document.createElement("article");
     card.className = "result-card";
 
-    const imageMarkup = item.image
-        ? `<img class="food-card-image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'), { className: 'food-card-image food-card-placeholder', textContent: 'No image available' }))">`
-        : `<div class="food-card-image food-card-placeholder">No image available</div>`;
+    const { scale, position } = getImagePresentation(item);
+    const styleString = `--img-scale: ${scale}; --img-pos: ${position};`;
 
-    // Only show a score badge when it's actually meaningful (macro-goal
-    // matching was requested); a plain filtered search has no "score".
-    const scoreBadge = (item.macro_match_score !== undefined)
+    const imageMarkup = item.image
+        ? `<div class="food-card-image-container" style="${styleString}">
+            <img class="food-card-image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'food-card-placeholder\\'>No image available</div>'">
+        </div>`
+        : `<div class="food-card-image-container">
+            <div class="food-card-placeholder">No image available</div>
+        </div>`;
+
+    const scoreBadge = item.macro_match_score !== undefined
         ? `<span class="match-badge">${item.macro_match_score}% match</span>`
         : "";
 
