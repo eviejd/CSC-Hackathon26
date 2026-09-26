@@ -4,7 +4,7 @@
     const API_BASE = "http://127.0.0.1:5000/api";
 
     const CATEGORY_ICONS = {
-    burger: "🍔",
+    burger: '<i class="fa-solid fa-burger"></i>',
     chicken: "🍗",
     sides: "🍟",
     desserts: "🍦",
