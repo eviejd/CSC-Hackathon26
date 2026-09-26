@@ -168,8 +168,7 @@
                         <div class="field sort-field">
                             <label for="sort-select">Sort</label>
                             <select id="sort-select">
-                                <option value="macro_match" selected>Best match to macro goal</option>
-                                <option value="relevance">Best match to search</option>
+                                <option value="most_relevant" selected>Most relevant</option>
                                 <option value="price_asc">Cheapest first</option>
                                 <option value="protein_desc">Highest protein</option>
                                 <option value="calories_asc">Lowest calories</option>
@@ -177,15 +176,7 @@
                         </div>
                     </div>
 
-                    <div class="field">
-                        <span class="field-label">Mode</span>
-                        <div class="category-group" id="match-mode-group" role="group" aria-label="Match mode">
-                            <button type="button" class="category-btn is-active" data-mode="single" id="mode-single-btn">Match single items</button>
-                            <button type="button" class="category-btn" data-mode="meal" id="mode-meal-btn">Build a meal</button>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="cta" id="submit-btn">Find my match</button>
+                    <button type="submit" class="cta" id="submit-btn">Find My Match</button>
                 </form>
             </section>
 
@@ -201,14 +192,13 @@
                 <div id="results-error" class="state-message state-error" hidden></div>
 
                 <div id="results-content" hidden>
-                    <h2 id="results-heading">Options mapped to your goals</h2>
+                    <h2 id="results-heading">Best picks for your goals</h2>
 
                     <p class="results-count" id="results-count"></p>
 
                     <div class="target-summary" id="target-summary"></div>
 
                     <div class="results-grid" id="results-grid"></div>
-                    <div class="meal-results-grid" id="meal-results-grid" hidden></div>
                 </div>
             </section>
         </div>

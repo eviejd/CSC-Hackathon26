@@ -295,6 +295,249 @@ def get_tags():
     })
 
 
+# ---- Relevance scoring shared by individual items and auto-generated bundles --------
+
+def _search_relevance_score(item, search_terms):
+    """0-100 score for how strongly an item matches the search terms, given that
+    item_matches_search() already guarantees every term appears *somewhere* in the
+    item's searchable text. A name hit counts for more than a tag/category hit."""
+    if not search_terms:
+        return None
+    name_norm = _normalize_text(item.get("name", ""))
+    name_words = set(name_norm.split())
+    tags_norm = _normalize_text(" ".join(str(t) for t in (item.get("tags") or [])))
+    category_norm = _normalize_text(str(item.get("category", "")))
+
+    per_term_scores = []
+    for term in search_terms:
+        if term in name_words:
+            per_term_scores.append(1.0)
+        elif term in name_norm:
+            per_term_scores.append(0.85)
+        elif term in tags_norm:
+            per_term_scores.append(0.6)
+        elif term in category_norm:
+            per_term_scores.append(0.5)
+        else:
+            per_term_scores.append(0.3)
+    return round((sum(per_term_scores) / len(per_term_scores)) * 100, 1)
+
+
+def _combine_relevance(macro_score, search_score, has_target, has_search):
+    """Overall 'how relevant is this result to what the user asked for' score,
+    blending macro fit and search relevance rather than letting either one alone
+    dominate the ranking."""
+    if has_target and has_search and search_score is not None:
+        return round(0.65 * (macro_score or 0) + 0.35 * search_score, 1)
+    if has_target:
+        return round(macro_score, 1) if macro_score is not None else 0.0
+    if has_search and search_score is not None:
+        return search_score
+    return 100.0
+
+
+# ---- Automatic meal-bundle generation (folded into Macro Match results) -------------
+
+MAX_BUNDLE_POOL_PER_RESTAURANT = 18
+MAX_BUNDLES_PER_ANCHOR = 2
+MAX_BUNDLES_IN_RESULTS = 6
+
+
+def _bundle_component_candidates(items, restaurant, category, diet_filters, search_terms):
+    """Items eligible to be part of a bundle. Restaurant/category/diet/search are
+    meaningful per-component, so they're applied here; numeric ranges (calories,
+    price, etc.) are applied to the bundle TOTAL later, not to each component,
+    so a filter like 'max 400 calories' doesn't wrongly reject a 150-calorie side
+    that would have made a great bundle piece."""
+    candidates = []
+    for original in items:
+        item = dict(original)
+        if restaurant.lower() != "all" and item.get("restaurant") != restaurant:
+            continue
+        if category.lower() != "all" and str(item.get("category", "")).lower() != category.lower():
+            continue
+        if not item_matches_search(item, search_terms):
+            continue
+        if diet_filters:
+            item_tags = set(t.lower() for t in (item.get("tags") or []))
+            if not all(
+                any(tag in item_tags for tag in DIETARY_TAG_FILTERS[f])
+                for f in diet_filters
+            ):
+                continue
+        if not _valid_item_for_meal(item):
+            continue
+        candidates.append(item)
+    return candidates
+
+
+def _bundle_totals_pass_filters(totals, min_calories, max_calories, min_protein, max_protein,
+                                 min_carbs, max_carbs, min_fat, max_fat,
+                                 min_price, max_price, exact_price, quick):
+    calories = totals["calories"]
+    protein = totals["protein_g"]
+    carbs = totals["carbs_g"]
+    fat = totals["fat_g"]
+    price = totals["price"]
+
+    if min_calories is not None and (calories is None or calories < min_calories):
+        return False
+    if max_calories is not None and (calories is None or calories > max_calories):
+        return False
+    if min_protein is not None and (protein is None or protein < min_protein):
+        return False
+    if max_protein is not None and (protein is None or protein > max_protein):
+        return False
+    if min_carbs is not None and (carbs is None or carbs < min_carbs):
+        return False
+    if max_carbs is not None and (carbs is None or carbs > max_carbs):
+        return False
+    if min_fat is not None and (fat is None or fat < min_fat):
+        return False
+    if max_fat is not None and (fat is None or fat > max_fat):
+        return False
+    if not _price_matches(price, min_price, max_price, exact_price):
+        return False
+
+    efficiency = None
+    if calories and calories >= MIN_CALORIES_FOR_EFFICIENCY and protein is not None:
+        efficiency = round((protein / calories) * 100, 2)
+
+    if quick == "high_protein" and (protein is None or protein < 25):
+        return False
+    if quick == "low_calorie" and (calories is None or calories > 400):
+        return False
+    if quick == "low_carb" and (carbs is None or carbs > 20):
+        return False
+    if quick == "low_fat" and (fat is None or fat > 10):
+        return False
+    if quick == "best_efficiency" and efficiency is None:
+        return False
+    if quick == "budget_friendly" and (price is None or price > CHEAP_PRICE_THRESHOLD):
+        return False
+
+    return True
+
+
+def _generate_bundles(component_pool, target_calories, target_protein, target_carbs, target_fat,
+                       search_terms, has_search,
+                       min_calories, max_calories, min_protein, max_protein,
+                       min_carbs, max_carbs, min_fat, max_fat,
+                       min_price, max_price, exact_price, quick):
+    """Build 2-3 item, same-restaurant bundles, score them with the same
+    macro_match_score/relevance approach as individual items, then keep only a
+    diverse top set. Meaningless combinations are never surfaced by the caller,
+    which only shows bundles that clear the same relevance bar as everything else."""
+    if target_calories is None or target_protein is None:
+        return []
+
+    by_restaurant = {}
+    for item in component_pool:
+        by_restaurant.setdefault(item.get("restaurant"), []).append(item)
+
+    per_item_target = target_calories / 2.5 if target_calories else None
+
+    scored_bundles = []
+    for restaurant_name, group in by_restaurant.items():
+        if len(group) < 2:
+            continue
+        if per_item_target:
+            pool = sorted(group, key=lambda i: abs((_as_number(i.get("calories")) or 0) - per_item_target))
+        else:
+            pool = group
+        pool = pool[:MAX_BUNDLE_POOL_PER_RESTAURANT]
+
+        for size in MEAL_COMBO_SIZES:
+            if len(pool) < size:
+                continue
+            for combo in itertools.combinations(pool, size):
+                totals = _meal_totals(combo)
+                if not _bundle_totals_pass_filters(
+                    totals, min_calories, max_calories, min_protein, max_protein,
+                    min_carbs, max_carbs, min_fat, max_fat,
+                    min_price, max_price, exact_price, quick,
+                ):
+                    continue
+
+                macro_score = _macro_match_score(
+                    totals, target_calories, target_protein, target_carbs, target_fat
+                )
+
+                search_score = None
+                if has_search:
+                    component_scores = [
+                        s for s in (_search_relevance_score(i, search_terms) for i in combo)
+                        if s is not None
+                    ]
+                    search_score = max(component_scores) if component_scores else None
+
+                relevance = _combine_relevance(macro_score, search_score, True, has_search)
+
+                anchor = max(combo, key=lambda i: _as_number(i.get("calories")) or 0)
+
+                scored_bundles.append({
+                    "restaurant": restaurant_name,
+                    "items": list(combo),
+                    "totals": totals,
+                    "macro_match_score": macro_score,
+                    "search_relevance_score": search_score,
+                    "relevance_score": relevance,
+                    "anchor_id": anchor.get("id"),
+                    "item_id_set": frozenset(i.get("id") for i in combo),
+                })
+
+    # Rank by relevance, then greedily keep a diverse top set: no exact-duplicate
+    # item combinations, and no single "anchor" item appearing in too many bundles
+    # (avoids "Burger + Fries / Burger + Nuggets / Burger + Drink ..." spam).
+    scored_bundles.sort(key=lambda b: -b["relevance_score"])
+
+    selected = []
+    seen_item_sets = set()
+    anchor_counts = {}
+    for bundle in scored_bundles:
+        if bundle["item_id_set"] in seen_item_sets:
+            continue
+        anchor = bundle["anchor_id"]
+        if anchor_counts.get(anchor, 0) >= MAX_BUNDLES_PER_ANCHOR:
+            continue
+        selected.append(bundle)
+        seen_item_sets.add(bundle["item_id_set"])
+        anchor_counts[anchor] = anchor_counts.get(anchor, 0) + 1
+        if len(selected) >= MAX_BUNDLES_IN_RESULTS:
+            break
+
+    return selected
+
+
+def _format_bundle_result(bundle):
+    items = bundle["items"]
+    name = " + ".join(i.get("name", "") for i in items)
+    return {
+        "result_type": "bundle",
+        "id": "bundle-" + "-".join(sorted(str(i.get("id", "")) for i in items)),
+        "name": name,
+        "restaurant": bundle["restaurant"],
+        "category": "bundle",
+        "items": [
+            {
+                "id": i.get("id"),
+                "name": i.get("name"),
+                "image": i.get("image"),
+                "price": i.get("price"),
+            }
+            for i in items
+        ],
+        "calories": bundle["totals"]["calories"],
+        "protein_g": bundle["totals"]["protein_g"],
+        "carbs_g": bundle["totals"]["carbs_g"],
+        "fat_g": bundle["totals"]["fat_g"],
+        "price": bundle["totals"]["price"],
+        "macro_match_score": bundle["macro_match_score"],
+        "search_relevance_score": bundle["search_relevance_score"],
+        "relevance_score": bundle["relevance_score"],
+    }
+
+
 @app.route("/api/search", methods=["GET"])
 def search_items():
     args = request.args
@@ -417,48 +660,90 @@ def search_items():
                 item, target_calories, target_protein, target_carbs, target_fat
             )
 
+        search_score = _search_relevance_score(item, search_terms) if search_terms else None
+        if search_score is not None:
+            item["search_relevance_score"] = search_score
+        item["relevance_score"] = _combine_relevance(
+            item.get("macro_match_score"), search_score, has_target, bool(search_terms)
+        )
+        item["result_type"] = "item"
+
         results.append(item)
 
-    sort_key = args.get("sort")
-    if not sort_key:
-        if has_target:
-            sort_key = "macro_match"
-        elif search_terms:
-            sort_key = "relevance"
-        else:
-            sort_key = "name_asc"
+    # Meal bundles are generated automatically as part of the same Macro Match
+    # request whenever the user has given calorie + protein targets (the two
+    # required fields), rather than as a separate user-selected mode.
+    has_core_target = target_calories is not None and target_protein is not None
+    bundle_results = []
+    if has_core_target:
+        component_pool = _bundle_component_candidates(items, restaurant, category, diet_filters, search_terms)
+        bundles = _generate_bundles(
+            component_pool, target_calories, target_protein, target_carbs, target_fat,
+            search_terms, bool(search_terms),
+            min_calories, max_calories, min_protein, max_protein,
+            min_carbs, max_carbs, min_fat, max_fat,
+            min_price, max_price, exact_price, quick,
+        )
+        bundle_results = [_format_bundle_result(b) for b in bundles]
 
-    if sort_key == "relevance":
-        def relevance_key(item):
-            name_norm = _normalize_text(item.get("name", ""))
-            name_hits = sum(1 for term in search_terms if term in name_norm)
-            return -name_hits
-        results.sort(key=relevance_key)
-    elif sort_key == "macro_match":
-        results.sort(key=lambda i: -(i.get("macro_match_score") or 0))
-    elif sort_key in SORT_OPTIONS and SORT_OPTIONS[sort_key]:
-        field, reverse = SORT_OPTIONS[sort_key]
-        if field == "_efficiency":
-            results.sort(key=lambda i: (i.get("protein_per_100_cal") is None, i.get("protein_per_100_cal") or 0), reverse=False)
-            if reverse:
-                results = [r for r in results if r.get("protein_per_100_cal") is not None][::-1] + \
-                        [r for r in results if r.get("protein_per_100_cal") is None]
-        elif field == "name":
-            results.sort(key=lambda i: str(i.get("name", "")).lower(), reverse=reverse)
-        else:
-            results.sort(key=lambda i: (_as_number(i.get(field)) is None, _as_number(i.get(field)) or 0), reverse=False)
-            if reverse:
-                present = [r for r in results if _as_number(r.get(field)) is not None][::-1]
-                missing = [r for r in results if _as_number(r.get(field)) is None]
-                results = present + missing
+    combined = results + bundle_results
 
-    total_count = len(results)
-    results = results[:limit]
+    # Sorting is "quality filtered": establish a minimum relevance bar first, then
+    # sort *within* the qualifying set, so a secondary criterion like price or
+    # protein can never push an obviously poor match above genuinely relevant
+    # results. The preferred bar is ~80% relevance; if too few results clear it,
+    # it's relaxed step by step rather than padding the list with weak matches.
+    RELEVANCE_LEVELS = [80, 65, 50, 35, 20, 0]
+    MIN_QUALIFYING = 3
+
+    def _relevance(r):
+        return r.get("relevance_score") or 0
+
+    qualifying = combined
+    if combined:
+        needed = min(MIN_QUALIFYING, len(combined))
+        for threshold in RELEVANCE_LEVELS:
+            at_level = [r for r in combined if _relevance(r) >= threshold]
+            if len(at_level) >= needed:
+                qualifying = at_level
+                break
+        else:
+            qualifying = combined
+
+    sort_key = (args.get("sort") or "most_relevant").strip().lower()
+    if sort_key in ("relevance", "macro_match"):  # backward-compat aliases
+        sort_key = "most_relevant"
+
+    if sort_key == "price_asc":
+        present = [r for r in qualifying if _as_number(r.get("price")) is not None]
+        missing = [r for r in qualifying if _as_number(r.get("price")) is None]
+        present.sort(key=lambda r: (_as_number(r.get("price")), -_relevance(r)))
+        qualifying = present + missing
+    elif sort_key == "protein_desc":
+        present = [r for r in qualifying if _as_number(r.get("protein_g")) is not None]
+        missing = [r for r in qualifying if _as_number(r.get("protein_g")) is None]
+        present.sort(key=lambda r: (-_as_number(r.get("protein_g")), -_relevance(r)))
+        qualifying = present + missing
+    elif sort_key == "calories_asc":
+        present = [r for r in qualifying if _as_number(r.get("calories")) is not None]
+        missing = [r for r in qualifying if _as_number(r.get("calories")) is None]
+        present.sort(key=lambda r: (_as_number(r.get("calories")), -_relevance(r)))
+        qualifying = present + missing
+    else:
+        sort_key = "most_relevant"
+        qualifying.sort(key=lambda r: (-_relevance(r), -(r.get("macro_match_score") or 0)))
+
+    total_count = len(qualifying)
+    item_count = sum(1 for r in qualifying if r.get("result_type") == "item")
+    bundle_count = sum(1 for r in qualifying if r.get("result_type") == "bundle")
+    final_results = qualifying[:limit]
 
     response = {
         "count": total_count,
-        "returned": len(results),
-        "results": results,
+        "returned": len(final_results),
+        "item_count": item_count,
+        "bundle_count": bundle_count,
+        "results": final_results,
         "applied_filters": {
             "search": search_raw or None,
             "restaurant": restaurant,

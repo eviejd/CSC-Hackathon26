@@ -981,6 +981,24 @@
     margin: 0;
     }
 
+    .bundle-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+
+    color: var(--color-primary-dark);
+
+    background: var(--color-primary-tint);
+
+    padding: 0.2rem 0.6rem;
+
+    border-radius: var(--radius-pill);
+
+    white-space: nowrap;
+    }
+
     .best-tag {
     position: absolute;
 

@@ -28,10 +28,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const sortRow = document.getElementById("sort-row");
     const clearFiltersBtn = document.getElementById("clear-filters-btn");
 
-    const modeGroup = document.getElementById("match-mode-group");
-    const modeSingleBtn = document.getElementById("mode-single-btn");
-    const modeMealBtn = document.getElementById("mode-meal-btn");
-
     const resultsEmpty = document.getElementById("results-empty");
     const resultsLoading = document.getElementById("results-loading");
     const resultsError = document.getElementById("results-error");
@@ -40,7 +36,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const resultsCount = document.getElementById("results-count");
     const targetSummary = document.getElementById("target-summary");
     const resultsGrid = document.getElementById("results-grid");
-    const mealResultsGrid = document.getElementById("meal-results-grid");
 
     const DIET_FILTER_LABELS = {
     vegetarian: "Vegetarian",
@@ -51,7 +46,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     lamb: "Lamb",
     };
 
-    let currentMode = "single"; // "single" | "meal"
     let activeQuickFilter = null;
     let activeDietFilters = new Set();
 
@@ -197,7 +191,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
     // ---- Reusable "populate a <select> from an API endpoint" (used by both restaurant
     // and category dropdowns; previously duplicated three times across the old
-    // Macro Match / Advanced Search / Build My Meal tabs) --------------------------------
+    // Macro Match / Advanced Search tabs) ----------------------------------------------
 
     async function populateSelectOptions(selectEl, endpoint, allLabel) {
     try {
@@ -254,25 +248,8 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
     }
 
-    // ---- Mode toggle: single-item Macro Match vs Build a Meal --------------------------
-
-    function setMode(mode) {
-    currentMode = mode;
-    modeSingleBtn.classList.toggle("is-active", mode === "single");
-    modeMealBtn.classList.toggle("is-active", mode === "meal");
-    // .search-footer-row sets its own `display: flex` in style.css, which (being an
-    // author-stylesheet class rule) wins over the `hidden` attribute's UA-stylesheet
-    // `display: none`, so toggling `.hidden` alone would not actually hide this row.
-    // Setting inline `style.display` takes precedence over both and reliably hides it.
-    sortRow.style.display = mode === "meal" ? "none" : "";
-    submitBtn.textContent = mode === "meal" ? "Build my meal" : "Find my match";
-    }
-
-    modeSingleBtn.addEventListener("click", () => setMode("single"));
-    modeMealBtn.addEventListener("click", () => setMode("meal"));
-
     // ---- Filter control listeners (Advanced Search controls just update state;
-    // fetching happens on form submit via the Find My Match / Build My Meal button) -----
+    // fetching happens on form submit via the Find My Match button) --------------------
 
     function attachFilterListeners() {
     quickFilterGroup.addEventListener("click", (event) => {
@@ -300,8 +277,8 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     sortSelect.addEventListener("change", () => {
         // Re-run automatically if results are already on screen, so re-sorting
         // doesn't require a full resubmit.
-        if (currentMode === "single" && !resultsContent.hidden) {
-        runSingleSearch();
+        if (!resultsContent.hidden) {
+        runMacroMatch();
         }
     });
 
@@ -313,7 +290,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         minCalories, maxCalories, minProtein, maxProtein, minCarbs, maxCarbs, minFat, maxFat,
         minPrice, maxPrice, targetCarbs, targetFat,
         ].forEach((el) => (el.value = ""));
-        sortSelect.value = "macro_match";
+        sortSelect.value = "most_relevant";
         activeQuickFilter = null;
         activeDietFilters.clear();
         quickFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
@@ -357,7 +334,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return params;
     }
 
-    async function runSingleSearch() {
+    async function runMacroMatch() {
     setResultsState("loading", 6);
     submitBtn.disabled = true;
     const params = buildSearchParams();
@@ -369,7 +346,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         throw new Error(body.error || `Server returned ${res.status}`);
         }
         const data = await res.json();
-        renderSingleResults(data);
+        renderResults(data);
     } catch (err) {
         console.error("Search request failed:", err);
         resultsError.textContent = "Couldn't reach the server. Is the Flask backend running?";
@@ -379,7 +356,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
     }
 
-    function renderSingleResults(data) {
+    function renderResults(data) {
     const results = data.results || [];
 
     if (results.length === 0) {
@@ -390,13 +367,13 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         showClear: true,
         onClear: () => {
             clearFiltersBtn.click();
-            runSingleSearch();
+            runMacroMatch();
         },
         });
         return;
     }
 
-    resultsHeading.textContent = "Options mapped to your goals";
+    resultsHeading.textContent = "Best picks for your goals";
 
     const chips = [];
     if (caloriesInput.value !== "") chips.push(`<span class="target-chip">${escapeHtml(caloriesInput.value)} kcal</span>`);
@@ -406,12 +383,15 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     resultsCount.hidden = false;
     resultsCount.textContent = `Showing ${data.returned} of ${data.count} result${data.count === 1 ? "" : "s"}`;
 
-    // .results-grid / .meal-results-grid also set their own `display` in style.css,
-    // so (as with sort-row above) we toggle inline style.display, not `.hidden`.
+    // .results-grid sets its own `display` in style.css, which (being an author-
+    // stylesheet class rule) wins over the `hidden` attribute's UA-stylesheet
+    // `display: none`, so we toggle inline style.display, not `.hidden`.
     resultsGrid.style.display = "";
-    mealResultsGrid.style.display = "none";
     resultsGrid.innerHTML = "";
-    results.forEach((item) => resultsGrid.appendChild(buildResultCard(item)));
+    results.forEach((result) => {
+        const card = result.result_type === "bundle" ? buildBundleCard(result) : buildResultCard(result);
+        resultsGrid.appendChild(card);
+    });
 
     setResultsState("content");
     }
@@ -463,118 +443,15 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return card;
     }
 
-    // ---- Build a Meal (unchanged logic, calls /api/build-meal; reuses the shared
-    // restaurant/category selects and reuses the Max price field as the budget cap) -----
+    // ---- Meal bundle card: 2-3 item combinations the backend suggests automatically
+    // as part of the normal Macro Match response, rendered inline alongside individual
+    // item cards in the same results grid -------------------------------------------
 
-    function validateMealRestaurant(meal, restaurant) {
-    if (!meal || !Array.isArray(meal.items) || meal.items.length === 0) return false;
-    if (!restaurant || restaurant.toLowerCase() === "all") return true;
-    return meal.items.every((item) => item.restaurant === restaurant);
-    }
-
-    async function runBuildMeal() {
-    const calories = Number(caloriesInput.value);
-    const protein = Number(proteinInput.value);
-    const restaurant = restaurantSelect.value || "all";
-    const category = categorySelect.value || "all";
-
-    if (Number.isNaN(calories) || Number.isNaN(protein) || calories <= 0 || protein <= 0) {
-        setResultsState("error");
-        resultsError.textContent = "Enter valid calorie and protein numbers.";
-        return;
-    }
-
-    let maxBudget = null;
-    if (maxPrice.value.trim() !== "") {
-        const parsedBudget = Number(maxPrice.value);
-        if (Number.isNaN(parsedBudget) || parsedBudget <= 0) {
-        setResultsState("error");
-        resultsError.textContent = "Max price must be a number greater than zero to use it as a meal budget.";
-        return;
-        }
-        maxBudget = parsedBudget;
-    }
-
-    const payload = { restaurant, calories, protein, category, max_price: maxBudget };
-
-    setResultsState("loading", 1);
-    submitBtn.disabled = true;
-
-    try {
-        const res = await fetch(`${API_BASE}/build-meal`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        });
-
-        if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.error || `Server returned ${res.status}`);
-        }
-
-        const data = await res.json();
-        renderBuildMealResult(data, payload);
-    } catch (err) {
-        console.error("Build My Meal request failed:", err);
-        resultsError.textContent = "Couldn't reach the server. Is the Flask backend running?";
-        setResultsState("error");
-    } finally {
-        submitBtn.disabled = false;
-    }
-    }
-
-    function renderBuildMealResult(data, payload) {
-    const meals = data.meals || [];
-    const validMeals = meals.filter((meal) => validateMealRestaurant(meal, payload.restaurant));
-
-    if (validMeals.length === 0) {
-        setResultsState("empty");
-        renderEmptyState(resultsEmpty, {
-        title: "No meal combination found",
-        message: payload.max_price
-            ? "Try raising your budget (Max price), or adjusting your calorie/protein targets."
-            : "Try adjusting your calorie, protein, restaurant, or category filters.",
-        showClear: true,
-        onClear: () => {
-            clearFiltersBtn.click();
-            setResultsState("empty");
-            renderEmptyState(resultsEmpty, {
-            title: "Set your targets",
-            message: "Enter your targets and pick a restaurant to build your meal.",
-            showClear: false,
-            });
-        },
-        });
-        return;
-    }
-
-    resultsHeading.textContent = "Meal combinations";
-    resultsCount.hidden = true;
-
-    const restaurantLabel = payload.restaurant && payload.restaurant.toLowerCase() !== "all"
-        ? payload.restaurant
-        : "All restaurants";
-
-    targetSummary.innerHTML = `
-        <span class="target-chip">${escapeHtml(restaurantLabel)}</span>
-        <span class="target-chip">${payload.calories} kcal</span>
-        <span class="target-chip">${payload.protein}g protein</span>
-        ${payload.max_price ? `<span class="target-chip">Budget: ${escapeHtml(formatPrice(payload.max_price))}</span>` : ""}
-    `;
-
-    resultsGrid.style.display = "none";
-    mealResultsGrid.style.display = "";
-    mealResultsGrid.innerHTML = "";
-    validMeals.forEach((meal) => mealResultsGrid.appendChild(buildMealCard(meal)));
-
-    setResultsState("content");
-    }
-
-    function buildMealCard(meal) {
+    function buildBundleCard(bundle) {
     const card = document.createElement("article");
-    card.className = "meal-card" + (meal.is_best ? " is-best" : "");
+    card.className = "meal-card";
 
-    const itemsMarkup = meal.items
+    const itemsMarkup = (bundle.items || [])
         .map((item) => {
         const thumb = item.image
             ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.parentElement.innerHTML=''">`
@@ -590,19 +467,26 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         })
         .join("");
 
-    const carbs = meal.totals.carbs_g != null ? `${meal.totals.carbs_g}g carbs` : "";
-    const fat = meal.totals.fat_g != null ? `${meal.totals.fat_g}g fat` : "";
-    const totalPrice = formatPrice(meal.totals.price);
+    const scoreBadge = bundle.macro_match_score !== undefined
+        ? `<span class="match-badge">${bundle.macro_match_score}% match</span>`
+        : "";
+
+    const carbs = bundle.carbs_g != null ? `${bundle.carbs_g}g carbs` : "";
+    const fat = bundle.fat_g != null ? `${bundle.fat_g}g fat` : "";
+    const totalPrice = formatPrice(bundle.price);
 
     card.innerHTML = `
         <div class="meal-card-header">
-        <span class="meal-name">${escapeHtml(meal.name)}</span>
-        ${meal.is_best ? '<span class="best-tag">Best match</span>' : ""}
+        <span class="meal-name">${escapeHtml(bundle.restaurant || "")}</span>
+        <span style="display:flex; align-items:center; gap:0.4rem;">
+            ${scoreBadge}
+            <span class="bundle-tag">Suggested bundle</span>
+        </span>
         </div>
         <div class="meal-item-list">${itemsMarkup}</div>
         <div class="meal-macro-row">
-        <span><strong>${meal.totals.calories}</strong> kcal</span>
-        <span><strong>${meal.totals.protein_g}g</strong> protein</span>
+        <span><strong>${bundle.calories}</strong> kcal</span>
+        <span><strong>${bundle.protein_g}g</strong> protein</span>
         ${carbs ? `<span><strong>${carbs}</strong></span>` : ""}
         ${fat ? `<span><strong>${fat}</strong></span>` : ""}
         ${totalPrice ? `<span><strong>${totalPrice}</strong> total</span>` : ""}
@@ -611,15 +495,11 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return card;
     }
 
-    // ---- Form submit: routes to the right flow based on the Mode toggle ----------------
+    // ---- Form submit: one Macro Match request; the backend decides whether to mix in
+    // any meal bundles alongside individual items -------------------------------------
 
     matchForm.addEventListener("submit", (event) => {
     event.preventDefault();
-
-    if (currentMode === "meal") {
-        runBuildMeal();
-        return;
-    }
 
     const calories = Number(caloriesInput.value);
     const protein = Number(proteinInput.value);
@@ -629,7 +509,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         return;
     }
 
-    runSingleSearch();
+    runMacroMatch();
     });
 
     // ---- Init ---------------------------------------------------------------------------
