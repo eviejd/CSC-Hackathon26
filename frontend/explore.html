@@ -1,44 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Explore — MacroAwarePicks</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Menu — Macro Aware Picks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="site-header">
-    <div class="wrap header-inner">
-        <div class="brand">
-            <span class="brand-mark" aria-hidden="true">
-                <span class="brand-mark" aria-hidden="true">
-                    <img src="resources/LogoNoBurgerTransparentBkg.png" width="26.4" height="19.21" alt="">
-                </span>
-            </span>
-            <span class="brand-name">MacroAwarePicks</span>
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <div class="brand-hero">
+                <div class="brand-logo-wrap">
+                    <img src="resources/LogoTransparentBkg.png" alt="Macro Aware Picks Logo" class="brand-logo">
+                </div>
+                <h1 class="brand-title">Macro Aware Picks</h1>
+                <p class="brand-tagline">Map your macros to the menu</p>
+            </div>
         </div>
-        <p class="tagline">Map your macros to the menu</p>
-        <nav class="site-nav">
-            <a href="index.html" class="nav-link">Search</a>
-            <a href="explore.html" class="nav-link is-current">Explore</a>
-        </nav>
-    </div>
-</header>
 
-<main class="wrap">
-    <section class="panel">
-        <h1>Explore the full menu</h1>
-        <!-- your explore content goes here -->
-    </section>
-</main>
+        <div class="header-nav-bar">
+            <div class="wrap">
+                <nav class="site-nav" aria-label="Main Navigation">
+                    <a href="index.html" class="nav-link">
+                        <i class="fa-solid fa-magnifying-glass"></i> Search &amp; Match
+                    </a>
+                    <a href="explore.html" class="nav-link is-current" aria-current="page">
+                        <i class="fa-solid fa-compass"></i> Explore Menu
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-<footer class="site-footer">
-    <p class="wrap">Nutrition information sourced from restaurant-provided data. Values may change.</p>
-</footer>
+    <main class="wrap">
+        <section class="panel">
+            <h2>Explore the full menu</h2>
+            <p class="hint-text">Browse through our restaurant directory and find meals that align with your fitness goals.</p>
+        </section>
+    </main>
 
-<script src="script.js"></script>
+    <footer class="site-footer">
+        <p class="wrap">Nutrition information sourced from restaurant-provided data. Values may change.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
