@@ -1,19 +1,61 @@
 const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
-    const form = document.getElementById("match-form");
+    // ---- Shared element references -------------------------------------------------
+
+    const matchForm = document.getElementById("match-form");
+    const caloriesInput = document.getElementById("calories");
+    const proteinInput = document.getElementById("protein");
     const restaurantSelect = document.getElementById("restaurant");
-    const categoryGroup = document.getElementById("category-group");
-    const categoryInput = document.getElementById("category");
+    const categorySelect = document.getElementById("category-select");
     const submitBtn = document.getElementById("submit-btn");
+
+    const searchInput = document.getElementById("search-input");
+    const minCalories = document.getElementById("min-calories");
+    const maxCalories = document.getElementById("max-calories");
+    const minPrice = document.getElementById("min-price");
+    const maxPrice = document.getElementById("max-price");
+    const minProtein = document.getElementById("min-protein");
+    const maxProtein = document.getElementById("max-protein");
+    const minCarbs = document.getElementById("min-carbs");
+    const maxCarbs = document.getElementById("max-carbs");
+    const minFat = document.getElementById("min-fat");
+    const maxFat = document.getElementById("max-fat");
+    const targetCarbs = document.getElementById("target-carbs");
+    const targetFat = document.getElementById("target-fat");
+    const quickFilterGroup = document.getElementById("quick-filter-group");
+    const dietFilterGroup = document.getElementById("diet-filter-group");
+    const sortSelect = document.getElementById("sort-select");
+    const sortRow = document.getElementById("sort-row");
+    const clearFiltersBtn = document.getElementById("clear-filters-btn");
+
+    const modeGroup = document.getElementById("match-mode-group");
+    const modeSingleBtn = document.getElementById("mode-single-btn");
+    const modeMealBtn = document.getElementById("mode-meal-btn");
 
     const resultsEmpty = document.getElementById("results-empty");
     const resultsLoading = document.getElementById("results-loading");
     const resultsError = document.getElementById("results-error");
     const resultsContent = document.getElementById("results-content");
+    const resultsHeading = document.getElementById("results-heading");
+    const resultsCount = document.getElementById("results-count");
     const targetSummary = document.getElementById("target-summary");
     const resultsGrid = document.getElementById("results-grid");
+    const mealResultsGrid = document.getElementById("meal-results-grid");
 
-    let selectedCategory = "all";
+    const DIET_FILTER_LABELS = {
+    vegetarian: "Vegetarian",
+    spicy: "Spicy",
+    chicken: "Chicken",
+    beef: "Beef",
+    pork: "Pork",
+    lamb: "Lamb",
+    };
+
+    let currentMode = "single"; // "single" | "meal"
+    let activeQuickFilter = null;
+    let activeDietFilters = new Set();
+
+    // ---- Image presentation (unchanged) ----------------------------------------------
 
     const ITEM_IMAGE_OVERRIDES = {
     "kfc-original-crispy-burger": { scale: 1.32, position: "center 65%" },
@@ -78,150 +120,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return { scale: 1.16, position: "center center" };
     }
 
-    async function loadRestaurants() {
-    try {
-        const res = await fetch(`${API_BASE}/restaurants`);
-        if (!res.ok) throw new Error(`Server returned ${res.status}`);
-        const restaurants = await res.json();
-
-        restaurantSelect.innerHTML = "";
-        if (restaurants.length === 0) {
-        restaurantSelect.innerHTML = `<option value="" disabled selected>No restaurants available</option>`;
-        return;
-        }
-
-        const allOption = document.createElement("option");
-        allOption.value = "all";
-        allOption.textContent = "All restaurants";
-        allOption.selected = true;
-        restaurantSelect.appendChild(allOption);
-
-        restaurants.forEach((name) => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        restaurantSelect.appendChild(opt);
-        });
-    } catch (err) {
-        restaurantSelect.innerHTML = `<option value="" disabled selected>Couldn't load restaurants</option>`;
-        console.error("Failed to load restaurants:", err);
-    }
-    }
-
-    categoryGroup.addEventListener("click", (event) => {
-    const btn = event.target.closest(".category-btn");
-    if (!btn) return;
-
-    categoryGroup.querySelectorAll(".category-btn").forEach((b) => b.classList.remove("is-active"));
-    btn.classList.add("is-active");
-
-    selectedCategory = btn.dataset.category;
-    categoryInput.value = selectedCategory;
-    });
-
-    form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const calories = Number(document.getElementById("calories").value);
-    const protein = Number(document.getElementById("protein").value);
-    const restaurant = restaurantSelect.value || "all";
-
-    if (Number.isNaN(calories) || Number.isNaN(protein) || calories < 0 || protein < 0) {
-        showError("Enter valid calorie and protein numbers.");
-        return;
-    }
-
-    await fetchMatches({ restaurant, calories, protein, category: selectedCategory });
-    });
-
-    async function fetchMatches(payload) {
-    setState("loading");
-    submitBtn.disabled = true;
-
-    try {
-        const res = await fetch(`${API_BASE}/match`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        });
-
-        if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.error || `Server returned ${res.status}`);
-        }
-
-        const data = await res.json();
-        renderResults(data, payload.calories, payload.protein);
-    } catch (err) {
-        console.error("Match request failed:", err);
-        showError("Couldn't reach the server. Is the Flask backend running?");
-    } finally {
-        submitBtn.disabled = false;
-    }
-    }
-
-    function renderResults(data, calories, protein) {
-    if (!data.matches || data.matches.length === 0) {
-        setState("empty");
-        renderEmptyState(resultsEmpty, {
-        title: "No matches found",
-        message: "Try adjusting your calorie, protein, or other filters.",
-        showClear: true,
-        onClear: resetMatchForm,
-        });
-        return;
-    }
-
-    targetSummary.innerHTML = `
-        <span class="target-chip">${calories} kcal</span>
-        <span class="target-chip">${protein}g protein</span>
-    `;
-
-    resultsGrid.innerHTML = "";
-    data.matches.forEach((item, index) => {
-        resultsGrid.appendChild(buildCard(item, index === 0));
-    });
-
-    setState("content");
-    }
-
-    function buildCard(item, isBest) {
-    const card = document.createElement("article");
-    card.className = "result-card" + (isBest ? " is-best" : "");
-
-    const { scale, position } = getImagePresentation(item);
-    const styleString = `--img-scale: ${scale}; --img-pos: ${position};`;
-
-    const imageMarkup = item.image
-        ? `<div class="food-card-image-container" style="${styleString}">
-            <img class="food-card-image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'food-card-placeholder\\'>No image available</div>'">
-        </div>`
-        : `<div class="food-card-image-container">
-            <div class="food-card-placeholder">No image available</div>
-        </div>`;
-
-    card.innerHTML = `
-        ${isBest ? '<span class="best-tag">Best match</span>' : ""}
-        ${priceTagMarkup(item)}
-        ${imageMarkup}
-        <div class="result-card-header">
-        <span class="result-name">${escapeHtml(item.name)}</span>
-        <span class="match-badge">${item.match_score}% match</span>
-        </div>
-        <p class="result-restaurant">${escapeHtml(item.restaurant)}</p>
-        <dl class="macro-list">
-        <span>Calories</span><strong>${item.calories} kcal</strong>
-        <span>Protein</span><strong>${item.protein_g}g</strong>
-        <span>Carbs</span><strong>${item.carbs_g}g</strong>
-        <span>Fat</span><strong>${item.fat_g}g</strong>
-        </dl>
-        <p class="remaining">
-        ${formatRemaining(item.remaining.calories, " kcal")} · ${formatRemaining(item.remaining.protein, "g protein")}
-        </p>
-        <span class="category-chip">${escapeHtml(formatCategory(item.category))}</span>
-    `;
-    return card;
-    }
+    // ---- Shared formatting / small helpers (unchanged) --------------------------------
 
     function formatCategory(category) {
     return String(category)
@@ -235,7 +134,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return `${Math.abs(value)}${label} ${over ? "over" : "remaining"}`;
     }
 
-
     function formatPrice(value) {
     const num = Number(value);
     if (value === null || value === undefined || !Number.isFinite(num)) return null;
@@ -245,41 +143,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     function priceTagMarkup(item) {
     const formatted = formatPrice(item.price);
     return formatted ? `<span class="price-tag">${escapeHtml(formatted)}</span>` : "";
-    }
-
-    function showError(message) {
-    resultsError.textContent = message;
-    setState("error");
-    }
-
-    function setState(state) {
-    resultsEmpty.hidden = state !== "empty";
-    resultsLoading.hidden = state !== "loading";
-    resultsError.hidden = state !== "error";
-    resultsContent.hidden = state !== "content";
-    if (state === "loading") {
-        resultsLoading.innerHTML = buildSkeletonGrid(6);
-    }
-    }
-
-    function resetMatchForm() {
-    document.getElementById("calories").value = "";
-    document.getElementById("protein").value = "";
-    if (restaurantSelect.querySelector('option[value="all"]')) {
-        restaurantSelect.value = "all";
-    }
-    categoryGroup.querySelectorAll(".category-btn").forEach((b) => b.classList.remove("is-active"));
-    const allBtn = categoryGroup.querySelector('[data-category="all"]');
-    if (allBtn) allBtn.classList.add("is-active");
-    selectedCategory = "all";
-    categoryInput.value = "all";
-
-    setState("empty");
-    renderEmptyState(resultsEmpty, {
-        title: "Set your targets",
-        message: "Set your targets and pick a restaurant to see what fits.",
-        showClear: false,
-    });
     }
 
     function escapeHtml(str) {
@@ -322,119 +185,47 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
     }
 
-    loadRestaurants();
-
-    const tabMacroMatch = document.getElementById("tab-macro-match");
-    const tabAdvancedSearch = document.getElementById("tab-advanced-search");
-    const tabBuildMeal = document.getElementById("tab-build-meal");
-    const macroMatchView = document.getElementById("macro-match-view");
-    const advancedSearchView = document.getElementById("advanced-search-view");
-    const buildMealView = document.getElementById("build-meal-view");
-
-    const TAB_CONFIG = {
-    macro: { btn: tabMacroMatch, view: macroMatchView },
-    advanced: { btn: tabAdvancedSearch, view: advancedSearchView },
-    "build-meal": { btn: tabBuildMeal, view: buildMealView },
-    };
-
-    function activateTab(tab) {
-    Object.entries(TAB_CONFIG).forEach(([key, { btn, view }]) => {
-        const isActive = key === tab;
-        btn.classList.toggle("is-active", isActive);
-        btn.setAttribute("aria-selected", String(isActive));
-        view.hidden = !isActive;
-    });
-
-    if (tab === "advanced" && !advancedSearchInitialized) {
-        initAdvancedSearch();
-    }
-    if (tab === "build-meal" && !buildMealInitialized) {
-        initBuildMeal();
+    function setResultsState(state, skeletonCount) {
+    resultsEmpty.hidden = state !== "empty";
+    resultsLoading.hidden = state !== "loading";
+    resultsError.hidden = state !== "error";
+    resultsContent.hidden = state !== "content";
+    if (state === "loading") {
+        resultsLoading.innerHTML = buildSkeletonGrid(skeletonCount || 6);
     }
     }
 
-    tabMacroMatch.addEventListener("click", () => activateTab("macro"));
-    tabAdvancedSearch.addEventListener("click", () => activateTab("advanced"));
-    tabBuildMeal.addEventListener("click", () => activateTab("build-meal"));
+    // ---- Reusable "populate a <select> from an API endpoint" (used by both restaurant
+    // and category dropdowns; previously duplicated three times across the old
+    // Macro Match / Advanced Search / Build My Meal tabs) --------------------------------
 
-    const searchInput = document.getElementById("search-input");
-    const searchRestaurantSelect = document.getElementById("search-restaurant");
-    const searchCategorySelect = document.getElementById("search-category");
-    const minCalories = document.getElementById("min-calories");
-    const maxCalories = document.getElementById("max-calories");
-    const minPrice = document.getElementById("min-price");
-    const maxPrice = document.getElementById("max-price");
-    const minProtein = document.getElementById("min-protein");
-    const maxProtein = document.getElementById("max-protein");
-    const minCarbs = document.getElementById("min-carbs");
-    const maxCarbs = document.getElementById("max-carbs");
-    const minFat = document.getElementById("min-fat");
-    const maxFat = document.getElementById("max-fat");
-    const targetCalories = document.getElementById("target-calories");
-    const targetProtein = document.getElementById("target-protein");
-    const targetCarbs = document.getElementById("target-carbs");
-    const targetFat = document.getElementById("target-fat");
-    const quickFilterGroup = document.getElementById("quick-filter-group");
-    const dietFilterGroup = document.getElementById("diet-filter-group");
-    const sortSelect = document.getElementById("sort-select");
-    const clearFiltersBtn = document.getElementById("clear-filters-btn");
-
-    const searchResultsEmpty = document.getElementById("search-results-empty");
-    const searchResultsLoading = document.getElementById("search-results-loading");
-    const searchResultsError = document.getElementById("search-results-error");
-    const searchResultsContent = document.getElementById("search-results-content");
-    const searchResultsCount = document.getElementById("search-results-count");
-    const searchResultsGrid = document.getElementById("search-results-grid");
-
-    const DIET_FILTER_LABELS = {
-    vegetarian: "Vegetarian",
-    spicy: "Spicy",
-    chicken: "Chicken",
-    beef: "Beef",
-    pork: "Pork",
-    lamb: "Lamb",
-    };
-
-    let advancedSearchInitialized = false;
-    let activeQuickFilter = null;
-    let activeDietFilters = new Set();
-
-    async function initAdvancedSearch() {
-    advancedSearchInitialized = true;
-    await Promise.all([populateSearchRestaurants(), populateSearchCategories(), populateDietFilters()]);
-    attachAdvancedSearchListeners();
-    runSearch();
-    }
-
-    async function populateSearchRestaurants() {
+    async function populateSelectOptions(selectEl, endpoint, allLabel) {
     try {
-        const res = await fetch(`${API_BASE}/restaurants`);
+        const res = await fetch(`${API_BASE}/${endpoint}`);
         if (!res.ok) throw new Error(`Server returned ${res.status}`);
-        const restaurants = await res.json();
-        restaurants.forEach((name) => {
+        const items = await res.json();
+
+        selectEl.innerHTML = "";
+        if (items.length === 0) {
+        selectEl.innerHTML = `<option value="" disabled selected>No options available</option>`;
+        return;
+        }
+
+        const allOption = document.createElement("option");
+        allOption.value = "all";
+        allOption.textContent = allLabel;
+        allOption.selected = true;
+        selectEl.appendChild(allOption);
+
+        items.forEach((value) => {
         const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        searchRestaurantSelect.appendChild(opt);
+        opt.value = value;
+        opt.textContent = endpoint === "categories" ? formatCategory(value) : value;
+        selectEl.appendChild(opt);
         });
     } catch (err) {
-        console.error("Failed to load restaurants for search:", err);
-    }
-    }
-
-    async function populateSearchCategories() {
-    try {
-        const res = await fetch(`${API_BASE}/categories`);
-        if (!res.ok) throw new Error(`Server returned ${res.status}`);
-        const categories = await res.json();
-        categories.forEach((cat) => {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = formatCategory(cat);
-        searchCategorySelect.appendChild(opt);
-        });
-    } catch (err) {
-        console.error("Failed to load categories for search:", err);
+        selectEl.innerHTML = `<option value="" disabled selected>Couldn't load options</option>`;
+        console.error(`Failed to load ${endpoint}:`, err);
     }
     }
 
@@ -463,41 +254,34 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
     }
 
-    function attachAdvancedSearchListeners() {
-    let debounceHandle = null;
-    searchInput.addEventListener("input", () => {
-        clearTimeout(debounceHandle);
-        debounceHandle = setTimeout(runSearch, 300);
-    });
+    // ---- Mode toggle: single-item Macro Match vs Build a Meal --------------------------
 
-    [searchRestaurantSelect, searchCategorySelect, sortSelect].forEach((el) =>
-        el.addEventListener("change", runSearch)
-    );
+    function setMode(mode) {
+    currentMode = mode;
+    modeSingleBtn.classList.toggle("is-active", mode === "single");
+    modeMealBtn.classList.toggle("is-active", mode === "meal");
+    // .search-footer-row sets its own `display: flex` in style.css, which (being an
+    // author-stylesheet class rule) wins over the `hidden` attribute's UA-stylesheet
+    // `display: none`, so toggling `.hidden` alone would not actually hide this row.
+    // Setting inline `style.display` takes precedence over both and reliably hides it.
+    sortRow.style.display = mode === "meal" ? "none" : "";
+    submitBtn.textContent = mode === "meal" ? "Build my meal" : "Find my match";
+    }
 
-    [
-        minCalories, maxCalories, minProtein, maxProtein,
-        minCarbs, maxCarbs, minFat, maxFat, minPrice, maxPrice,
-        targetCalories, targetProtein, targetCarbs, targetFat,
-    ].forEach((el) => {
-        let handle = null;
-        el.addEventListener("input", () => {
-        clearTimeout(handle);
-        handle = setTimeout(runSearch, 400);
-        });
-    });
+    modeSingleBtn.addEventListener("click", () => setMode("single"));
+    modeMealBtn.addEventListener("click", () => setMode("meal"));
 
+    // ---- Filter control listeners (Advanced Search controls just update state;
+    // fetching happens on form submit via the Find My Match / Build My Meal button) -----
+
+    function attachFilterListeners() {
     quickFilterGroup.addEventListener("click", (event) => {
         const btn = event.target.closest(".quick-filter-btn");
         if (!btn) return;
         const isAlreadyActive = btn.classList.contains("is-active");
         quickFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
-        if (isAlreadyActive) {
-        activeQuickFilter = null;
-        } else {
-        btn.classList.add("is-active");
-        activeQuickFilter = btn.dataset.quick;
-        }
-        runSearch();
+        activeQuickFilter = isAlreadyActive ? null : btn.dataset.quick;
+        if (!isAlreadyActive) btn.classList.add("is-active");
     });
 
     dietFilterGroup.addEventListener("click", (event) => {
@@ -511,36 +295,48 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         activeDietFilters.add(key);
         btn.classList.add("is-active");
         }
-        runSearch();
+    });
+
+    sortSelect.addEventListener("change", () => {
+        // Re-run automatically if results are already on screen, so re-sorting
+        // doesn't require a full resubmit.
+        if (currentMode === "single" && !resultsContent.hidden) {
+        runSingleSearch();
+        }
     });
 
     clearFiltersBtn.addEventListener("click", () => {
         searchInput.value = "";
-        searchRestaurantSelect.value = "all";
-        searchCategorySelect.value = "all";
+        if (restaurantSelect.querySelector('option[value="all"]')) restaurantSelect.value = "all";
+        if (categorySelect.querySelector('option[value="all"]')) categorySelect.value = "all";
         [
         minCalories, maxCalories, minProtein, maxProtein, minCarbs, maxCarbs, minFat, maxFat,
-        minPrice, maxPrice, targetCalories, targetProtein, targetCarbs, targetFat,
+        minPrice, maxPrice, targetCarbs, targetFat,
         ].forEach((el) => (el.value = ""));
-        sortSelect.value = "relevance";
+        sortSelect.value = "macro_match";
         activeQuickFilter = null;
         activeDietFilters.clear();
         quickFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
         dietFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
-        runSearch();
     });
     }
+
+    // ---- Single-item search (Macro Match + Advanced Search merged; calls /api/search,
+    // using the top-level Calories/Protein fields as target_calories/target_protein) -----
 
     function buildSearchParams() {
     const params = new URLSearchParams();
 
     if (searchInput.value.trim()) params.set("search", searchInput.value.trim());
-    if (searchRestaurantSelect.value && searchRestaurantSelect.value !== "all") {
-        params.set("restaurant", searchRestaurantSelect.value);
+    if (restaurantSelect.value && restaurantSelect.value !== "all") {
+        params.set("restaurant", restaurantSelect.value);
     }
-    if (searchCategorySelect.value && searchCategorySelect.value !== "all") {
-        params.set("category", searchCategorySelect.value);
+    if (categorySelect.value && categorySelect.value !== "all") {
+        params.set("category", categorySelect.value);
     }
+
+    if (caloriesInput.value !== "") params.set("target_calories", caloriesInput.value);
+    if (proteinInput.value !== "") params.set("target_protein", proteinInput.value);
 
     const numericFields = [
         ["min_calories", minCalories], ["max_calories", maxCalories],
@@ -548,7 +344,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         ["min_carbs", minCarbs], ["max_carbs", maxCarbs],
         ["min_fat", minFat], ["max_fat", maxFat],
         ["min_price", minPrice], ["max_price", maxPrice],
-        ["target_calories", targetCalories], ["target_protein", targetProtein],
         ["target_carbs", targetCarbs], ["target_fat", targetFat],
     ];
     numericFields.forEach(([key, el]) => {
@@ -562,8 +357,9 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return params;
     }
 
-    async function runSearch() {
-    setSearchState("loading");
+    async function runSingleSearch() {
+    setResultsState("loading", 6);
+    submitBtn.disabled = true;
     const params = buildSearchParams();
 
     try {
@@ -573,38 +369,54 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         throw new Error(body.error || `Server returned ${res.status}`);
         }
         const data = await res.json();
-        renderSearchResults(data);
+        renderSingleResults(data);
     } catch (err) {
         console.error("Search request failed:", err);
-        searchResultsError.textContent = "Couldn't reach the server. Is the Flask backend running?";
-        setSearchState("error");
+        resultsError.textContent = "Couldn't reach the server. Is the Flask backend running?";
+        setResultsState("error");
+    } finally {
+        submitBtn.disabled = false;
     }
     }
 
-    function renderSearchResults(data) {
+    function renderSingleResults(data) {
     const results = data.results || [];
+
     if (results.length === 0) {
-        setSearchState("empty");
-        renderEmptyState(searchResultsEmpty, {
-        title: "No foods found",
-        message: "Try changing your search or filters.",
+        setResultsState("empty");
+        renderEmptyState(resultsEmpty, {
+        title: "No matches found",
+        message: "Try adjusting your calorie, protein, or other filters.",
         showClear: true,
-        onClear: () => clearFiltersBtn.click(),
+        onClear: () => {
+            clearFiltersBtn.click();
+            runSingleSearch();
+        },
         });
         return;
     }
 
-    searchResultsCount.textContent = `Showing ${data.returned} of ${data.count} result${data.count === 1 ? "" : "s"}`;
+    resultsHeading.textContent = "Options mapped to your goals";
 
-    searchResultsGrid.innerHTML = "";
-    results.forEach((item) => {
-        searchResultsGrid.appendChild(buildSearchCard(item));
-    });
+    const chips = [];
+    if (caloriesInput.value !== "") chips.push(`<span class="target-chip">${escapeHtml(caloriesInput.value)} kcal</span>`);
+    if (proteinInput.value !== "") chips.push(`<span class="target-chip">${escapeHtml(proteinInput.value)}g protein</span>`);
+    targetSummary.innerHTML = chips.join("");
 
-    setSearchState("content");
+    resultsCount.hidden = false;
+    resultsCount.textContent = `Showing ${data.returned} of ${data.count} result${data.count === 1 ? "" : "s"}`;
+
+    // .results-grid / .meal-results-grid also set their own `display` in style.css,
+    // so (as with sort-row above) we toggle inline style.display, not `.hidden`.
+    resultsGrid.style.display = "";
+    mealResultsGrid.style.display = "none";
+    resultsGrid.innerHTML = "";
+    results.forEach((item) => resultsGrid.appendChild(buildResultCard(item)));
+
+    setResultsState("content");
     }
 
-    function buildSearchCard(item) {
+    function buildResultCard(item) {
     const card = document.createElement("article");
     card.className = "result-card";
 
@@ -651,118 +463,42 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return card;
     }
 
-    function setSearchState(state) {
-    searchResultsEmpty.hidden = state !== "empty";
-    searchResultsLoading.hidden = state !== "loading";
-    searchResultsError.hidden = state !== "error";
-    searchResultsContent.hidden = state !== "content";
-    if (state === "loading") {
-        searchResultsLoading.innerHTML = buildSkeletonGrid(6);
-    }
-    }
+    // ---- Build a Meal (unchanged logic, calls /api/build-meal; reuses the shared
+    // restaurant/category selects and reuses the Max price field as the budget cap) -----
 
-
-    const buildMealForm = document.getElementById("build-meal-form");
-    const buildMealRestaurantSelect = document.getElementById("build-meal-restaurant");
-    const buildMealCaloriesInput = document.getElementById("build-meal-calories");
-    const buildMealProteinInput = document.getElementById("build-meal-protein");
-    const buildMealCategorySelect = document.getElementById("build-meal-category");
-    const buildMealBudgetInput = document.getElementById("build-meal-budget");
-    const buildMealSubmitBtn = document.getElementById("build-meal-submit-btn");
-
-    const buildMealEmpty = document.getElementById("build-meal-empty");
-    const buildMealLoading = document.getElementById("build-meal-loading");
-    const buildMealError = document.getElementById("build-meal-error");
-    const buildMealContent = document.getElementById("build-meal-content");
-    const buildMealTargetSummary = document.getElementById("build-meal-target-summary");
-    const buildMealGrid = document.getElementById("build-meal-grid");
-
-    let buildMealInitialized = false;
-
-    async function initBuildMeal() {
-    buildMealInitialized = true;
-    await Promise.all([populateBuildMealRestaurants(), populateBuildMealCategories()]);
-    buildMealForm.addEventListener("submit", handleBuildMealSubmit);
+    function validateMealRestaurant(meal, restaurant) {
+    if (!meal || !Array.isArray(meal.items) || meal.items.length === 0) return false;
+    if (!restaurant || restaurant.toLowerCase() === "all") return true;
+    return meal.items.every((item) => item.restaurant === restaurant);
     }
 
-    async function populateBuildMealRestaurants() {
-    try {
-        const res = await fetch(`${API_BASE}/restaurants`);
-        if (!res.ok) throw new Error(`Server returned ${res.status}`);
-        const restaurants = await res.json();
-
-        buildMealRestaurantSelect.innerHTML = "";
-
-        if (restaurants.length === 0) {
-        buildMealRestaurantSelect.innerHTML = `<option value="" disabled selected>No restaurants available</option>`;
-        return;
-        }
-
-        const allOption = document.createElement("option");
-        allOption.value = "all";
-        allOption.textContent = "All restaurants";
-        allOption.selected = true;
-        buildMealRestaurantSelect.appendChild(allOption);
-
-        restaurants.forEach((name) => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        buildMealRestaurantSelect.appendChild(opt);
-        });
-    } catch (err) {
-        buildMealRestaurantSelect.innerHTML = `<option value="" disabled selected>Couldn't load restaurants</option>`;
-        console.error("Failed to load restaurants for Build My Meal:", err);
-    }
-    }
-
-    async function populateBuildMealCategories() {
-    try {
-        const res = await fetch(`${API_BASE}/categories`);
-        if (!res.ok) throw new Error(`Server returned ${res.status}`);
-        const categories = await res.json();
-        categories.forEach((cat) => {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = formatCategory(cat);
-        buildMealCategorySelect.appendChild(opt);
-        });
-    } catch (err) {
-        console.error("Failed to load categories for Build My Meal:", err);
-    }
-    }
-
-    function handleBuildMealSubmit(event) {
-    event.preventDefault();
-
-    const calories = Number(buildMealCaloriesInput.value);
-    const protein = Number(buildMealProteinInput.value);
-    const restaurant = buildMealRestaurantSelect.value || "all";
-    const category = buildMealCategorySelect.value || "all";
+    async function runBuildMeal() {
+    const calories = Number(caloriesInput.value);
+    const protein = Number(proteinInput.value);
+    const restaurant = restaurantSelect.value || "all";
+    const category = categorySelect.value || "all";
 
     if (Number.isNaN(calories) || Number.isNaN(protein) || calories <= 0 || protein <= 0) {
-        setBuildMealState("error");
-        buildMealError.textContent = "Enter valid calorie and protein numbers.";
+        setResultsState("error");
+        resultsError.textContent = "Enter valid calorie and protein numbers.";
         return;
     }
 
-    let maxPrice = null;
-    if (buildMealBudgetInput.value.trim() !== "") {
-        const parsedBudget = Number(buildMealBudgetInput.value);
+    let maxBudget = null;
+    if (maxPrice.value.trim() !== "") {
+        const parsedBudget = Number(maxPrice.value);
         if (Number.isNaN(parsedBudget) || parsedBudget <= 0) {
-        setBuildMealState("error");
-        buildMealError.textContent = "Max budget must be a number greater than zero.";
+        setResultsState("error");
+        resultsError.textContent = "Max price must be a number greater than zero to use it as a meal budget.";
         return;
         }
-        maxPrice = parsedBudget;
+        maxBudget = parsedBudget;
     }
 
-    fetchBuildMeal({ restaurant, calories, protein, category, max_price: maxPrice });
-    }
+    const payload = { restaurant, calories, protein, category, max_price: maxBudget };
 
-    async function fetchBuildMeal(payload) {
-    setBuildMealState("loading");
-    buildMealSubmitBtn.disabled = true;
+    setResultsState("loading", 1);
+    submitBtn.disabled = true;
 
     try {
         const res = await fetch(`${API_BASE}/build-meal`, {
@@ -780,17 +516,11 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         renderBuildMealResult(data, payload);
     } catch (err) {
         console.error("Build My Meal request failed:", err);
-        buildMealError.textContent = "Couldn't reach the server. Is the Flask backend running?";
-        setBuildMealState("error");
+        resultsError.textContent = "Couldn't reach the server. Is the Flask backend running?";
+        setResultsState("error");
     } finally {
-        buildMealSubmitBtn.disabled = false;
+        submitBtn.disabled = false;
     }
-    }
-
-    function validateMealRestaurant(meal, restaurant) {
-    if (!meal || !Array.isArray(meal.items) || meal.items.length === 0) return false;
-    if (!restaurant || restaurant.toLowerCase() === "all") return true;
-    return meal.items.every((item) => item.restaurant === restaurant);
     }
 
     function renderBuildMealResult(data, payload) {
@@ -798,33 +528,46 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const validMeals = meals.filter((meal) => validateMealRestaurant(meal, payload.restaurant));
 
     if (validMeals.length === 0) {
-        setBuildMealState("empty");
-        renderEmptyState(buildMealEmpty, {
+        setResultsState("empty");
+        renderEmptyState(resultsEmpty, {
         title: "No meal combination found",
         message: payload.max_price
-            ? "Try raising your budget, or adjusting your calorie/protein targets."
+            ? "Try raising your budget (Max price), or adjusting your calorie/protein targets."
             : "Try adjusting your calorie, protein, restaurant, or category filters.",
         showClear: true,
-        onClear: resetBuildMealForm,
+        onClear: () => {
+            clearFiltersBtn.click();
+            setResultsState("empty");
+            renderEmptyState(resultsEmpty, {
+            title: "Set your targets",
+            message: "Enter your targets and pick a restaurant to build your meal.",
+            showClear: false,
+            });
+        },
         });
         return;
     }
+
+    resultsHeading.textContent = "Meal combinations";
+    resultsCount.hidden = true;
 
     const restaurantLabel = payload.restaurant && payload.restaurant.toLowerCase() !== "all"
         ? payload.restaurant
         : "All restaurants";
 
-    buildMealTargetSummary.innerHTML = `
+    targetSummary.innerHTML = `
         <span class="target-chip">${escapeHtml(restaurantLabel)}</span>
         <span class="target-chip">${payload.calories} kcal</span>
         <span class="target-chip">${payload.protein}g protein</span>
         ${payload.max_price ? `<span class="target-chip">Budget: ${escapeHtml(formatPrice(payload.max_price))}</span>` : ""}
     `;
 
-    buildMealGrid.innerHTML = "";
-    validMeals.forEach((meal) => buildMealGrid.appendChild(buildMealCard(meal)));
+    resultsGrid.style.display = "none";
+    mealResultsGrid.style.display = "";
+    mealResultsGrid.innerHTML = "";
+    validMeals.forEach((meal) => mealResultsGrid.appendChild(buildMealCard(meal)));
 
-    setBuildMealState("content");
+    setResultsState("content");
     }
 
     function buildMealCard(meal) {
@@ -868,28 +611,37 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     return card;
     }
 
-    function resetBuildMealForm() {
-    buildMealCaloriesInput.value = "";
-    buildMealProteinInput.value = "";
-    buildMealBudgetInput.value = "";
-    if (buildMealRestaurantSelect.querySelector('option[value="all"]')) {
-        buildMealRestaurantSelect.value = "all";
-    }
-    if (buildMealCategorySelect.querySelector('option[value="all"]')) {
-        buildMealCategorySelect.value = "all";
-    }
-    buildMealGrid.innerHTML = "";
-    buildMealTargetSummary.innerHTML = "";
-    setBuildMealState("empty");
-    buildMealEmpty.innerHTML = "Enter your targets and pick a restaurant to build your meal.";
+    // ---- Form submit: routes to the right flow based on the Mode toggle ----------------
+
+    matchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (currentMode === "meal") {
+        runBuildMeal();
+        return;
     }
 
-    function setBuildMealState(state) {
-    buildMealEmpty.hidden = state !== "empty";
-    buildMealLoading.hidden = state !== "loading";
-    buildMealError.hidden = state !== "error";
-    buildMealContent.hidden = state !== "content";
-    if (state === "loading") {
-        buildMealLoading.innerHTML = buildSkeletonGrid(1);
+    const calories = Number(caloriesInput.value);
+    const protein = Number(proteinInput.value);
+    if (Number.isNaN(calories) || Number.isNaN(protein) || calories < 0 || protein < 0) {
+        setResultsState("error");
+        resultsError.textContent = "Enter valid calorie and protein numbers.";
+        return;
     }
+
+    runSingleSearch();
+    });
+
+    // ---- Init ---------------------------------------------------------------------------
+
+    async function init() {
+    setResultsState("empty");
+    await Promise.all([
+        populateSelectOptions(restaurantSelect, "restaurants", "All restaurants"),
+        populateSelectOptions(categorySelect, "categories", "All"),
+        populateDietFilters(),
+    ]);
+    attachFilterListeners();
     }
+
+    init();
