@@ -1,3 +1,4 @@
+import itertools
 import json
 import os
 import re
@@ -380,6 +381,165 @@ def search_items():
         )
 
     return jsonify(response)
+
+
+#
+# ---------------------------------------------------------------
+# Build My Meal
+#
+# Finds small combinations (2-3 items) of existing menu items that
+# together land as close as possible to a target calorie/protein
+# goal. Never invents nutrition values, only combines real items.
+# ---------------------------------------------------------------
+#
+
+MEAL_COMBO_SIZES = (2, 3)
+MAX_MEAL_CANDIDATE_POOL = 45  # keeps combination count bounded even as the menu grows
+MAX_MEAL_RESULTS = 5
+
+
+def _valid_item_for_meal(item):
+    """An item can only be used in a meal combo if it has real, usable
+    calorie and protein numbers. Never lets a None slip through into
+    a comparison or arithmetic operation."""
+    calories = _as_number(item.get("calories"))
+    protein = _as_number(item.get("protein_g"))
+    return calories is not None and protein is not None and calories > 0
+
+
+def _meal_totals(combo_items):
+    total_calories = 0.0
+    total_protein = 0.0
+    total_carbs = 0.0
+    total_fat = 0.0
+    has_carbs = False
+    has_fat = False
+
+    for item in combo_items:
+        total_calories += _as_number(item.get("calories")) or 0
+        total_protein += _as_number(item.get("protein_g")) or 0
+
+        carbs = _as_number(item.get("carbs_g"))
+        if carbs is not None:
+            total_carbs += carbs
+            has_carbs = True
+
+        fat = _as_number(item.get("fat_g"))
+        if fat is not None:
+            total_fat += fat
+            has_fat = True
+
+    return {
+        "calories": round(total_calories, 1),
+        "protein_g": round(total_protein, 1),
+        "carbs_g": round(total_carbs, 1) if has_carbs else None,
+        "fat_g": round(total_fat, 1) if has_fat else None,
+    }
+
+
+def _meal_score(totals, target_calories, target_protein):
+    calorie_diff = abs(totals["calories"] - target_calories)
+    protein_diff = abs(totals["protein_g"] - target_protein)
+    return (
+        calorie_diff / max(target_calories, 1)
+        + protein_diff / max(target_protein, 1)
+    )
+
+
+def _meal_name(totals, target_calories):
+    calories = totals["calories"] or 1
+    protein_ratio = (totals["protein_g"] / calories) if calories else 0
+
+    if protein_ratio >= 0.16:
+        return "High Protein Meal"
+    if totals["carbs_g"] is not None and totals["carbs_g"] <= 30:
+        return "Low Carb Meal"
+    if target_calories and totals["calories"] <= target_calories * 0.85:
+        return "Lighter Meal"
+    return "Balanced Meal"
+
+
+@app.route("/api/build-meal", methods=["POST"])
+def build_meal():
+    payload = request.get_json(silent=True) or {}
+
+    calories_target = _parse_query_number(payload.get("calories"))
+    protein_target = _parse_query_number(payload.get("protein"))
+    restaurant = (payload.get("restaurant") or "all")
+    category = (payload.get("category") or "all")
+
+    if calories_target is None or protein_target is None:
+        return jsonify({"error": "calories and protein are required and must be numbers"}), 400
+    if calories_target <= 0 or protein_target <= 0:
+        return jsonify({"error": "calories and protein must be greater than zero"}), 400
+
+    items = load_menu()
+    candidates = list(items)
+
+    if restaurant and restaurant.lower() != "all":
+        candidates = [i for i in candidates if i.get("restaurant") == restaurant]
+
+    if category and category.lower() != "all":
+        allowed = CATEGORY_GROUPS.get(category.lower(), [category.lower()])
+        candidates = [i for i in candidates if str(i.get("category", "")).lower() in allowed]
+
+    # Only items with real calorie/protein numbers can enter a combo, and a
+    # single item that already blows past the target isn't a useful building
+    # block for a 2-3 item meal.
+    candidates = [i for i in candidates if _valid_item_for_meal(i)]
+    candidates = [i for i in candidates if _as_number(i["calories"]) <= calories_target * 1.05]
+
+    if not candidates:
+        return jsonify({
+            "target": {"calories": calories_target, "protein_g": protein_target},
+            "meals": [],
+        })
+
+    # Bound the combination search: bias the candidate pool toward items
+    # sized roughly like one part of a 2-3 item meal, then cap the pool so
+    # combination count stays small regardless of how large the menu gets.
+    per_item_target = calories_target / 2.5
+    candidates.sort(key=lambda i: abs(_as_number(i["calories"]) - per_item_target))
+    candidate_pool = candidates[:MAX_MEAL_CANDIDATE_POOL]
+
+    scored_meals = []
+    for size in MEAL_COMBO_SIZES:
+        if len(candidate_pool) < size:
+            continue
+        for combo in itertools.combinations(candidate_pool, size):
+            totals = _meal_totals(combo)
+            score = _meal_score(totals, calories_target, protein_target)
+            scored_meals.append((score, combo, totals))
+
+    if not scored_meals:
+        return jsonify({
+            "target": {"calories": calories_target, "protein_g": protein_target},
+            "meals": [],
+        })
+
+    # itertools.combinations never repeats a set of items in a different
+    # order, so "Burger + Nuggets" and "Nuggets + Burger" can't both appear.
+    scored_meals.sort(key=lambda m: m[0])
+    top_meals = scored_meals[:MAX_MEAL_RESULTS]
+
+    meals_out = []
+    for index, (score, combo, totals) in enumerate(top_meals):
+        meals_out.append({
+            "name": _meal_name(totals, calories_target),
+            "score": round(score, 4),
+            "is_best": index == 0,
+            "items": list(combo),
+            "totals": totals,
+            "differences": {
+                "calories": round(totals["calories"] - calories_target, 1),
+                "protein_g": round(totals["protein_g"] - protein_target, 1),
+            },
+        })
+
+    return jsonify({
+        "target": {"calories": calories_target, "protein_g": protein_target},
+        "meals": meals_out,
+    })
 
 
 def _macro_match_score(item, target_calories, target_protein, target_carbs, target_fat):

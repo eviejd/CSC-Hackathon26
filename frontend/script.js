@@ -1,4 +1,4 @@
-    const API_BASE = "http://127.0.0.1:5000/api";
+const API_BASE = "http://127.0.0.1:5000/api";
 
     // ---- element references ----
     const form = document.getElementById("match-form");
@@ -187,7 +187,12 @@
     function renderResults(data, calories, protein) {
     if (!data.matches || data.matches.length === 0) {
         setState("empty");
-        resultsEmpty.textContent = "No menu items fit those targets. Try raising your calorie limit.";
+        renderEmptyState(resultsEmpty, {
+        title: "No matches found",
+        message: "Try adjusting your calorie, protein, or other filters.",
+        showClear: true,
+        onClear: resetMatchForm,
+        });
         return;
     }
 
@@ -264,12 +269,78 @@
     resultsLoading.hidden = state !== "loading";
     resultsError.hidden = state !== "error";
     resultsContent.hidden = state !== "content";
+    if (state === "loading") {
+        resultsLoading.innerHTML = buildSkeletonGrid(6);
+    }
+    }
+
+    function resetMatchForm() {
+    document.getElementById("calories").value = "";
+    document.getElementById("protein").value = "";
+    if (restaurantSelect.querySelector('option[value="all"]')) {
+        restaurantSelect.value = "all";
+    }
+    categoryGroup.querySelectorAll(".category-btn").forEach((b) => b.classList.remove("is-active"));
+    const allBtn = categoryGroup.querySelector('[data-category="all"]');
+    if (allBtn) allBtn.classList.add("is-active");
+    selectedCategory = "all";
+    categoryInput.value = "all";
+
+    setState("empty");
+    renderEmptyState(resultsEmpty, {
+        title: "Set your targets",
+        message: "Set your targets and pick a restaurant to see what fits.",
+        showClear: false,
+    });
     }
 
     function escapeHtml(str) {
     const div = document.createElement("div");
     div.textContent = str;
     return div.innerHTML;
+    }
+
+    // ---------------------------------------------------------
+    // Shared skeleton loading grid
+    // Used by Macro Match, Advanced Search, and Build My Meal so
+    // the layout stays stable while a request is in flight.
+    // ---------------------------------------------------------
+    function buildSkeletonCard() {
+    return `
+        <div class="skeleton-card" aria-hidden="true">
+        <div class="skeleton-block skeleton-image"></div>
+        <div class="skeleton-block skeleton-line is-title"></div>
+        <div class="skeleton-block skeleton-line is-short"></div>
+        <div class="skeleton-macros">
+            <div class="skeleton-block"></div>
+            <div class="skeleton-block"></div>
+            <div class="skeleton-block"></div>
+            <div class="skeleton-block"></div>
+        </div>
+        </div>
+    `;
+    }
+
+    function buildSkeletonGrid(count) {
+    return `<div class="skeleton-grid">${Array.from({ length: count }, buildSkeletonCard).join("")}</div>`;
+    }
+
+    // ---------------------------------------------------------
+    // Shared structured empty state
+    // options: { title, message, showClear, onClear }
+    // ---------------------------------------------------------
+    function renderEmptyState(container, options) {
+    const { title, message, showClear, onClear } = options;
+    container.innerHTML = `
+        <div class="empty-state">
+        <p class="empty-state-title">${escapeHtml(title)}</p>
+        <p class="empty-state-message">${escapeHtml(message)}</p>
+        ${showClear ? '<button type="button" class="clear-btn empty-state-clear">Clear Filters</button>' : ""}
+        </div>
+    `;
+    if (showClear && typeof onClear === "function") {
+        container.querySelector(".empty-state-clear").addEventListener("click", onClear);
+    }
     }
 
     // ---- init ----
@@ -281,24 +352,36 @@
 
     const tabMacroMatch = document.getElementById("tab-macro-match");
     const tabAdvancedSearch = document.getElementById("tab-advanced-search");
+    const tabBuildMeal = document.getElementById("tab-build-meal");
     const macroMatchView = document.getElementById("macro-match-view");
     const advancedSearchView = document.getElementById("advanced-search-view");
+    const buildMealView = document.getElementById("build-meal-view");
+
+    const TAB_CONFIG = {
+    macro: { btn: tabMacroMatch, view: macroMatchView },
+    advanced: { btn: tabAdvancedSearch, view: advancedSearchView },
+    "build-meal": { btn: tabBuildMeal, view: buildMealView },
+    };
 
     function activateTab(tab) {
-    const isAdvanced = tab === "advanced";
-    tabMacroMatch.classList.toggle("is-active", !isAdvanced);
-    tabAdvancedSearch.classList.toggle("is-active", isAdvanced);
-    tabMacroMatch.setAttribute("aria-selected", String(!isAdvanced));
-    tabAdvancedSearch.setAttribute("aria-selected", String(isAdvanced));
-    macroMatchView.hidden = isAdvanced;
-    advancedSearchView.hidden = !isAdvanced;
-    if (isAdvanced && !advancedSearchInitialized) {
+    Object.entries(TAB_CONFIG).forEach(([key, { btn, view }]) => {
+        const isActive = key === tab;
+        btn.classList.toggle("is-active", isActive);
+        btn.setAttribute("aria-selected", String(isActive));
+        view.hidden = !isActive;
+    });
+
+    if (tab === "advanced" && !advancedSearchInitialized) {
         initAdvancedSearch();
+    }
+    if (tab === "build-meal" && !buildMealInitialized) {
+        initBuildMeal();
     }
     }
 
     tabMacroMatch.addEventListener("click", () => activateTab("macro"));
     tabAdvancedSearch.addEventListener("click", () => activateTab("advanced"));
+    tabBuildMeal.addEventListener("click", () => activateTab("build-meal"));
 
     const searchInput = document.getElementById("search-input");
     const searchRestaurantSelect = document.getElementById("search-restaurant");
@@ -525,7 +608,12 @@
     const results = data.results || [];
     if (results.length === 0) {
         setSearchState("empty");
-        searchResultsEmpty.textContent = "No menu items match those filters. Try loosening a filter.";
+        renderEmptyState(searchResultsEmpty, {
+        title: "No foods found",
+        message: "Try changing your search or filters.",
+        showClear: true,
+        onClear: () => clearFiltersBtn.click(),
+        });
         return;
     }
 
@@ -590,4 +678,206 @@
     searchResultsLoading.hidden = state !== "loading";
     searchResultsError.hidden = state !== "error";
     searchResultsContent.hidden = state !== "content";
+    if (state === "loading") {
+        searchResultsLoading.innerHTML = buildSkeletonGrid(6);
+    }
+    }
+
+    /* =========================================================
+    BUILD MY MEAL
+    ========================================================= */
+
+    const buildMealForm = document.getElementById("build-meal-form");
+    const buildMealCaloriesInput = document.getElementById("build-meal-calories");
+    const buildMealProteinInput = document.getElementById("build-meal-protein");
+    const buildMealRestaurantSelect = document.getElementById("build-meal-restaurant");
+    const buildMealCategorySelect = document.getElementById("build-meal-category");
+    const buildMealSubmitBtn = document.getElementById("build-meal-submit-btn");
+
+    const buildMealEmpty = document.getElementById("build-meal-empty");
+    const buildMealLoading = document.getElementById("build-meal-loading");
+    const buildMealError = document.getElementById("build-meal-error");
+    const buildMealContent = document.getElementById("build-meal-content");
+    const buildMealTargetSummary = document.getElementById("build-meal-target-summary");
+    const buildMealGrid = document.getElementById("build-meal-grid");
+
+    let buildMealInitialized = false;
+
+    async function initBuildMeal() {
+    buildMealInitialized = true;
+    await Promise.all([populateBuildMealRestaurants(), populateBuildMealCategories()]);
+    buildMealForm.addEventListener("submit", handleBuildMealSubmit);
+    }
+
+    async function populateBuildMealRestaurants() {
+    try {
+        const res = await fetch(`${API_BASE}/restaurants`);
+        if (!res.ok) throw new Error(`Server returned ${res.status}`);
+        const restaurants = await res.json();
+        restaurants.forEach((name) => {
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name;
+        buildMealRestaurantSelect.appendChild(opt);
+        });
+    } catch (err) {
+        console.error("Failed to load restaurants for Build My Meal:", err);
+    }
+    }
+
+    async function populateBuildMealCategories() {
+    try {
+        const res = await fetch(`${API_BASE}/categories`);
+        if (!res.ok) throw new Error(`Server returned ${res.status}`);
+        const categories = await res.json();
+        categories.forEach((cat) => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = formatCategory(cat);
+        buildMealCategorySelect.appendChild(opt);
+        });
+    } catch (err) {
+        console.error("Failed to load categories for Build My Meal:", err);
+    }
+    }
+
+    function resetBuildMealForm() {
+    buildMealCaloriesInput.value = "";
+    buildMealProteinInput.value = "";
+    buildMealRestaurantSelect.value = "all";
+    buildMealCategorySelect.value = "all";
+    setBuildMealState("empty");
+    buildMealEmpty.innerHTML = "Enter your calorie and protein targets to build a meal.";
+    }
+
+    function handleBuildMealSubmit(event) {
+    event.preventDefault();
+
+    const calories = Number(buildMealCaloriesInput.value);
+    const protein = Number(buildMealProteinInput.value);
+
+    if (Number.isNaN(calories) || Number.isNaN(protein) || calories <= 0 || protein <= 0) {
+        setBuildMealState("error");
+        buildMealError.textContent = "Enter valid calorie and protein targets greater than zero.";
+        return;
+    }
+
+    fetchBuildMeal({
+        calories,
+        protein,
+        restaurant: buildMealRestaurantSelect.value || "all",
+        category: buildMealCategorySelect.value || "all",
+    });
+    }
+
+    async function fetchBuildMeal(payload) {
+    setBuildMealState("loading");
+    buildMealSubmitBtn.disabled = true;
+
+    try {
+        const res = await fetch(`${API_BASE}/build-meal`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || `Server returned ${res.status}`);
+        }
+
+        const data = await res.json();
+        renderBuildMealResults(data);
+    } catch (err) {
+        console.error("Build My Meal request failed:", err);
+        buildMealError.textContent = "Couldn't reach the server. Is the Flask backend running?";
+        setBuildMealState("error");
+    } finally {
+        buildMealSubmitBtn.disabled = false;
+    }
+    }
+
+    function renderBuildMealResults(data) {
+    const meals = data.meals || [];
+
+    if (meals.length === 0) {
+        setBuildMealState("empty");
+        renderEmptyState(buildMealEmpty, {
+        title: "No meal combination found",
+        message: "Try increasing your calorie target or adjusting your protein target.",
+        showClear: true,
+        onClear: resetBuildMealForm,
+        });
+        return;
+    }
+
+    buildMealTargetSummary.innerHTML = `
+        <span class="target-chip">${data.target.calories} kcal</span>
+        <span class="target-chip">${data.target.protein_g}g protein</span>
+    `;
+
+    buildMealGrid.innerHTML = "";
+    meals.forEach((meal) => {
+        buildMealGrid.appendChild(buildMealCard(meal));
+    });
+
+    setBuildMealState("content");
+    }
+
+    function buildMealCard(meal) {
+    const card = document.createElement("article");
+    card.className = "meal-card" + (meal.is_best ? " is-best" : "");
+
+    const itemsMarkup = meal.items
+        .map((item) => {
+        const thumb = item.image
+            ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.parentElement.innerHTML=''">`
+            : "";
+        return `
+            <div class="meal-item-row">
+            <div class="meal-item-thumb">${thumb}</div>
+            <span class="meal-item-name">${escapeHtml(item.name)} <span class="hint-text">— ${escapeHtml(item.restaurant)}</span></span>
+            </div>
+        `;
+        })
+        .join("");
+
+    const carbs = meal.totals.carbs_g != null ? `${meal.totals.carbs_g}g carbs` : "";
+    const fat = meal.totals.fat_g != null ? `${meal.totals.fat_g}g fat` : "";
+
+    const caloriesDiffText = formatMealDiff(meal.differences.calories, "kcal");
+    const proteinDiffText = formatMealDiff(meal.differences.protein_g, "g protein");
+
+    card.innerHTML = `
+        <div class="meal-card-header">
+        <span class="meal-name">${escapeHtml(meal.name)}</span>
+        ${meal.is_best ? '<span class="meal-best-badge">Best Match</span>' : ""}
+        </div>
+        <div class="meal-item-list">${itemsMarkup}</div>
+        <div class="meal-macro-row">
+        <span><strong>${meal.totals.calories}</strong> kcal</span>
+        <span><strong>${meal.totals.protein_g}g</strong> protein</span>
+        ${carbs ? `<span><strong>${carbs}</strong></span>` : ""}
+        ${fat ? `<span><strong>${fat}</strong></span>` : ""}
+        </div>
+        <p class="meal-target-diff">${caloriesDiffText} · ${proteinDiffText}</p>
+    `;
+    return card;
+    }
+
+    function formatMealDiff(value, unit) {
+    const rounded = Math.round(value * 10) / 10;
+    const sign = rounded > 0 ? "+" : "";
+    const cssClass = rounded <= 0 ? "diff-good" : "diff-over";
+    return `<span class="${cssClass}">${sign}${rounded} ${unit}</span>`;
+    }
+
+    function setBuildMealState(state) {
+    buildMealEmpty.hidden = state !== "empty";
+    buildMealLoading.hidden = state !== "loading";
+    buildMealError.hidden = state !== "error";
+    buildMealContent.hidden = state !== "content";
+    if (state === "loading") {
+        buildMealLoading.innerHTML = buildSkeletonGrid(4);
+    }
     }

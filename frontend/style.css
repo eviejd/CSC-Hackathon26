@@ -1,4 +1,4 @@
-    :root {
+:root {
     --color-bg: #FFF9EF;
     --color-banner: #FFF4E3;
     --color-banner-accent: #faecd8;
@@ -165,10 +165,6 @@
     transition: transform 0.25s ease;
     }
 
-    .brand-logo-wrap:hover {
-    transform: scale(1.04);
-    }
-
     .brand-logo {
     height: clamp(52px, 7vw, 82px);
     width: auto;
@@ -226,6 +222,7 @@
     .nav-link {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
 
     gap: 0.45rem;
 
@@ -236,6 +233,7 @@
     color: var(--color-ink-soft);
 
     padding: 0.55rem 1.25rem;
+    min-height: 44px;
 
     border-radius: var(--radius-pill);
     border: 1.5px solid transparent;
@@ -289,6 +287,8 @@
     .mode-tabs {
     display: flex;
 
+    flex-wrap: wrap;
+
     gap: 0.5rem;
 
     margin-bottom: var(--space-1);
@@ -301,6 +301,7 @@
     font-weight: 600;
 
     padding: 0.65rem 1.35rem;
+    min-height: 44px;
 
     border: 1.5px solid var(--color-border);
     border-radius: var(--radius-pill);
@@ -459,6 +460,8 @@
 
     color: var(--color-ink);
 
+    min-height: 44px;
+
     transition:
         border-color 0.15s ease,
         box-shadow 0.15s ease;
@@ -495,6 +498,7 @@
     font-weight: 500;
 
     padding: 0.5rem 1rem;
+    min-height: 44px;
 
     border-radius: var(--radius-pill);
 
@@ -510,6 +514,7 @@
     font-weight: 600;
 
     padding: 0.85rem 1.75rem;
+    min-height: 44px;
 
     border: none;
 
@@ -697,6 +702,7 @@
     font-weight: 600;
 
     padding: 0.75rem 1.35rem;
+    min-height: 44px;
 
     border-radius: var(--radius-pill);
 
@@ -851,11 +857,8 @@
         box-shadow 0.2s ease;
     }
 
-    .result-card:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.12);
+    .result-card:active {
+    transform: scale(0.99);
     }
 
     /* Fixed 1:1 image container to keep card sizes uniform */
@@ -890,10 +893,6 @@
     transition: transform 0.25s ease;
     }
 
-    .result-card:hover .food-card-image {
-    transform: scale(calc(var(--img-scale, 1.15) * 1.04));
-    }
-
     .food-card-placeholder {
     display: flex;
     align-items: center;
@@ -923,6 +922,8 @@
     .result-card-header {
     display: flex;
 
+    flex-wrap: wrap;
+
     justify-content: space-between;
 
     align-items: flex-start;
@@ -940,6 +941,9 @@
     color: var(--color-ink);
 
     line-height: 1.25;
+
+    min-width: 0;
+    overflow-wrap: anywhere;
     }
 
     .result-restaurant {
@@ -1045,6 +1049,444 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    }
+
+    /* =========================================================
+    SKELETON LOADING CARDS
+    ========================================================= */
+
+    .skeleton-grid {
+    display: grid;
+
+    gap: 1.5rem;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(260px, 1fr));
+
+    width: 100%;
+    }
+
+    .skeleton-card {
+    border: 1.5px solid var(--color-border-subtle);
+
+    border-radius: var(--radius-md);
+
+    padding: var(--space-3);
+
+    background: rgba(255, 249, 239, 0.96);
+
+    display: grid;
+
+    gap: 0.65rem;
+
+    overflow: hidden;
+    }
+
+    .skeleton-block {
+    border-radius: var(--radius-sm);
+
+    background: linear-gradient(
+        90deg,
+        var(--color-border-subtle) 25%,
+        var(--color-banner-accent) 37%,
+        var(--color-border-subtle) 63%
+    );
+
+    background-size: 400% 100%;
+
+    animation: skeleton-shimmer 1.4s ease infinite;
+    }
+
+    .skeleton-image {
+    width: calc(100% + var(--space-3) * 2);
+    margin: calc(var(--space-3) * -1) calc(var(--space-3) * -1) 0;
+
+    aspect-ratio: 1 / 1;
+
+    border-radius: 0;
+    }
+
+    .skeleton-line {
+    height: 0.85rem;
+    }
+
+    .skeleton-line.is-title {
+    width: 70%;
+    height: 1.05rem;
+    }
+
+    .skeleton-line.is-short {
+    width: 45%;
+    }
+
+    .skeleton-macros {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 0.5rem 0.75rem;
+
+    padding: 0.5rem;
+    }
+
+    .skeleton-macros .skeleton-block {
+    height: 0.8rem;
+    }
+
+    @keyframes skeleton-shimmer {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+    }
+
+    /* =========================================================
+    STRUCTURED EMPTY STATE
+    ========================================================= */
+
+    .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 0.6rem;
+
+    padding: var(--space-3) 0;
+
+    animation: card-in 0.25s ease both;
+    }
+
+    .empty-state-title {
+    font-family: var(--font-display);
+
+    font-size: 1.05rem;
+    font-weight: 700;
+
+    margin: 0;
+    }
+
+    .empty-state-message {
+    margin: 0;
+
+    font-size: 0.92rem;
+    }
+
+    .empty-state .clear-btn {
+    margin-top: 0.25rem;
+    }
+
+    /* =========================================================
+    BUILD MY MEAL RESULTS
+    ========================================================= */
+
+    .meal-results-grid {
+    display: grid;
+
+    gap: 1.5rem;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(300px, 1fr));
+
+    width: 100%;
+    }
+
+    .meal-card {
+    position: relative;
+
+    border: 1.5px solid var(--color-border);
+
+    border-radius: var(--radius-md);
+
+    padding: var(--space-3);
+
+    background: rgba(255, 249, 239, 0.96);
+
+    color: var(--color-ink);
+
+    display: grid;
+
+    gap: 0.75rem;
+
+    animation: card-in 0.25s ease both;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .meal-card:active {
+    transform: scale(0.99);
+    }
+
+    .meal-card.is-best {
+    border-color: var(--color-accent);
+
+    background: var(--color-accent-tint);
+
+    box-shadow:
+        0 6px 20px rgba(161, 140, 112, 0.3);
+    }
+
+    .meal-card-header {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 0.5rem;
+    }
+
+    .meal-name {
+    font-family: var(--font-display);
+
+    font-weight: 700;
+
+    font-size: 1.05rem;
+
+    line-height: 1.25;
+
+    min-width: 0;
+    overflow-wrap: anywhere;
+    }
+
+    .meal-best-badge {
+    background: var(--color-accent);
+
+    color: #fff;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    padding: 0.25rem 0.65rem;
+
+    border-radius: var(--radius-pill);
+
+    white-space: nowrap;
+
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    }
+
+    .meal-item-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.5rem;
+    }
+
+    .meal-item-row {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 0.6rem;
+    }
+
+    .meal-item-thumb {
+    width: 40px;
+    height: 40px;
+    flex: none;
+
+    border-radius: var(--radius-sm);
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid var(--color-border-subtle);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .meal-item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+
+    .meal-item-name {
+    font-size: 0.88rem;
+    font-weight: 500;
+
+    min-width: 0;
+    overflow-wrap: anywhere;
+    }
+
+    .meal-macro-row {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 0.5rem;
+
+    padding: 0.6rem 0.65rem;
+
+    background: rgba(255, 255, 255, 0.5);
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.85rem;
+
+    color: var(--color-ink-soft);
+    }
+
+    .meal-macro-row strong {
+    color: var(--color-ink);
+    }
+
+    .meal-target-diff {
+    font-size: 0.82rem;
+
+    color: var(--color-ink-soft);
+
+    border-top: 1px dashed var(--color-border);
+
+    padding-top: 0.5rem;
+
+    margin: 0;
+    }
+
+    .meal-target-diff .diff-good {
+    color: #3f7d52;
+    font-weight: 600;
+    }
+
+    .meal-target-diff .diff-over {
+    color: var(--color-error);
+    font-weight: 600;
+    }
+
+    /* =========================================================
+    HOVER-ONLY INTERACTIONS
+    Card lift, image zoom, and the logo scale only ever apply on
+    devices that genuinely support hover with a precise pointer,
+    so a tap on a touch screen can never leave a card "stuck" in
+    its hovered state.
+    ========================================================= */
+
+    @media (hover: hover) and (pointer: fine) {
+    .brand-logo-wrap:hover {
+        transform: scale(1.04);
+    }
+
+    .result-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .result-card:hover .food-card-image {
+        transform: scale(calc(var(--img-scale, 1.15) * 1.04));
+    }
+
+    .meal-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    }
+
+    /* =========================================================
+    MOBILE / TOUCH RESPONSIVE PASS
+    Tablet and below, then phone-specific tightening. Uses fluid
+    sizing where possible; these breakpoints only step in for
+    layout changes (columns, stacking, nav) that fluid CSS alone
+    can't handle.
+    ========================================================= */
+
+    @media (max-width: 768px) {
+    .site-header {
+        padding-top: clamp(1rem, 4vw, 1.5rem);
+    }
+
+    .brand-hero {
+        margin-bottom: clamp(0.85rem, 3vw, 1.25rem);
+    }
+
+    main.wrap {
+        gap: clamp(1.25rem, 4vw, 2rem);
+    }
+
+    .panel {
+        padding: clamp(1rem, 4vw, 1.75rem);
+    }
+
+    .results-grid,
+    .meal-results-grid,
+    .skeleton-grid {
+        gap: 1.1rem;
+    }
+    }
+
+    @media (max-width: 480px) {
+    /* Header & nav: keep the title from ever clipping and let the
+        two nav pills wrap onto their own row instead of overflowing */
+    .site-nav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .nav-link {
+        flex: 1 1 auto;
+        justify-content: center;
+    }
+
+    /* Mode tabs already wrap (see .mode-tabs above); make each pill
+        share the row evenly instead of shrinking unpredictably */
+    .mode-tab {
+        flex: 1 1 auto;
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    /* Filters & forms: one full-width column, comfortably spaced */
+    .field-row,
+    .search-filters-grid,
+    .range-filters-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sort-field {
+        min-width: 100%;
+    }
+
+    .search-footer-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .clear-btn {
+        width: 100%;
+    }
+
+    .cta {
+        width: 100%;
+        justify-self: stretch;
+    }
+
+    /* Food & meal cards: single column, full width */
+    .results-grid,
+    .meal-results-grid,
+    .skeleton-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Fewer skeleton placeholders on phones so the loading state
+        doesn't force a long scroll before anything real can appear */
+    .skeleton-grid > .skeleton-card:nth-child(n + 4) {
+        display: none;
+    }
     }
 
     /* =========================================================

@@ -50,6 +50,7 @@
         <nav class="mode-tabs" role="tablist" aria-label="Search mode">
             <button type="button" class="mode-tab is-active" id="tab-macro-match" role="tab" aria-selected="true" aria-controls="macro-match-view">Macro Match</button>
             <button type="button" class="mode-tab" id="tab-advanced-search" role="tab" aria-selected="false" aria-controls="advanced-search-view">Advanced Search</button>
+            <button type="button" class="mode-tab" id="tab-build-meal" role="tab" aria-selected="false" aria-controls="build-meal-view">Build My Meal</button>
         </nav>
 
         <!-- Mode 1: Macro Match -->
@@ -257,6 +258,60 @@
                 <div id="search-results-content" hidden>
                     <p class="results-count" id="search-results-count"></p>
                     <div class="results-grid" id="search-results-grid"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Mode 3: Build My Meal -->
+        <div id="build-meal-view" role="tabpanel" aria-labelledby="tab-build-meal" hidden>
+            <section class="panel input-panel" aria-labelledby="build-meal-heading">
+                <h2 id="build-meal-heading">Build My Meal</h2>
+                <p class="hint-text">Enter your targets and we'll combine real menu items to get as close as possible.</p>
+
+                <form id="build-meal-form" class="match-form" novalidate>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="build-meal-calories">Calories</label>
+                            <input type="number" id="build-meal-calories" name="calories" min="0" step="1" placeholder="e.g. 700" required>
+                        </div>
+                        <div class="field">
+                            <label for="build-meal-protein">Protein (g)</label>
+                            <input type="number" id="build-meal-protein" name="protein" min="0" step="1" placeholder="e.g. 50" required>
+                        </div>
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="build-meal-restaurant">Restaurant</label>
+                            <select id="build-meal-restaurant" name="restaurant">
+                                <option value="all" selected>All restaurants</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="build-meal-category">Category</label>
+                            <select id="build-meal-category" name="category">
+                                <option value="all" selected>All categories</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="cta" id="build-meal-submit-btn">Find my meal</button>
+                </form>
+            </section>
+
+            <section class="panel results-panel" id="build-meal-results-panel" aria-live="polite">
+                <div id="build-meal-empty" class="state-message">
+                    Enter your calorie and protein targets to build a meal.
+                </div>
+
+                <div id="build-meal-loading" class="state-message" hidden></div>
+
+                <div id="build-meal-error" class="state-message state-error" hidden></div>
+
+                <div id="build-meal-content" hidden>
+                    <h2>Meal combinations</h2>
+                    <div class="target-summary" id="build-meal-target-summary"></div>
+                    <div class="meal-results-grid" id="build-meal-grid"></div>
                 </div>
             </section>
         </div>
