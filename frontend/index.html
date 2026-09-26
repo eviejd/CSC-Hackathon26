@@ -1,0 +1,104 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MacroAwarePicks — Map your macros to the menu </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+    <header class="site-header">
+        <div class="wrap header-inner">
+        <div class="brand">
+            <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 12 2a7 7 0 0 1 7 7.5C19 14.8 12 21 12 21z"/>
+                <circle cx="12" cy="9.5" r="2.5"/>
+            </svg>
+            </span>
+            <span class="brand-name">MacroAwarePicks</span>
+        </div>
+        <p class="tagline">Map your macros to the menu</p>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <section class="panel input-panel" aria-labelledby="input-heading">
+        <h1 id="input-heading">How much do you have left?</h1>
+
+        <form id="match-form" class="match-form" novalidate>
+            <div class="field-row">
+            <div class="field">
+                <label for="calories">Calories</label>
+                <input type="number" id="calories" name="calories" min="0" step="1" placeholder="e.g. 500" required>
+            </div>
+            <div class="field">
+                <label for="protein">Protein (g)</label>
+                <input type="number" id="protein" name="protein" min="0" step="1" placeholder="e.g. 30" required>
+            </div>
+            </div>
+
+            <div class="field">
+            <label for="restaurant">Choose a restaurant</label>
+            <select id="restaurant" name="restaurant" required>
+                <option value="" disabled selected>Loading restaurants…</option>
+            </select>
+            </div>
+
+            <div class="field">
+            <span class="field-label">Category</span>
+            <div class="category-group" id="category-group" role="group" aria-label="Category">
+                <button type="button" class="category-btn is-active" data-category="all">All</button>
+                <button type="button" class="category-btn" data-category="burger">Burgers</button>
+                <button type="button" class="category-btn" data-category="chicken">Chicken</button>
+                <button type="button" class="category-btn" data-category="sides">Sides</button>
+                <button type="button" class="category-btn" data-category="desserts">Desserts</button>
+                <button type="button" class="category-btn" data-category="drinks">Drinks</button>
+            </div>
+            <input type="hidden" id="category" name="category" value="all">
+            </div>
+
+            <button type="submit" class="cta" id="submit-btn">Find my match</button>
+        </form>
+        </section>
+
+        <section class="panel results-panel" id="results-panel" aria-live="polite">
+        <div id="results-empty" class="state-message">
+            Set your targets and pick a restaurant to see what fits.
+        </div>
+
+        <div id="results-loading" class="state-message" hidden>
+            Mapping your menu…
+        </div>
+
+        <div id="results-error" class="state-message state-error" hidden></div>
+
+        <div id="results-content" hidden>
+            <h2>Your Macro Map</h2>
+
+            <div class="target-summary" id="target-summary"></div>
+
+            <div class="route-line" aria-hidden="true">
+            <span class="route-dot route-dot-start"></span>
+            <span class="route-track"></span>
+            <span class="route-dot route-dot-end"></span>
+            </div>
+
+            <div class="results-grid" id="results-grid"></div>
+        </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p class="wrap">MacroAwarePicks is a hackathon prototype. Menu data shown is mock data, not real nutrition information.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    </body>
+    </html>

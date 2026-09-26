@@ -1,0 +1,170 @@
+    {
+    "_comment": "MOCK DATA — not real nutrition info. Replace with real restaurant data before shipping.",
+    "items": [
+        {
+        "id": "burger-1",
+        "name": "Classic Cheeseburger",
+        "restaurant": "BurgerBarn",
+        "category": "burger",
+        "calories": 450,
+        "protein_g": 28,
+        "carbs_g": 42,
+        "fat_g": 18,
+        "tags": ["burger", "beef", "salty"]
+        },
+        {
+        "id": "burger-2",
+        "name": "Double Stack Burger",
+        "restaurant": "BurgerBarn",
+        "category": "burger",
+        "calories": 680,
+        "protein_g": 40,
+        "carbs_g": 45,
+        "fat_g": 32,
+        "tags": ["burger", "beef", "protein"]
+        },
+        {
+        "id": "burger-3",
+        "name": "Grilled Chicken Burger",
+        "restaurant": "BurgerBarn",
+        "category": "burger",
+        "calories": 400,
+        "protein_g": 33,
+        "carbs_g": 38,
+        "fat_g": 12,
+        "tags": ["burger", "chicken", "leaner"]
+        },
+        {
+        "id": "chicken-1",
+        "name": "3pc Crispy Tenders",
+        "restaurant": "BurgerBarn",
+        "category": "chicken",
+        "calories": 380,
+        "protein_g": 30,
+        "carbs_g": 20,
+        "fat_g": 19,
+        "tags": ["chicken", "crispy", "salty"]
+        },
+        {
+        "id": "chicken-2",
+        "name": "Grilled Chicken Strips",
+        "restaurant": "CluckHouse",
+        "category": "chicken",
+        "calories": 290,
+        "protein_g": 36,
+        "carbs_g": 6,
+        "fat_g": 11,
+        "tags": ["chicken", "grilled", "high-protein"]
+        },
+        {
+        "id": "chicken-3",
+        "name": "Spicy Chicken Sandwich",
+        "restaurant": "CluckHouse",
+        "category": "chicken",
+        "calories": 520,
+        "protein_g": 29,
+        "carbs_g": 48,
+        "fat_g": 22,
+        "tags": ["chicken", "spicy", "sandwich"]
+        },
+        {
+        "id": "side-1",
+        "name": "Small Fries",
+        "restaurant": "BurgerBarn",
+        "category": "sides",
+        "calories": 230,
+        "protein_g": 3,
+        "carbs_g": 30,
+        "fat_g": 11,
+        "tags": ["sides", "fries", "snack"]
+        },
+        {
+        "id": "side-2",
+        "name": "Side Salad",
+        "restaurant": "CluckHouse",
+        "category": "sides",
+        "calories": 90,
+        "protein_g": 4,
+        "carbs_g": 8,
+        "fat_g": 5,
+        "tags": ["sides", "salad", "light"]
+        },
+        {
+        "id": "side-3",
+        "name": "Mashed Potato Cup",
+        "restaurant": "CluckHouse",
+        "category": "sides",
+        "calories": 150,
+        "protein_g": 2,
+        "carbs_g": 20,
+        "fat_g": 6,
+        "tags": ["sides", "comfort"]
+        },
+        {
+        "id": "dessert-1",
+        "name": "Soft Serve Cone",
+        "restaurant": "BurgerBarn",
+        "category": "desserts",
+        "calories": 210,
+        "protein_g": 5,
+        "carbs_g": 34,
+        "fat_g": 6,
+        "tags": ["desserts", "sweet"]
+        },
+        {
+        "id": "dessert-2",
+        "name": "Chocolate Chip Cookie",
+        "restaurant": "PixelPizza",
+        "category": "desserts",
+        "calories": 160,
+        "protein_g": 2,
+        "carbs_g": 22,
+        "fat_g": 7,
+        "tags": ["desserts", "sweet", "snack"]
+        },
+        {
+        "id": "drink-1",
+        "name": "Diet Soda",
+        "restaurant": "BurgerBarn",
+        "category": "drinks",
+        "calories": 5,
+        "protein_g": 0,
+        "carbs_g": 0,
+        "fat_g": 0,
+        "tags": ["drinks", "zero-calorie"]
+        },
+        {
+        "id": "drink-2",
+        "name": "Protein Shake",
+        "restaurant": "CluckHouse",
+        "category": "drinks",
+        "calories": 220,
+        "protein_g": 25,
+        "carbs_g": 18,
+        "fat_g": 5,
+        "tags": ["drinks", "high-protein"]
+        },
+        {
+        "id": "pizza-1",
+        "name": "Personal Pepperoni Pizza",
+        "restaurant": "PixelPizza",
+        "category": "burger",
+        "calories": 610,
+        "protein_g": 26,
+        "carbs_g": 60,
+        "fat_g": 28,
+        "tags": ["pizza", "cheesy"]
+        },
+        {
+        "id": "chicken-4",
+        "name": "Chicken Caesar Wrap",
+        "restaurant": "PixelPizza",
+        "category": "chicken",
+        "calories": 460,
+        "protein_g": 31,
+        "carbs_g": 35,
+        "fat_g": 20,
+        "tags": ["chicken", "wrap"]
+        }
+    ]
+    }
