@@ -269,6 +269,13 @@
                 <p class="hint-text">Enter your targets and we'll combine real menu items to get as close as possible.</p>
 
                 <form id="build-meal-form" class="match-form" novalidate>
+                    <div class="field">
+                        <label for="build-meal-restaurant">Choose a restaurant</label>
+                        <select id="build-meal-restaurant" name="restaurant" required>
+                            <option value="" disabled selected>Loading restaurants…</option>
+                        </select>
+                    </div>
+
                     <div class="field-row">
                         <div class="field">
                             <label for="build-meal-calories">Calories</label>
@@ -280,19 +287,11 @@
                         </div>
                     </div>
 
-                    <div class="field-row">
-                        <div class="field">
-                            <label for="build-meal-restaurant">Restaurant</label>
-                            <select id="build-meal-restaurant" name="restaurant">
-                                <option value="all" selected>All restaurants</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label for="build-meal-category">Category</label>
-                            <select id="build-meal-category" name="category">
-                                <option value="all" selected>All categories</option>
-                            </select>
-                        </div>
+                    <div class="field">
+                        <label for="build-meal-category">Category</label>
+                        <select id="build-meal-category" name="category">
+                            <option value="all" selected>All categories</option>
+                        </select>
                     </div>
 
                     <button type="submit" class="cta" id="build-meal-submit-btn">Find my meal</button>
@@ -301,7 +300,7 @@
 
             <section class="panel results-panel" id="build-meal-results-panel" aria-live="polite">
                 <div id="build-meal-empty" class="state-message">
-                    Enter your calorie and protein targets to build a meal.
+                    Choose a restaurant to start building your meal.
                 </div>
 
                 <div id="build-meal-loading" class="state-message" hidden></div>

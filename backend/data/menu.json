@@ -16,7 +16,8 @@
             "big-mac"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/big-mac-26-small:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/big-mac-26-small:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 8.6
         },
         {
         "id": "mcdonalds-big-arch",
@@ -33,7 +34,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/big-arch-4:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/big-arch-4:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 12.4
         },
         {
         "id": "mcdonalds-quarter-pounder-cheese",
@@ -51,7 +53,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/quarter-pounder-11:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/quarter-pounder-11:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 8.75
         },
         {
         "id": "mcdonalds-cheeseburger",
@@ -68,7 +71,8 @@
             "cheese"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/cheeseburger-9:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/cheeseburger-9:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 5.2
         },
         {
         "id": "mcdonalds-double-quarter-pounder",
@@ -86,7 +90,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-quarter-pounder-2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-quarter-pounder-2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 10.75
         },
         {
         "id": "mcdonalds-double-cheeseburger",
@@ -104,7 +109,8 @@
             "double"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-cheeseburger-2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-cheeseburger-2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 7.45
         },
         {
         "id": "mcdonalds-triple-cheeseburger",
@@ -123,7 +129,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/trple-cheeseburger-2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/trple-cheeseburger-2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 9.0
         },
         {
         "id": "mcdonalds-double-big-mac",
@@ -142,7 +149,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-bigmac-3:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-bigmac-3:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 10.0
         },
         {
         "id": "mcdonalds-quarter-pounder-deluxe",
@@ -160,7 +168,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/quarter-pounder-deluxe:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/quarter-pounder-deluxe:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 10.6
         },
         {
         "id": "mcdonalds-quarter-pounder-bbq-bacon",
@@ -179,7 +188,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/qp-bbq-bacon-crispy-onion-2x:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/qp-bbq-bacon-crispy-onion-2x:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 11.9
         },
         {
         "id": "mcdonalds-hamburger",
@@ -195,7 +205,8 @@
             "beef"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/hamburger-12:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/hamburger-12:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 2.0
         },
         {
         "id": "mcdonalds-double-quarter-pounder-bbq-bacon",
@@ -215,7 +226,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dqp-bbq-bacon-crispy-onion-2x:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dqp-bbq-bacon-crispy-onion-2x:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 13.0
         },
         {
         "id": "mcdonalds-double-quarter-pounder-deluxe",
@@ -234,7 +246,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australia nutrition information, checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/double-quarter-pounder-deluxe:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/double-quarter-pounder-deluxe:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 12.6
         },
         {
         "id": "mcdonalds-mcspicy-burger",
@@ -251,7 +264,8 @@
             "spicy"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mcspicy-5:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mcspicy-5:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 10.9
         },
         {
         "id": "mcdonalds-3-pc-chicken-mcwings",
@@ -267,7 +281,8 @@
             "wings"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/3pc-chicken:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/3pc-chicken:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 7.45
         },
         {
         "id": "mcdonalds-mccrispy",
@@ -284,7 +299,8 @@
             "crispy"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mccrispy2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mccrispy2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 9.65
         },
         {
         "id": "mcdonalds-mcchicken",
@@ -300,7 +316,8 @@
             "burger"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mcchicken-14:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mcchicken-14:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 8.4
         },
         {
         "id": "mcdonalds-6-pc-chicken-mcnuggets",
@@ -316,7 +333,8 @@
             "nuggets"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/6-chicken-nuggets:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/6-chicken-nuggets:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 8.8
         },
         {
         "id": "mcdonalds-filet-o-fish",
@@ -332,7 +350,8 @@
             "burger"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/filet-o-fish-7:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/filet-o-fish-7:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 7.65
         },
         {
         "id": "mcdonalds-dbl-filet-o-fish",
@@ -350,7 +369,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-filet-o-fish-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-filet-o-fish-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 9.3
         },
         {
         "id": "mcdonalds-mccrispy-deluxe",
@@ -368,7 +388,8 @@
             "deluxe"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mccrispy-deluxe2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mccrispy-deluxe2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 10.6
         },
         {
         "id": "mcdonalds-spicy-chicken-mcwrap",
@@ -386,7 +407,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/spicy-chicken-mcwrap-packaged-standing2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/spicy-chicken-mcwrap-packaged-standing2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 11.85
         },
         {
         "id": "mcdonalds-double-mcchicken",
@@ -403,7 +425,8 @@
             "double"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-mcchicken:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/dbl-mcchicken:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 10.6
         },
         {
         "id": "mcdonalds-classic-chicken-mcwrap",
@@ -419,7 +442,8 @@
             "wrap"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/classic-chicken-mcwrap-packaged-standing2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/classic-chicken-mcwrap-packaged-standing2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 10.45
         },
         {
         "id": "mcdonalds-mini-crsp-snck-wrap",
@@ -436,7 +460,8 @@
             "crispy"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/crispy-chicken-snack-wrap-2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/crispy-chicken-snack-wrap-2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 5.7
         },
         {
         "id": "mcdonalds-3-pc-chicken-mcnuggets",
@@ -452,7 +477,8 @@
             "nuggets"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/3-chicken-nuggets:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/3-chicken-nuggets:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 5.55
         },
         {
         "id": "mcdonalds-5-pc-chicken-mcwings",
@@ -469,7 +495,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/3pc-chicken:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/3pc-chicken:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 11.3
         },
         {
         "id": "mcdonalds-10-pc-chicken-mcnuggets",
@@ -485,7 +512,8 @@
             "nuggets"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/10-chicken-nuggets-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/10-chicken-nuggets-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 9.9
         },
         {
         "id": "mcdonalds-20-pc-chicken-mcnuggets",
@@ -502,7 +530,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/20-chicken-nuggets:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/20-chicken-nuggets:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 15.25
         },
         {
         "id": "mcdonalds-40-pc-chicken-mcnuggets",
@@ -519,7 +548,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/40-chicken-nuggets:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/40-chicken-nuggets:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 23.95
         },
         {
         "id": "mcdonalds-10-piece-mcwings",
@@ -536,7 +566,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/3pc-chicken:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/3pc-chicken:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 18.0
         },
         {
         "id": "mcdonalds-dbl-bcn-egg-muffin",
@@ -554,7 +585,8 @@
             "egg"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/double_bacon_egg-muffin:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/double_bacon_egg-muffin:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 7.6
         },
         {
         "id": "mcdonalds-sausage-muffin",
@@ -571,7 +603,8 @@
             "sausage"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sausage-muffin:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sausage-muffin:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 4.0
         },
         {
         "id": "mcdonalds-bacon-egg-muffin",
@@ -589,7 +622,8 @@
             "egg"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/bacon-egg-muffin:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/bacon-egg-muffin:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 6.55
         },
         {
         "id": "mcdonalds-deluxe-bacon-egg-mcmuffin",
@@ -607,7 +641,8 @@
             "egg"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/deluxe-bacon-egg-mcmuffin:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/deluxe-bacon-egg-mcmuffin:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 7.6
         },
         {
         "id": "mcdonalds-dbl-saus-egg-muffin",
@@ -626,7 +661,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/double_sausage_egg-muffin:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/double_sausage_egg-muffin:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 8.2
         },
         {
         "id": "mcdonalds-dbl-saus-muffin",
@@ -643,7 +679,8 @@
             "sausage"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/double-sausage-muffin:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/double-sausage-muffin:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 7.5
         },
         {
         "id": "mcdonalds-saus-egg-muffin",
@@ -661,7 +698,8 @@
             "egg"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sausage-egg-muffin:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sausage-egg-muffin:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 6.95
         },
         {
         "id": "mcdonalds-deluxe-sausage-egg-mcmuffin",
@@ -679,7 +717,8 @@
             "egg"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/deluxe-sausage-egg-mcmuffin:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/deluxe-sausage-egg-mcmuffin:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 8.2
         },
         {
         "id": "mcdonalds-deluxe-mighty-muffin",
@@ -696,7 +735,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/deluxe-mighty-mcmuffin:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/deluxe-mighty-mcmuffin:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 9.5
         },
         {
         "id": "mcdonalds-chicken-mcmuffin",
@@ -713,7 +753,8 @@
             "chicken"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/chicken-muffin-4:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/chicken-muffin-4:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 6.9
         },
         {
         "id": "mcdonalds-mighty-muffin",
@@ -730,7 +771,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mighty-muffin-2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mighty-muffin-2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 8.55
         },
         {
         "id": "mcdonalds-chicken-bacon-mcmuffin",
@@ -748,7 +790,8 @@
             "bacon"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/chicken-bacon-muffin-2:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/chicken-bacon-muffin-2:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 8.0
         },
         {
         "id": "mcdonalds-big-brekkie-burger",
@@ -765,7 +808,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/big-brekkie-burger-mid:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/big-brekkie-burger-mid:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 9.9
         },
         {
         "id": "mcdonalds-mega-brekkie-mcwrap",
@@ -782,7 +826,8 @@
             "high-protein"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mega-brekkie-wrap:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mega-brekkie-wrap:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 10.95
         },
         {
         "id": "mcdonalds-deluxe-brekkie-mcwrap",
@@ -798,7 +843,8 @@
             "wrap"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/deluxe-brekkie-wrap-2x:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/deluxe-brekkie-wrap-2x:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 9.95
         },
         {
         "id": "mcdonalds-brekkie-mcwrap",
@@ -814,7 +860,8 @@
             "wrap"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/brekkie-wrap:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/brekkie-wrap:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 7.75
         },
         {
         "id": "mcdonalds-hotcakes",
@@ -831,7 +878,8 @@
             "sweet"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/hotcakes-mid:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/hotcakes-mid:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 7.5
         },
         {
         "id": "mcdonalds-ham-cheese-pocket",
@@ -848,7 +896,8 @@
             "cheese"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/ham-cheese-pocket-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/ham-cheese-pocket-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 2.5
         },
         {
         "id": "mcdonalds-oreo-mcflurry",
@@ -865,7 +914,8 @@
             "oreo"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/oreo-cookies-mcflurry-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/oreo-cookies-mcflurry-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 5.55
         },
         {
         "id": "mcdonalds-mini-mms-mcflurry",
@@ -882,7 +932,8 @@
             "mms"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mm-mcflurry-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mm-mcflurry-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 5.55
         },
         {
         "id": "mcdonalds-reg-caramel-sundae",
@@ -899,7 +950,8 @@
             "caramel"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-caramel-sundae-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-caramel-sundae-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 4.55
         },
         {
         "id": "mcdonalds-small-strawberry-sundae",
@@ -916,7 +968,8 @@
             "strawberry"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-strawberry-sundae-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-strawberry-sundae-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 4.55
         },
         {
         "id": "mcdonalds-reg-hfudge-sundae",
@@ -934,7 +987,8 @@
             "chocolate"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-hot-fudge-sundae-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-hot-fudge-sundae-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 4.55
         },
         {
         "id": "mcdonalds-small-plain-sundae",
@@ -950,7 +1004,8 @@
             "sundae"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-plain-sundae-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-plain-sundae-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 4.55
         },
         {
         "id": "mcdonalds-soft-serve-cone",
@@ -966,7 +1021,8 @@
             "ice-cream"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/plain-cone-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/plain-cone-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 0.5
         },
         {
         "id": "mcdonalds-soft-serve-cadbury-flake",
@@ -983,24 +1039,8 @@
             "chocolate"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/plain-flake-cone-1:nutrition-calculator-tile?fmt=png-alpha"
-        },
-        {
-        "id": "mcdonalds-biscoff-mcpop",
-        "name": "Biscoff McPop",
-        "restaurant": "McDonald's",
-        "category": "desserts",
-        "calories": 124,
-        "protein_g": 1.3,
-        "carbs_g": 12.5,
-        "fat_g": 7.5,
-        "tags": [
-            "dessert",
-            "mcpop",
-            "biscoff"
-        ],
-        "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mcpops-biscoff-3:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/plain-flake-cone-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 1.9
         },
         {
         "id": "mcdonalds-cookies",
@@ -1016,41 +1056,8 @@
             "cookie"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/cookies-4:nutrition-calculator-tile?fmt=png-alpha"
-        },
-        {
-        "id": "mcdonalds-choc-mcpop",
-        "name": "Choc McPop",
-        "restaurant": "McDonald's",
-        "category": "desserts",
-        "calories": 127,
-        "protein_g": 1.6,
-        "carbs_g": 11.5,
-        "fat_g": 8.3,
-        "tags": [
-            "dessert",
-            "mcpop",
-            "chocolate"
-        ],
-        "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mcpops-choco:nutrition-calculator-tile?fmt=png-alpha"
-        },
-        {
-        "id": "mcdonalds-berry-mcpop",
-        "name": "Berry McPop",
-        "restaurant": "McDonald's",
-        "category": "desserts",
-        "calories": 104,
-        "protein_g": 1.4,
-        "carbs_g": 11.3,
-        "fat_g": 6.0,
-        "tags": [
-            "dessert",
-            "mcpop",
-            "berry"
-        ],
-        "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/mcpops-strawberry:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/cookies-4:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 2.4
         },
         {
         "id": "mcdonalds-large-caramel-sundae",
@@ -1067,7 +1074,8 @@
             "caramel"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-caramel-sundae-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-caramel-sundae-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 5.35
         },
         {
         "id": "mcdonalds-large-plain-sundae",
@@ -1083,7 +1091,8 @@
             "sundae"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-plain-sundae-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-plain-sundae-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 5.35
         },
         {
         "id": "mcdonalds-large-hfudge-sundae",
@@ -1101,7 +1110,8 @@
             "chocolate"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-hot-fudge-sundae-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-hot-fudge-sundae-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 5.35
         },
         {
         "id": "mcdonalds-large-strawberry-sundae",
@@ -1118,7 +1128,8 @@
             "strawberry"
         ],
         "source": "McDonaldsCalories.com, McDonald's Australian nutrition information, last checked August 2026",
-        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-strawberry-sundae-1:nutrition-calculator-tile?fmt=png-alpha"
+        "image": "https://s7d1.scene7.com/is/image/mcdonalds/sml-strawberry-sundae-1:nutrition-calculator-tile?fmt=png-alpha",
+        "price": 5.35
         },
         {
         "id": "subway-bbq-southern-chicken",
@@ -1135,7 +1146,8 @@
             "bbq"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/SouthernStyleChicken_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/SouthernStyleChicken_6inch_Web_App_234x140.png",
+        "price": 13.3
         },
         {
         "id": "subway-chicken-bacon-ranch",
@@ -1153,7 +1165,8 @@
             "high-protein"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenBaconRanchMelt_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenBaconRanchMelt_6inch_Web_App_234x140.png",
+        "price": 13.3
         },
         {
         "id": "subway-chicken-classic",
@@ -1169,7 +1182,8 @@
             "chicken"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenClassic_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenClassic_6inch_Web_App_234x140.png",
+        "price": 13.45
         },
         {
         "id": "subway-chicken-schnitzel",
@@ -1186,7 +1200,8 @@
             "crispy"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenSchnitzel_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenSchnitzel_6inch_Web_App_234x140.png",
+        "price": 13.0
         },
         {
         "id": "subway-chicken-strips",
@@ -1203,7 +1218,8 @@
             "leaner"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenStrips_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenStrips_6inch_Web_App_234x140.png",
+        "price": 12.8
         },
         {
         "id": "subway-chipotle-steak-melt",
@@ -1220,7 +1236,8 @@
             "spicy"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/SteakMelt_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/SteakMelt_6inch_Web_App_234x140.png",
+        "price": 13.55
         },
         {
         "id": "subway-honey-mustard-leg-ham",
@@ -1237,7 +1254,8 @@
             "leaner"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/LegHam_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/LegHam_6inch_Web_App_234x140.png",
+        "price": 10.6
         },
         {
         "id": "subway-italian-bmt",
@@ -1255,7 +1273,8 @@
             "ham"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ItalianBMT_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ItalianBMT_6inch_Web_App_234x140.png",
+        "price": 11.9
         },
         {
         "id": "subway-italian-meatball",
@@ -1272,7 +1291,8 @@
             "meatball"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/MeatballMelt_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/MeatballMelt_6inch_Web_App_234x140.png",
+        "price": 12.0
         },
         {
         "id": "subway-philly-three-cheese-steak",
@@ -1290,7 +1310,8 @@
             "high-protein"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/PhillyStyleThreeCheeseSteak_6-inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/PhillyStyleThreeCheeseSteak_6-inch_Web_App_234x140.png",
+        "price": 13.55
         },
         {
         "id": "subway-pizza-melt",
@@ -1308,7 +1329,8 @@
             "cheese"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/PizzaMelt_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/PizzaMelt_6inch_Web_App_234x140.png",
+        "price": 10.0
         },
         {
         "id": "subway-rotisserie-chicken",
@@ -1325,7 +1347,8 @@
             "high-protein"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/Rotisserie-StyleChicken_6-inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/Rotisserie-StyleChicken_6-inch_Web_App_234x140.png",
+        "price": 13.3
         },
         {
         "id": "subway-seafood-sensation",
@@ -1342,7 +1365,8 @@
             "imported"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/SeafoodSensation_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/SeafoodSensation_6inch_Web_App_234x140.png",
+        "price": 15.0
         },
         {
         "id": "subway-smashed-falafel",
@@ -1359,7 +1383,8 @@
             "falafel"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/SmashedFalafel_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/SmashedFalafel_6inch_Web_App_234x140.png",
+        "price": 11.0
         },
         {
         "id": "subway-sweet-onion-chicken-teriyaki",
@@ -1377,7 +1402,8 @@
             "leaner"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenTeriyaki_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/ChickenTeriyaki_6inch_Web_App_234x140.png",
+        "price": 13.0
         },
         {
         "id": "subway-tuna-mayo",
@@ -1394,7 +1420,8 @@
             "imported"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/TunaMayo_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/TunaMayo_6inch_Web_App_234x140.png",
+        "price": 12.9
         },
         {
         "id": "subway-turkey-on-rye",
@@ -1411,7 +1438,8 @@
             "leaner"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/Turkey_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/Turkey_6inch_Web_App_234x140.png",
+        "price": 10.0
         },
         {
         "id": "subway-veggie-delite-avo",
@@ -1428,7 +1456,8 @@
             "avocado"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/VeggieDelitewithAvo_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/VeggieDelitewithAvo_6inch_Web_App_234x140.png",
+        "price": 11.0
         },
         {
         "id": "subway-veggie-patty",
@@ -1445,7 +1474,8 @@
             "patty"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/VeggiePatty_6inch_Web_App_234x140.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/VeggiePatty_6inch_Web_App_234x140.png",
+        "price": 11.2
         },
         {
         "id": "subway-choc-chip-cookie",
@@ -1462,24 +1492,8 @@
             "sweet"
         ],
         "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/Chocolate-Chip-Cookie-AU_234x140_PT_PT.jpg"
-        },
-        {
-        "id": "subway-mango-smoothie",
-        "name": "Mango Smoothie",
-        "restaurant": "Subway",
-        "category": "drinks",
-        "calories": 180,
-        "protein_g": 1.6,
-        "carbs_g": 44.8,
-        "fat_g": 0.8,
-        "tags": [
-            "drinks",
-            "smoothie",
-            "fruit"
-        ],
-        "source": "Subway Australia Nutrition Information, official PDF, May 2026",
-        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/SS_4450_Drinks_Resize_234x140_BananaHoney.png"
+        "image": "https://www.subway.com/en-au/ns/images/menu/AUS/ENG/Chocolate-Chip-Cookie-AU_234x140_PT_PT.jpg",
+        "price": 1.9
         },
         {
         "id": "kfc-zinger-crunch-twister",
@@ -1497,7 +1511,8 @@
             "crunch"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/66hM6d8Y383Xh9N4v0m1iC/277b4b4e24cd3572d18e0b16a4c1f31b/Zinger_Crunch_Twister_Product_Card.png"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/66hM6d8Y383Xh9N4v0m1iC/277b4b4e24cd3572d18e0b16a4c1f31b/Zinger_Crunch_Twister_Product_Card.png",
+        "price": 13.95
         },
         {
         "id": "kfc-original-crunch-twister",
@@ -1514,7 +1529,8 @@
             "original"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/227XJj6c6G72bBqjJ99mNn/605a3d58c8215632f309135e1977a79b/Original_Crunch_Twister_Product_Card.png"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/227XJj6c6G72bBqjJ99mNn/605a3d58c8215632f309135e1977a79b/Original_Crunch_Twister_Product_Card.png",
+        "price": 13.95
         },
         {
         "id": "kfc-zinger-crunch-bowl",
@@ -1532,7 +1548,8 @@
             "crunch"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/6zO5hGzM19jFv8794QjWbE/df0d7152a6a7e7d6252085a6c2dfb817/Zinger_Crunch_Bowl_Product_Card.png"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/6zO5hGzM19jFv8794QjWbE/df0d7152a6a7e7d6252085a6c2dfb817/Zinger_Crunch_Bowl_Product_Card.png",
+        "price": 14.95
         },
         {
         "id": "kfc-original-tenders-crunch-bowl",
@@ -1550,7 +1567,8 @@
             "original"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5K4s6T2eEHYoK17Xwz3FzQ/ae611742940d2f37f1c2f8e2f44b05f2/Original_Tenders_Crunch_Bowl_Product_Card.png"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5K4s6T2eEHYoK17Xwz3FzQ/ae611742940d2f37f1c2f8e2f44b05f2/Original_Tenders_Crunch_Bowl_Product_Card.png",
+        "price": 14.95
         },
         {
         "id": "kfc-original-crispy-burger",
@@ -1568,7 +1586,8 @@
             "crispy"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5YhFRIOcNxCMzqBP3iYfGG/2a346945f943991a82b113405229211a/J5671_22P09_Original_Crispy_burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5YhFRIOcNxCMzqBP3iYfGG/2a346945f943991a82b113405229211a/J5671_22P09_Original_Crispy_burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 12.1
         },
         {
         "id": "kfc-zinger-burger",
@@ -1585,7 +1604,8 @@
             "zinger"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/4zgRg2g2ZRBey10D3qfjyZ/e9f079f486f401b884ad570be0a48af8/Zinger_Burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/4zgRg2g2ZRBey10D3qfjyZ/e9f079f486f401b884ad570be0a48af8/Zinger_Burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 12.1
         },
         {
         "id": "kfc-double-tender-burger",
@@ -1603,7 +1623,8 @@
             "double"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/6FgZSnoqkmb0ZVLcaMdm1/e6ef145fdb0acead4afa8ebe467e0122/Double_Tender_Burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/6FgZSnoqkmb0ZVLcaMdm1/e6ef145fdb0acead4afa8ebe467e0122/Double_Tender_Burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 9.3
         },
         {
         "id": "kfc-zinger-bacon-cheese-burger",
@@ -1622,7 +1643,8 @@
             "cheese"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/1mOxpktfM6BIitdLWE7HxQ/e3c7acb685fa3082e741c6bc56ed04f9/Zinger_Bacon___Cheese_Burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/1mOxpktfM6BIitdLWE7HxQ/e3c7acb685fa3082e741c6bc56ed04f9/Zinger_Bacon___Cheese_Burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 13.1
         },
         {
         "id": "kfc-zinger-crunch-burger",
@@ -1640,7 +1662,8 @@
             "crunch"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5VLTVxAdES3m9k8sAYQQLw/a327b60ee76ec89f26fb67970e26a8bd/Zinger_Crunch_Burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5VLTVxAdES3m9k8sAYQQLw/a327b60ee76ec89f26fb67970e26a8bd/Zinger_Crunch_Burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 14.15
         },
         {
         "id": "kfc-original-crispy-bacon-cheese-burger",
@@ -1660,7 +1683,8 @@
             "cheese"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5sfFw9GM4DtuRZ4mENpj7p/462f5674435b79b199dd0632b92fa36b/J5671_22P09_Original_Crispy_Bacon___Cheese_Burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5sfFw9GM4DtuRZ4mENpj7p/462f5674435b79b199dd0632b92fa36b/J5671_22P09_Original_Crispy_Bacon___Cheese_Burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 13.1
         },
         {
         "id": "kfc-original-crispy-bbq-bacon-stacker-burger",
@@ -1681,7 +1705,8 @@
             "stacker"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/38p6LIgMNSvQgH0wLDMATB/52c5daffba30572477ab72f52f4595f2/J5671_22P09_Original_Crispy_BBQ_Bacon_Stacker_Burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/38p6LIgMNSvQgH0wLDMATB/52c5daffba30572477ab72f52f4595f2/J5671_22P09_Original_Crispy_BBQ_Bacon_Stacker_Burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 16.2
         },
         {
         "id": "kfc-zinger-stacker-burger",
@@ -1699,7 +1724,8 @@
             "stacker"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/1dnf9G3BX0nhR7n9ezmJ8s/70f9a79f06ab4bd95044d5f780c932ca/Zinger_Stacker_Burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/1dnf9G3BX0nhR7n9ezmJ8s/70f9a79f06ab4bd95044d5f780c932ca/Zinger_Stacker_Burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 15.2
         },
         {
         "id": "kfc-wicked-burger",
@@ -1716,7 +1742,8 @@
             "wicked"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5VLTVxAdES3m9k8sAYQQLw/a327b60ee76ec89f26fb67970e26a8bd/Zinger_Crunch_Burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5VLTVxAdES3m9k8sAYQQLw/a327b60ee76ec89f26fb67970e26a8bd/Zinger_Crunch_Burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 13.5
         },
         {
         "id": "kfc-original-pepper-mayo-slider",
@@ -1734,7 +1761,8 @@
             "mayo"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5YhFRIOcNxCMzqBP3iYfGG/2a346945f943991a82b113405229211a/J5671_22P09_Original_Crispy_burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5YhFRIOcNxCMzqBP3iYfGG/2a346945f943991a82b113405229211a/J5671_22P09_Original_Crispy_burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 4.95
         },
         {
         "id": "kfc-original-bbq-slider",
@@ -1752,7 +1780,8 @@
             "bbq"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5YhFRIOcNxCMzqBP3iYfGG/2a346945f943991a82b113405229211a/J5671_22P09_Original_Crispy_burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5YhFRIOcNxCMzqBP3iYfGG/2a346945f943991a82b113405229211a/J5671_22P09_Original_Crispy_burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 4.95
         },
         {
         "id": "kfc-original-supercharged-slider",
@@ -1770,7 +1799,8 @@
             "supercharged"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/4zgRg2g2ZRBey10D3qfjyZ/e9f079f486f401b884ad570be0a48af8/Zinger_Burger.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/4zgRg2g2ZRBey10D3qfjyZ/e9f079f486f401b884ad570be0a48af8/Zinger_Burger.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 4.95
         },
         {
         "id": "kfc-original-crispy-fillet-piece",
@@ -1788,7 +1818,8 @@
             "crispy"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/KmIFxdJcMgPEhTOFXgSLB/c515f677ece60f347bef3d89ed651535/J5671_22P09_Original_Crispy_fillet.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/KmIFxdJcMgPEhTOFXgSLB/c515f677ece60f347bef3d89ed651535/J5671_22P09_Original_Crispy_fillet.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 5.5
         },
         {
         "id": "kfc-zinger-fillet-piece",
@@ -1805,7 +1836,8 @@
             "zinger"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5u0nHUZEQmjSVC8BdrTZBL/c36fadb81edf1e0d4d281510ced76844/Modifier_Zinger_Fillet.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5u0nHUZEQmjSVC8BdrTZBL/c36fadb81edf1e0d4d281510ced76844/Modifier_Zinger_Fillet.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 5.5
         },
         {
         "id": "kfc-1-piece-of-chicken",
@@ -1820,7 +1852,8 @@
             "chicken"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/27KidfkxEqql9ns0Jfuh5c/31e82d59d631e31effed2caddaa38511/Modifier_Original_Recipe_1.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/27KidfkxEqql9ns0Jfuh5c/31e82d59d631e31effed2caddaa38511/Modifier_Original_Recipe_1.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 5.0
         },
         {
         "id": "kfc-3-pieces-of-chicken",
@@ -1835,7 +1868,8 @@
             "chicken"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/1Z9xQxRg40xUtWsC9em0sX/23940156733ac37ac7629ea444c86b74/J6314_25P04_3_PCS_OR_ALC.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/1Z9xQxRg40xUtWsC9em0sX/23940156733ac37ac7629ea444c86b74/J6314_25P04_3_PCS_OR_ALC.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 10.95
         },
         {
         "id": "kfc-6-pieces-of-chicken",
@@ -1850,7 +1884,8 @@
             "chicken"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/628GNW8pkzuEPID5e9zQnK/a6d13049124477cb262288fd33c6ea58/Original_Recipe_6.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/628GNW8pkzuEPID5e9zQnK/a6d13049124477cb262288fd33c6ea58/Original_Recipe_6.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 18.95
         },
         {
         "id": "kfc-21-pieces-of-chicken",
@@ -1865,7 +1900,8 @@
             "chicken"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/MN9CHyJca8K3FpzPE6e7H/da1168a3e30d3873a8e041e1ebc112b6/Original_Recipe_21_Bucket.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/MN9CHyJca8K3FpzPE6e7H/da1168a3e30d3873a8e041e1ebc112b6/Original_Recipe_21_Bucket.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 39.95
         },
         {
         "id": "kfc-3-wicked-wings",
@@ -1882,7 +1918,8 @@
             "wicked"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/L7TwVl1c7OCT7H8gzDgZf/dc13dce5655fc30ba13f262a396ede8e/Wicked_Wings_3.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/L7TwVl1c7OCT7H8gzDgZf/dc13dce5655fc30ba13f262a396ede8e/Wicked_Wings_3.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 5.95
         },
         {
         "id": "kfc-6-wicked-wings",
@@ -1899,7 +1936,8 @@
             "wicked"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/6q2ND6Od6QOZ60AsBvsbur/cb1730822c89ec606dace7fab833f55d/Wicked_Wings_6.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/6q2ND6Od6QOZ60AsBvsbur/cb1730822c89ec606dace7fab833f55d/Wicked_Wings_6.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 5.95
         },
         {
         "id": "kfc-10-wicked-wings",
@@ -1916,7 +1954,8 @@
             "wicked"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/1jaPZlgfCt7S3Fa75CyTEg/4a867c9ee6b0868e85c84956fed18836/Wicked_Wings_10.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/1jaPZlgfCt7S3Fa75CyTEg/4a867c9ee6b0868e85c84956fed18836/Wicked_Wings_10.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 5.95
         },
         {
         "id": "kfc-dollar-1-wicked-wings",
@@ -1933,7 +1972,8 @@
             "wicked"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/L7TwVl1c7OCT7H8gzDgZf/dc13dce5655fc30ba13f262a396ede8e/Wicked_Wings_3.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/L7TwVl1c7OCT7H8gzDgZf/dc13dce5655fc30ba13f262a396ede8e/Wicked_Wings_3.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 1.0
         },
         {
         "id": "kfc-3-pieces-wicked-boneless",
@@ -1950,7 +1990,8 @@
             "wicked"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/36yptz5UyfmVt7yTgbfqf3/7cd93c61ef99fbf2980d3a6dfea15a77/Hot_Crispy_3.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/36yptz5UyfmVt7yTgbfqf3/7cd93c61ef99fbf2980d3a6dfea15a77/Hot_Crispy_3.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 6.95
         },
         {
         "id": "kfc-6-pieces-wicked-boneless",
@@ -1967,7 +2008,8 @@
             "wicked"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/4QHhyOgshb8jdHrhgrGPzH/428837f4fbc45e36c131a482750e2bfa/Hot_Crispy_6.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/4QHhyOgshb8jdHrhgrGPzH/428837f4fbc45e36c131a482750e2bfa/Hot_Crispy_6.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 11.95
         },
         {
         "id": "kfc-snack-popcorn-chicken",
@@ -1983,7 +2025,8 @@
             "popcorn"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/6agA517RXGRbgFxscxPsiQ/3458ad387eeee55f50339f407f89b140/Popcorn_Snack.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/6agA517RXGRbgFxscxPsiQ/3458ad387eeee55f50339f407f89b140/Popcorn_Snack.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 5.95
         },
         {
         "id": "kfc-regular-popcorn-chicken",
@@ -1999,7 +2042,8 @@
             "popcorn"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/6TYbrMpuEKAWEO7xwiJAKS/edfd5917f85c08fc790ec5780e018bf1/Popcorn_Reg.png?h=900&w=1200&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/6TYbrMpuEKAWEO7xwiJAKS/edfd5917f85c08fc790ec5780e018bf1/Popcorn_Reg.png?h=900&w=1200&fm=webp&fit=fill",
+        "price": 8.95
         },
         {
         "id": "kfc-maxi-popcorn-chicken",
@@ -2015,7 +2059,8 @@
             "popcorn"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/3mocU8a2mdNL7Df2lzmc0v/3ccf952ca3586bce0c1dd0e4996b52cc/Popcorn_Maxi.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/3mocU8a2mdNL7Df2lzmc0v/3ccf952ca3586bce0c1dd0e4996b52cc/Popcorn_Maxi.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 11.95
         },
         {
         "id": "kfc-3-original-tenders",
@@ -2032,7 +2077,8 @@
             "original"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/51fBfA5cWJ20O6uB4XvF2U/e0c5d4c489f2b405e80e3034168d298e/3-original-tenders-item.png?w=256&fm=webp"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/51fBfA5cWJ20O6uB4XvF2U/e0c5d4c489f2b405e80e3034168d298e/3-original-tenders-item.png?w=256&fm=webp",
+        "price": 7.95
         },
         {
         "id": "kfc-5-original-tenders",
@@ -2049,7 +2095,8 @@
             "original"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/51fBfA5cWJ20O6uB4XvF2U/e0c5d4c489f2b405e80e3034168d298e/3-original-tenders-item.png?w=256&fm=webp"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/51fBfA5cWJ20O6uB4XvF2U/e0c5d4c489f2b405e80e3034168d298e/3-original-tenders-item.png?w=256&fm=webp",
+        "price": 11.95
         },
         {
         "id": "kfc-3-nuggets",
@@ -2065,7 +2112,8 @@
             "nuggets"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/6agA517RXGRbgFxscxPsiQ/3458ad387eeee55f50339f407f89b140/Popcorn_Snack.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/6agA517RXGRbgFxscxPsiQ/3458ad387eeee55f50339f407f89b140/Popcorn_Snack.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 4.95
         },
         {
         "id": "kfc-6-nuggets",
@@ -2081,7 +2129,8 @@
             "nuggets"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/6agA517RXGRbgFxscxPsiQ/3458ad387eeee55f50339f407f89b140/Popcorn_Snack.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/6agA517RXGRbgFxscxPsiQ/3458ad387eeee55f50339f407f89b140/Popcorn_Snack.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 7.95
         },
         {
         "id": "kfc-10-nuggets",
@@ -2097,7 +2146,8 @@
             "nuggets"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/6TYbrMpuEKAWEO7xwiJAKS/edfd5917f85c08fc790ec5780e018bf1/Popcorn_Reg.png?h=900&w=1200&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/6TYbrMpuEKAWEO7xwiJAKS/edfd5917f85c08fc790ec5780e018bf1/Popcorn_Reg.png?h=900&w=1200&fm=webp&fit=fill",
+        "price": 10.95
         },
         {
         "id": "kfc-regular-chips",
@@ -2113,7 +2163,8 @@
             "chips"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/2O0nyIhZ9zedgzvy7G2D0p/b0b92adf841fa7a4610b0f0776e53040/Chips_reg.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/2O0nyIhZ9zedgzvy7G2D0p/b0b92adf841fa7a4610b0f0776e53040/Chips_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 4.95
         },
         {
         "id": "kfc-large-chips",
@@ -2129,7 +2180,8 @@
             "chips"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/3y4wkpHsUcVX6J9YQRK4qS/e208f0dfc5e53d6c36a57f7ada9361dc/Modifier_Chips_lge.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/3y4wkpHsUcVX6J9YQRK4qS/e208f0dfc5e53d6c36a57f7ada9361dc/Modifier_Chips_lge.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 6.55
         },
         {
         "id": "kfc-regular-coleslaw",
@@ -2145,7 +2197,8 @@
             "coleslaw"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5zlenQsbRVxMHAEI5pdgZQ/4de78ac42dfc914a8e898d9e17744e77/Coleslaw_reg.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5zlenQsbRVxMHAEI5pdgZQ/4de78ac42dfc914a8e898d9e17744e77/Coleslaw_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 4.95
         },
         {
         "id": "kfc-large-coleslaw",
@@ -2161,7 +2214,8 @@
             "coleslaw"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5KXU51DjAnxXQDCFWjr7TR/c7f449ab6d79ac6972f62b93cc9e553e/Coleslaw_lge.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5KXU51DjAnxXQDCFWjr7TR/c7f449ab6d79ac6972f62b93cc9e553e/Coleslaw_lge.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 6.95
         },
         {
         "id": "kfc-regular-potato-gravy",
@@ -2178,7 +2232,8 @@
             "gravy"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/4JxZD8A9xTZJEvgY6AOM9G/529d6e2e035ce066acc6313530dbaf28/Potato___Gravy_reg.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/4JxZD8A9xTZJEvgY6AOM9G/529d6e2e035ce066acc6313530dbaf28/Potato___Gravy_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 4.95
         },
         {
         "id": "kfc-large-potato-gravy",
@@ -2195,7 +2250,8 @@
             "gravy"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/2dxqC7cN4QHJtnI04aOHR6/dc2fb4a0416e41f18b0a11413b63aa75/Potato___Gravy_lge.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/2dxqC7cN4QHJtnI04aOHR6/dc2fb4a0416e41f18b0a11413b63aa75/Potato___Gravy_lge.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 6.95
         },
         {
         "id": "kfc-regular-gravy",
@@ -2211,7 +2267,8 @@
             "gravy"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 3.95
         },
         {
         "id": "kfc-dinner-roll",
@@ -2227,7 +2284,8 @@
             "bread"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5wUTudczH7zK125hsbiaaL/912599163787b884bf6ca05c7017fa9d/Modifier_Dinner_Roll_1.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5wUTudczH7zK125hsbiaaL/912599163787b884bf6ca05c7017fa9d/Modifier_Dinner_Roll_1.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 1.95
         },
         {
         "id": "kfc-crunchy-jalapeno-slaw",
@@ -2244,7 +2302,8 @@
             "jalapeno"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/3PA2nwhfFGtyN2ReV6moYY/6aeb055ec7e279c1b6ea55e7613286ac/Bowl_Crunchy_Jalapeno_Slaw.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/3PA2nwhfFGtyN2ReV6moYY/6aeb055ec7e279c1b6ea55e7613286ac/Bowl_Crunchy_Jalapeno_Slaw.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 4.95
         },
         {
         "id": "kfc-tomato-dip",
@@ -2260,7 +2319,8 @@
             "dip"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 0.7
         },
         {
         "id": "kfc-bbq-dip",
@@ -2277,7 +2337,8 @@
             "bbq"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 0.7
         },
         {
         "id": "kfc-supercharged-dip",
@@ -2294,7 +2355,8 @@
             "supercharged"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 0.7
         },
         {
         "id": "kfc-sweet-sour-dip",
@@ -2310,7 +2372,8 @@
             "dip"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 0.7
         },
         {
         "id": "kfc-aioli-dip",
@@ -2327,7 +2390,8 @@
             "aioli"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 0.7
         },
         {
         "id": "kfc-wicked-loaded-chips",
@@ -2344,7 +2408,8 @@
             "wicked"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/3y4wkpHsUcVX6J9YQRK4qS/e208f0dfc5e53d6c36a57f7ada9361dc/Modifier_Chips_lge.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/3y4wkpHsUcVX6J9YQRK4qS/e208f0dfc5e53d6c36a57f7ada9361dc/Modifier_Chips_lge.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 7.95
         },
         {
         "id": "kfc-wicked-sauce",
@@ -2361,24 +2426,8 @@
             "wicked"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill"
-        },
-        {
-        "id": "kfc-chocolate-lava-brownie",
-        "name": "Chocolate Lava Brownie",
-        "restaurant": "KFC",
-        "category": "desserts",
-        "calories": 323,
-        "protein_g": 4.4,
-        "carbs_g": 34.9,
-        "fat_g": 17.8,
-        "tags": [
-            "desserts",
-            "brownie",
-            "chocolate"
-        ],
-        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5tRxUFgVm5gLP7Xa4yPaSD/6f49926fabef6abaf98eb48a1e94adca/Chocolate_Mousse.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/DhijcDpBIfr1DgsPy1Wy0/b72880b780a18f090a4ca8000aae5cf5/Gravy_reg.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 0.7
         },
         {
         "id": "kfc-double-chocolate-mousse",
@@ -2395,7 +2444,388 @@
             "chocolate"
         ],
         "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-        "image": "https://images.ctfassets.net/crbk84xktnsl/5tRxUFgVm5gLP7Xa4yPaSD/6f49926fabef6abaf98eb48a1e94adca/Chocolate_Mousse.png?h=600&w=800&fm=webp&fit=fill"
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5tRxUFgVm5gLP7Xa4yPaSD/6f49926fabef6abaf98eb48a1e94adca/Chocolate_Mousse.png?h=600&w=800&fm=webp&fit=fill",
+        "price": 5.95
+        },
+        {
+        "id": "kfc-large-pepsi-max",
+        "name": "Large Pepsi Max",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 2,
+        "protein_g": 0.4,
+        "carbs_g": 0.4,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "pepsi-max"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/23w5uL7fN8q09Yf58723qI/f7f2614b0c76117ff74f49720d6b82c9/Pepsi_Max.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 5.95
+        },
+        {
+        "id": "kfc-regular-pepsi-max",
+        "name": "Regular Pepsi Max",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 1,
+        "protein_g": 0.2,
+        "carbs_g": 0.2,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "pepsi-max"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/23w5uL7fN8q09Yf58723qI/f7f2614b0c76117ff74f49720d6b82c9/Pepsi_Max.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 4.95
+        },
+        {
+        "id": "kfc-1-25l-pepsi-max",
+        "name": "1.25L Pepsi Max",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 5,
+        "protein_g": 0.8,
+        "carbs_g": 0.8,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "pepsi-max"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/23w5uL7fN8q09Yf58723qI/f7f2614b0c76117ff74f49720d6b82c9/Pepsi_Max.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 6.95
+        },
+        {
+        "id": "kfc-regular-sunkist-no-sugar",
+        "name": "Regular Sunkist No Sugar",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 2,
+        "protein_g": 0.0,
+        "carbs_g": 0.0,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "sunkist",
+            "no-sugar"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/39X58O2zQkKjXQJpP3xG6p/93538f07890d5e106b172e7d7d798e67/Sunkist_No_Sugar.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 4.95
+        },
+        {
+        "id": "kfc-large-sunkist-no-sugar",
+        "name": "Large Sunkist No Sugar",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 3,
+        "protein_g": 0.0,
+        "carbs_g": 0.0,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "sunkist",
+            "no-sugar"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/39X58O2zQkKjXQJpP3xG6p/93538f07890d5e106b172e7d7d798e67/Sunkist_No_Sugar.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 5.95
+        },
+        {
+        "id": "kfc-1-25l-sunkist-no-sugar",
+        "name": "1.25L Sunkist No Sugar",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 6,
+        "protein_g": 0.0,
+        "carbs_g": 0.0,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "sunkist",
+            "no-sugar"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/39X58O2zQkKjXQJpP3xG6p/93538f07890d5e106b172e7d7d798e67/Sunkist_No_Sugar.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 6.95
+        },
+        {
+        "id": "kfc-lipton-peach-ice-tea",
+        "name": "Lipton Peach Ice Tea",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 94,
+        "protein_g": 0.5,
+        "carbs_g": 22.1,
+        "fat_g": 0.5,
+        "tags": [
+            "drinks",
+            "iced-tea",
+            "peach"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5sJ3eFf4Ywz23hXF2FwY50/08e11279010c410c4e39eb674b90470c/Lipton_Peach_Ice_Tea.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 5.95
+        },
+        {
+        "id": "kfc-apple-juice",
+        "name": "Apple Juice",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 141,
+        "protein_g": 0.0,
+        "carbs_g": 34.7,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "juice",
+            "apple"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/40tT9o2sXFk6k8E5Q0x0n6/161652127c5045c9c2c240d6e7146c23/Apple_Juice.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 4.95
+        },
+        {
+        "id": "kfc-large-pepsi",
+        "name": "Large Pepsi",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 163,
+        "protein_g": 0.0,
+        "carbs_g": 43.2,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "pepsi"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5bQ5zBfT459I20qF8Qc73X/a036178a2a3208d43793afb96a7c800f/Pepsi.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 5.95
+        },
+        {
+        "id": "kfc-regular-pepsi",
+        "name": "Regular Pepsi",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 104,
+        "protein_g": 0.0,
+        "carbs_g": 27.4,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "pepsi"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5bQ5zBfT459I20qF8Qc73X/a036178a2a3208d43793afb96a7c800f/Pepsi.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 4.95
+        },
+        {
+        "id": "kfc-1-25l-pepsi",
+        "name": "1.25L Pepsi",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 340,
+        "protein_g": 0.0,
+        "carbs_g": 89.8,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "pepsi"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/5bQ5zBfT459I20qF8Qc73X/a036178a2a3208d43793afb96a7c800f/Pepsi.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 6.95
+        },
+        {
+        "id": "kfc-large-mountain-dew",
+        "name": "Large Mountain Dew",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 165,
+        "protein_g": 0.0,
+        "carbs_g": 44.3,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "mountain-dew"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/2uT8Gj8i2357vR1JgKk7p7/7c0a8d1d2804951528a1398371201419/Mountain_Dew.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 5.95
+        },
+        {
+        "id": "kfc-regular-mountain-dew",
+        "name": "Regular Mountain Dew",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 105,
+        "protein_g": 0.0,
+        "carbs_g": 28.2,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "mountain-dew"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/2uT8Gj8i2357vR1JgKk7p7/7c0a8d1d2804951528a1398371201419/Mountain_Dew.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 4.95
+        },
+        {
+        "id": "kfc-1-25l-mountain-dew",
+        "name": "1.25L Mountain Dew",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 343,
+        "protein_g": 0.0,
+        "carbs_g": 89.8,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "mountain-dew"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/2uT8Gj8i2357vR1JgKk7p7/7c0a8d1d2804951528a1398371201419/Mountain_Dew.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 6.95
+        },
+        {
+        "id": "kfc-large-7up",
+        "name": "Large 7Up",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 257,
+        "protein_g": 0.0,
+        "carbs_g": 66.2,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "7up"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/3u0H7Y1U6x6O229kU5160k/564520118c3cfc51f06f6784cd81686f/7Up.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 5.95
+        },
+        {
+        "id": "kfc-regular-7up",
+        "name": "Regular 7Up",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 166,
+        "protein_g": 0.0,
+        "carbs_g": 42.6,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "7up"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/3u0H7Y1U6x6O229kU5160k/564520118c3cfc51f06f6784cd81686f/7Up.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 4.95
+        },
+        {
+        "id": "kfc-1-25l-7up",
+        "name": "1.25L 7Up",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 536,
+        "protein_g": 0.0,
+        "carbs_g": 137.8,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "7up"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/3u0H7Y1U6x6O229kU5160k/564520118c3cfc51f06f6784cd81686f/7Up.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 6.95
+        },
+        {
+        "id": "kfc-large-solo",
+        "name": "Large Solo",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 286,
+        "protein_g": 0.3,
+        "carbs_g": 69.3,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "solo"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/2T2r4qYd7kZ9fP5dD1fV2j/777a6180f78f24a7978326e8741f71a4/Solo.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 5.95
+        },
+        {
+        "id": "kfc-regular-solo",
+        "name": "Regular Solo",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 186,
+        "protein_g": 0.2,
+        "carbs_g": 44.9,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "solo"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/2T2r4qYd7kZ9fP5dD1fV2j/777a6180f78f24a7978326e8741f71a4/Solo.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 4.95
+        },
+        {
+        "id": "kfc-1-25l-solo",
+        "name": "1.25L Solo",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 597,
+        "protein_g": 0.0,
+        "carbs_g": 149.5,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "solo"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/2T2r4qYd7kZ9fP5dD1fV2j/777a6180f78f24a7978326e8741f71a4/Solo.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 6.95
+        },
+        {
+        "id": "kfc-bottled-water",
+        "name": "Bottled Water",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 0,
+        "protein_g": 0.0,
+        "carbs_g": 0.0,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "water"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/3xP3nI1sL3Fk5W0K0OQn9r/5c81666f3759f2f2c08f1000b7b6885d/Bottled_Water.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 4.5
+        },
+        {
+        "id": "kfc-sparkling-water",
+        "name": "Sparkling Water",
+        "restaurant": "KFC",
+        "category": "drinks",
+        "calories": 0,
+        "protein_g": 0.0,
+        "carbs_g": 0.0,
+        "fat_g": 0.0,
+        "tags": [
+            "drinks",
+            "water",
+            "sparkling"
+        ],
+        "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
+        "image": "https://images.ctfassets.net/crbk84xktnsl/47vj4nZJj8Q5UqN04O9iG3/8f690731f6e363a08949299d6b65a7e5/Sparkling_Water.png?h=300&w=300&fm=webp&fit=fill",
+        "price": 4.5
         },
         {
         "id": "zambrero-classic-burrito-beef",
@@ -2412,7 +2842,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-burrito-barbacoa-beef",
@@ -2429,7 +2860,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-burrito-cauliflower",
@@ -2446,7 +2878,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-burrito-chicken",
@@ -2463,7 +2896,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-burrito-lamb",
@@ -2480,7 +2914,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-burrito-pork",
@@ -2497,7 +2932,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-burrito-vegetarian",
@@ -2514,7 +2950,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4002_2025-05-26-023857.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-iq-burrito-beef",
@@ -2531,7 +2968,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-burrito-barbacoa-beef",
@@ -2548,7 +2986,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-burrito-cauliflower",
@@ -2565,7 +3004,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-burrito-chicken",
@@ -2582,7 +3022,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-burrito-lamb",
@@ -2599,7 +3040,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-burrito-pork",
@@ -2616,7 +3058,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-burrito-vegetarian",
@@ -2633,7 +3076,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4008_2025-05-26-024003.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-power-burrito-beef",
@@ -2650,7 +3094,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-power-burrito-barbacoa-beef",
@@ -2667,7 +3112,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-power-burrito-cauliflower",
@@ -2684,7 +3130,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-power-burrito-chicken",
@@ -2701,7 +3148,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-power-burrito-lamb",
@@ -2718,7 +3166,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-power-burrito-pork",
@@ -2735,7 +3184,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-power-burrito-vegetarian",
@@ -2752,7 +3202,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-classic-bowl-beef",
@@ -2769,7 +3220,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-bowl-barbacoa-beef",
@@ -2786,7 +3238,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-bowl-cauliflower",
@@ -2803,7 +3256,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-bowl-chicken",
@@ -2820,7 +3274,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-bowl-lamb",
@@ -2837,7 +3292,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-bowl-pork",
@@ -2854,7 +3310,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-classic-bowl-vegetarian",
@@ -2871,7 +3328,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 18.4
         },
         {
         "id": "zambrero-iq-bowl-beef",
@@ -2888,7 +3346,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-bowl-barbacoa-beef",
@@ -2905,7 +3364,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-bowl-cauliflower",
@@ -2922,7 +3382,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-bowl-chicken",
@@ -2939,7 +3400,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-bowl-lamb",
@@ -2956,7 +3418,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-bowl-pork",
@@ -2973,7 +3436,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-iq-bowl-vegetarian",
@@ -2990,7 +3454,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4005_2025-05-26-023816.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-powerbowl-beef",
@@ -3007,7 +3472,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-powerbowl-barbacoa-beef",
@@ -3024,7 +3490,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-powerbowl-cauliflower",
@@ -3041,7 +3508,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-powerbowl-chicken",
@@ -3058,7 +3526,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-powerbowl-lamb",
@@ -3075,7 +3544,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-powerbowl-pork",
@@ -3092,7 +3562,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-powerbowl-vegetarian",
@@ -3109,7 +3580,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x4004_2025-05-26-024023.jpg",
+        "price": 20.4
         },
         {
         "id": "zambrero-classic-chikito-beef",
@@ -3126,7 +3598,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg",
+        "price": 14.9
         },
         {
         "id": "zambrero-classic-chikito-barbacoa-beef",
@@ -3143,7 +3616,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg",
+        "price": 14.9
         },
         {
         "id": "zambrero-classic-chikito-cauliflower",
@@ -3160,7 +3634,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg",
+        "price": 14.9
         },
         {
         "id": "zambrero-classic-chikito-chicken",
@@ -3177,7 +3652,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg",
+        "price": 14.9
         },
         {
         "id": "zambrero-classic-chikito-lamb",
@@ -3194,7 +3670,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg",
+        "price": 14.9
         },
         {
         "id": "zambrero-classic-chikito-pork",
@@ -3211,7 +3688,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg",
+        "price": 14.9
         },
         {
         "id": "zambrero-classic-chikito-vegetarian",
@@ -3228,7 +3706,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40010_2025-05-26-024223.jpg",
+        "price": 14.9
         },
         {
         "id": "zambrero-iq-chikito-beef",
@@ -3245,7 +3724,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 16.9
         },
         {
         "id": "zambrero-iq-chikito-barbacoa-beef",
@@ -3262,7 +3742,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 16.9
         },
         {
         "id": "zambrero-iq-chikito-cauliflower",
@@ -3279,7 +3760,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 16.9
         },
         {
         "id": "zambrero-iq-chikito-chicken",
@@ -3296,7 +3778,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 16.9
         },
         {
         "id": "zambrero-iq-chikito-lamb",
@@ -3313,7 +3796,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 16.9
         },
         {
         "id": "zambrero-iq-chikito-pork",
@@ -3330,7 +3814,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 16.9
         },
         {
         "id": "zambrero-iq-chikito-vegetarian",
@@ -3347,7 +3832,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40011_2025-05-26-024236.jpg",
+        "price": 16.9
         },
         {
         "id": "zambrero-nachos-beef",
@@ -3364,7 +3850,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg",
+        "price": 19.4
         },
         {
         "id": "zambrero-nachos-barbacoa-beef",
@@ -3381,7 +3868,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg",
+        "price": 19.4
         },
         {
         "id": "zambrero-nachos-cauliflower",
@@ -3398,7 +3886,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg",
+        "price": 19.4
         },
         {
         "id": "zambrero-nachos-chicken",
@@ -3415,7 +3904,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg",
+        "price": 19.4
         },
         {
         "id": "zambrero-nachos-lamb",
@@ -3432,7 +3922,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg",
+        "price": 19.4
         },
         {
         "id": "zambrero-nachos-pork",
@@ -3449,7 +3940,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg",
+        "price": 19.4
         },
         {
         "id": "zambrero-nachos-vegetarian",
@@ -3466,7 +3958,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_NZ_PRODUCT_600x40018.jpg",
+        "price": 19.4
         },
         {
         "id": "zambrero-hard-taco-beef",
@@ -3483,7 +3976,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-hard-taco-barbacoa-beef",
@@ -3500,7 +3994,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-hard-taco-cauliflower",
@@ -3517,7 +4012,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-hard-taco-chicken",
@@ -3534,7 +4030,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-hard-taco-lamb",
@@ -3551,7 +4048,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-hard-taco-pork",
@@ -3568,7 +4066,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-hard-taco-vegetarian",
@@ -3585,7 +4084,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Hard_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-soft-taco-beef",
@@ -3602,7 +4102,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-soft-taco-barbacoa-beef",
@@ -3619,7 +4120,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-soft-taco-cauliflower",
@@ -3636,7 +4138,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-soft-taco-chicken",
@@ -3653,7 +4156,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-soft-taco-lamb",
@@ -3670,7 +4174,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-soft-taco-pork",
@@ -3687,7 +4192,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-soft-taco-vegetarian",
@@ -3704,7 +4210,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_Soft_DELIVERY_ZamApp_600x400.jpg",
+        "price": 6.3
         },
         {
         "id": "zambrero-dos-capas-beef",
@@ -3721,7 +4228,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg",
+        "price": 8.9
         },
         {
         "id": "zambrero-dos-capas-barbacoa-beef",
@@ -3738,7 +4246,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg",
+        "price": 8.9
         },
         {
         "id": "zambrero-dos-capas-cauliflower",
@@ -3755,7 +4264,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg",
+        "price": 8.9
         },
         {
         "id": "zambrero-dos-capas-chicken",
@@ -3772,7 +4282,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg",
+        "price": 8.9
         },
         {
         "id": "zambrero-dos-capas-lamb",
@@ -3789,7 +4300,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg",
+        "price": 8.9
         },
         {
         "id": "zambrero-dos-capas-pork",
@@ -3806,7 +4318,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg",
+        "price": 8.9
         },
         {
         "id": "zambrero-dos-capas-vegetarian",
@@ -3823,7 +4336,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/Taco_DosCapas_DELIVERY_ZamApp_600x400_2026-03-16-011752.jpg",
+        "price": 8.9
         },
         {
         "id": "zambrero-quesadilla-beef",
@@ -3840,7 +4354,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg",
+        "price": 13.9
         },
         {
         "id": "zambrero-quesadilla-barbacoa-beef",
@@ -3857,7 +4372,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg",
+        "price": 13.9
         },
         {
         "id": "zambrero-quesadilla-cauliflower",
@@ -3874,7 +4390,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg",
+        "price": 13.9
         },
         {
         "id": "zambrero-quesadilla-chicken",
@@ -3891,7 +4408,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg",
+        "price": 13.9
         },
         {
         "id": "zambrero-quesadilla-lamb",
@@ -3908,7 +4426,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg",
+        "price": 13.9
         },
         {
         "id": "zambrero-quesadilla-pork",
@@ -3925,7 +4444,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg",
+        "price": 13.9
         },
         {
         "id": "zambrero-quesadilla-vegetarian",
@@ -3942,7 +4462,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg",
+        "price": 13.9
         },
         {
         "id": "zambrero-kids-bowl-beef",
@@ -3959,7 +4480,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 10.9
         },
         {
         "id": "zambrero-kids-bowl-barbacoa-beef",
@@ -3976,7 +4498,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 10.9
         },
         {
         "id": "zambrero-kids-bowl-cauliflower",
@@ -3993,7 +4516,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 10.9
         },
         {
         "id": "zambrero-kids-bowl-chicken",
@@ -4010,7 +4534,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 10.9
         },
         {
         "id": "zambrero-kids-bowl-lamb",
@@ -4027,7 +4552,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 10.9
         },
         {
         "id": "zambrero-kids-bowl-pork",
@@ -4044,7 +4570,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 10.9
         },
         {
         "id": "zambrero-kids-bowl-iq-beef",
@@ -4061,7 +4588,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 12.9
         },
         {
         "id": "zambrero-kids-bowl-iq-barbacoa-beef",
@@ -4078,7 +4606,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 12.9
         },
         {
         "id": "zambrero-kids-bowl-iq-cauliflower",
@@ -4095,7 +4624,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 12.9
         },
         {
         "id": "zambrero-kids-bowl-iq-chicken",
@@ -4112,7 +4642,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 12.9
         },
         {
         "id": "zambrero-kids-bowl-iq-lamb",
@@ -4129,7 +4660,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 12.9
         },
         {
         "id": "zambrero-kids-bowl-iq-pork",
@@ -4146,7 +4678,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Bowl_600x400_72ppi_RGB_2023-05-29-014347.jpg",
+        "price": 12.9
         },
         {
         "id": "zambrero-kids-nachos-beef",
@@ -4163,7 +4696,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg",
+        "price": 11.9
         },
         {
         "id": "zambrero-kids-nachos-barbacoa-beef",
@@ -4180,7 +4714,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg",
+        "price": 11.9
         },
         {
         "id": "zambrero-kids-nachos-cauliflower",
@@ -4197,7 +4732,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg",
+        "price": 11.9
         },
         {
         "id": "zambrero-kids-nachos-chicken",
@@ -4214,7 +4750,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg",
+        "price": 11.9
         },
         {
         "id": "zambrero-kids-nachos-lamb",
@@ -4231,7 +4768,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg",
+        "price": 11.9
         },
         {
         "id": "zambrero-kids-nachos-pork",
@@ -4248,7 +4786,8 @@
             "no-sauce"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg",
+        "price": 11.9
         },
         {
         "id": "zambrero-sweet-quesadilla-qld-only",
@@ -4265,7 +4804,8 @@
             "qld-only"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg",
+        "price": 9.9
         },
         {
         "id": "zambrero-chips-dip-sour-cream-guac-salsas",
@@ -4282,7 +4822,8 @@
             "dip"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/MENU_ITEM_IMAGE_600x400_BIG_CHIPS-TRIAL3.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/MENU_ITEM_IMAGE_600x400_BIG_CHIPS-TRIAL3.jpg",
+        "price": 8.9
         },
         {
         "id": "zambrero-chips",
@@ -4298,7 +4839,8 @@
             "chips"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/MENU_ITEM_IMAGE_600x400_BIG_CHIPS-TRIAL3.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/MENU_ITEM_IMAGE_600x400_BIG_CHIPS-TRIAL3.jpg",
+        "price": 5.9
         },
         {
         "id": "zambrero-chips-guacamole",
@@ -4315,7 +4857,8 @@
             "guacamole"
         ],
         "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/MENU_ITEM_IMAGE_600x400_BIG_CHIPS-TRIAL3.jpg"
+        "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/MENU_ITEM_IMAGE_600x400_BIG_CHIPS-TRIAL3.jpg",
+        "price": 8.9
         }
     ]
     }
