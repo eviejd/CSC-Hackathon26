@@ -48,38 +48,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     let activeQuickFilter = null;
     let activeDietFilters = new Set();
 
-    // ---- Image presentation (unchanged) ----------------------------------------------
-
-    const ITEM_IMAGE_OVERRIDES = {
-    "kfc-original-crispy-burger": { scale: 1.32, position: "center 65%" },
-    "kfc-zinger-burger": { scale: 1.32, position: "center 65%" },
-    "kfc-zinger-crunch-burger": { scale: 1.30, position: "center 65%" },
-    "kfc-original-crispy-bacon-cheese-burger": { scale: 1.30, position: "center 65%" },
-    "kfc-original-crispy-bbq-bacon-stacker-burger": { scale: 1.32, position: "center 65%" },
-    "kfc-zinger-stacker-burger": { scale: 1.32, position: "center 65%" },
-    "kfc-double-tender-burger": { scale: 1.30, position: "center 65%" },
-    "kfc-wicked-burger": { scale: 1.30, position: "center 65%" },
-    "kfc-original-crispy-fillet-piece": { scale: 1.25, position: "center 58%" },
-    "kfc-zinger-fillet-piece": { scale: 1.25, position: "center 58%" },
-
-    "mcdonalds-big-mac": { scale: 1.25, position: "center 58%" },
-    "mcdonalds-quarter-pounder-cheese": { scale: 1.26, position: "center 58%" },
-    "mcdonalds-cheeseburger": { scale: 1.28, position: "center 60%" },
-    "mcdonalds-double-quarter-pounder": { scale: 1.25, position: "center 58%" },
-    "mcdonalds-triple-cheeseburger": { scale: 1.25, position: "center 58%" },
-    "mcdonalds-hamburger": { scale: 1.28, position: "center 60%" },
-    "mcdonalds-mcchicken": { scale: 1.26, position: "center 58%" },
-    "mcdonalds-mcspicy-burger": { scale: 1.25, position: "center 58%" },
-    "mcdonalds-filet-o-fish": { scale: 1.25, position: "center 58%" },
-    "mcdonalds-dbl-filet-o-fish": { scale: 1.25, position: "center 58%" },
-    "mcdonalds-bacon-egg-muffin": { scale: 1.28, position: "center 62%" },
-    "mcdonalds-sausage-muffin": { scale: 1.28, position: "center 62%" },
-    "mcdonalds-deluxe-bacon-egg-mcmuffin": { scale: 1.26, position: "center 60%" },
-    "mcdonalds-dbl-saus-egg-muffin": { scale: 1.25, position: "center 60%" },
-    "mcdonalds-saus-egg-muffin": { scale: 1.26, position: "center 60%" },
-    "mcdonalds-hotcakes": { scale: 1.24, position: "center 55%" },
-    };
-
     function getImagePresentation(item) {
     if (item.image_scale || item.image_position) {
         return {
@@ -403,6 +371,10 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
     const { scale, position } = getImagePresentation(item);
     const styleString = `--img-scale: ${scale}; --img-pos: ${position};`;
+
+    const isMcDonalds =
+    item.restaurant &&
+    item.restaurant.toLowerCase().replace(/[^a-z]/g, "") === "mcdonalds";
 
     const imageMarkup = item.image
         ? `<div class="food-card-image-container" style="${styleString}">

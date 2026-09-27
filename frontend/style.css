@@ -861,6 +861,12 @@
     transition: transform 0.25s ease;
     }
 
+    .food-card-image.mcdonalds-image {
+    object-fit: cover;
+    object-position: center bottom;
+    transform: scale(1);
+    }
+
     .food-card-placeholder {
     display: flex;
     align-items: center;
@@ -1194,6 +1200,12 @@
     .result-card:hover .food-card-image {
         transform: scale(calc(var(--img-scale, 1.15) * 1.04));
     }
+
+@media (hover: hover) and (pointer: fine) {
+    .result-card:hover .food-card-image.mcdonalds-image {
+        transform: scale(1.04);
+    }
+}
     }
 
     @media (max-width: 768px) {
