@@ -220,6 +220,15 @@
                             <span class="field-label">Dietary</span>
                             <div class="quick-filter-group" id="diet-filter-group" role="group" aria-label="Dietary filters"></div>
                         </div>
+
+                        <div class="field">
+                            <span class="field-label">Exclude allergens</span>
+                            <div class="quick-filter-group" id="allergen-filter-group" role="group" aria-label="Allergen exclusion filters"></div>
+                            <label class="strict-allergen-label">
+                                <input type="checkbox" id="strict-allergens-toggle">
+                                Also hide items that may contain traces (strict mode)
+                            </label>
+                        </div>
                     </div>
                 </details>
 
@@ -256,6 +265,7 @@
                 <div id="search-results-error" class="state-message state-error" hidden></div>
 
                 <div id="search-results-content" hidden>
+                    <p class="state-message" id="search-results-warning" hidden></p>
                     <p class="results-count" id="search-results-count"></p>
                     <div class="results-grid" id="search-results-grid"></div>
                 </div>

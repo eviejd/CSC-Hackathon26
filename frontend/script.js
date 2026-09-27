@@ -400,6 +400,8 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const targetFat = document.getElementById("target-fat");
     const quickFilterGroup = document.getElementById("quick-filter-group");
     const dietFilterGroup = document.getElementById("diet-filter-group");
+    const allergenFilterGroup = document.getElementById("allergen-filter-group");
+    const strictAllergensToggle = document.getElementById("strict-allergens-toggle");
     const sortSelect = document.getElementById("sort-select");
     const clearFiltersBtn = document.getElementById("clear-filters-btn");
 
@@ -409,6 +411,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const searchResultsContent = document.getElementById("search-results-content");
     const searchResultsCount = document.getElementById("search-results-count");
     const searchResultsGrid = document.getElementById("search-results-grid");
+    const searchResultsWarning = document.getElementById("search-results-warning");
 
     const DIET_FILTER_LABELS = {
     vegetarian: "Vegetarian",
@@ -418,7 +421,19 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     pork: "Pork",
     lamb: "Lamb",
     };
+    const ALLERGEN_LABELS = {
+    gluten: "Gluten",
+    milk: "Milk",
+    egg: "Egg",
+    soy: "Soy",
+    peanut: "Peanut",
+    "tree-nut": "Tree Nut",
+    sesame: "Sesame",
+    fish: "Fish",
+    sulphites: "Sulphites",
+    };
 
+    let activeAllergenFilters = new Set();
     let advancedSearchInitialized = false;
     let activeQuickFilter = null;
     let activeDietFilters = new Set();
@@ -426,8 +441,21 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     async function initAdvancedSearch() {
     advancedSearchInitialized = true;
     await Promise.all([populateSearchRestaurants(), populateSearchCategories(), populateDietFilters()]);
+    populateAllergenFilters();
     attachAdvancedSearchListeners();
     runSearch();
+    }
+
+    function populateAllergenFilters() {
+        allergenFilterGroup.innerHTML = "";
+        Object.entries(ALLERGEN_LABELS).forEach(([key, label]) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "quick-filter-btn";
+            btn.dataset.allergen = key;
+            btn.textContent = label;
+            allergenFilterGroup.appendChild(btn);
+        });
     }
 
     async function populateSearchRestaurants() {
@@ -488,101 +516,122 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
 
     function attachAdvancedSearchListeners() {
-    let debounceHandle = null;
-    searchInput.addEventListener("input", () => {
-        clearTimeout(debounceHandle);
-        debounceHandle = setTimeout(runSearch, 300);
-    });
-
-    [searchRestaurantSelect, searchCategorySelect, sortSelect].forEach((el) =>
-        el.addEventListener("change", runSearch)
-    );
-
-    [
-        minCalories, maxCalories, minProtein, maxProtein,
-        minCarbs, maxCarbs, minFat, maxFat,
-        targetCalories, targetProtein, targetCarbs, targetFat,
-    ].forEach((el) => {
-        let handle = null;
-        el.addEventListener("input", () => {
-        clearTimeout(handle);
-        handle = setTimeout(runSearch, 400);
+        let debounceHandle = null;
+        searchInput.addEventListener("input", () => {
+            clearTimeout(debounceHandle);
+            debounceHandle = setTimeout(runSearch, 300);
         });
-    });
 
-    quickFilterGroup.addEventListener("click", (event) => {
-        const btn = event.target.closest(".quick-filter-btn");
-        if (!btn) return;
-        const isAlreadyActive = btn.classList.contains("is-active");
-        quickFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
-        if (isAlreadyActive) {
-        activeQuickFilter = null;
-        } else {
-        btn.classList.add("is-active");
-        activeQuickFilter = btn.dataset.quick;
-        }
-        runSearch();
-    });
+        [searchRestaurantSelect, searchCategorySelect, sortSelect].forEach((el) =>
+            el.addEventListener("change", runSearch)
+        );
 
-    dietFilterGroup.addEventListener("click", (event) => {
-        const btn = event.target.closest(".quick-filter-btn");
-        if (!btn) return;
-        const key = btn.dataset.diet;
-        if (activeDietFilters.has(key)) {
-        activeDietFilters.delete(key);
-        btn.classList.remove("is-active");
-        } else {
-        activeDietFilters.add(key);
-        btn.classList.add("is-active");
-        }
-        runSearch();
-    });
-
-    clearFiltersBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        searchRestaurantSelect.value = "all";
-        searchCategorySelect.value = "all";
         [
-        minCalories, maxCalories, minProtein, maxProtein, minCarbs, maxCarbs, minFat, maxFat,
-        targetCalories, targetProtein, targetCarbs, targetFat,
-        ].forEach((el) => (el.value = ""));
-        sortSelect.value = "relevance";
-        activeQuickFilter = null;
-        activeDietFilters.clear();
-        quickFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
-        dietFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
+            minCalories, maxCalories, minProtein, maxProtein,
+            minCarbs, maxCarbs, minFat, maxFat,
+            targetCalories, targetProtein, targetCarbs, targetFat,
+        ].forEach((el) => {
+            let handle = null;
+            el.addEventListener("input", () => {
+            clearTimeout(handle);
+            handle = setTimeout(runSearch, 400);
+            });
+        });
+
+        quickFilterGroup.addEventListener("click", (event) => {
+            const btn = event.target.closest(".quick-filter-btn");
+            if (!btn) return;
+            const isAlreadyActive = btn.classList.contains("is-active");
+            quickFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
+            if (isAlreadyActive) {
+            activeQuickFilter = null;
+            } else {
+            btn.classList.add("is-active");
+            activeQuickFilter = btn.dataset.quick;
+            }
+            runSearch();
+        });
+
+        dietFilterGroup.addEventListener("click", (event) => {
+            const btn = event.target.closest(".quick-filter-btn");
+            if (!btn) return;
+            const key = btn.dataset.diet;
+            if (activeDietFilters.has(key)) {
+            activeDietFilters.delete(key);
+            btn.classList.remove("is-active");
+            } else {
+            activeDietFilters.add(key);
+            btn.classList.add("is-active");
+            }
+            runSearch();
+        });
+
+        allergenFilterGroup.addEventListener("click", (event) => {
+        const btn = event.target.closest(".quick-filter-btn");
+        if (!btn) return;
+        const key = btn.dataset.allergen;
+        if (activeAllergenFilters.has(key)) {
+            activeAllergenFilters.delete(key);
+            btn.classList.remove("is-active");
+        } else {
+            activeAllergenFilters.add(key);
+            btn.classList.add("is-active");
+        }
         runSearch();
     });
+
+    strictAllergensToggle.addEventListener("change", runSearch);
+
+        clearFiltersBtn.addEventListener("click", () => {
+            searchInput.value = "";
+            searchRestaurantSelect.value = "all";
+            searchCategorySelect.value = "all";
+            [
+            minCalories, maxCalories, minProtein, maxProtein, minCarbs, maxCarbs, minFat, maxFat,
+            targetCalories, targetProtein, targetCarbs, targetFat,
+            ].forEach((el) => (el.value = ""));
+            sortSelect.value = "relevance";
+            activeQuickFilter = null;
+            activeDietFilters.clear();
+            activeAllergenFilters.clear();
+            allergenFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
+            quickFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
+            dietFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
+            strictAllergensToggle.checked = false;
+            runSearch();
+        });
     }
 
     function buildSearchParams() {
-    const params = new URLSearchParams();
+        const params = new URLSearchParams();
 
-    if (searchInput.value.trim()) params.set("search", searchInput.value.trim());
-    if (searchRestaurantSelect.value && searchRestaurantSelect.value !== "all") {
-        params.set("restaurant", searchRestaurantSelect.value);
-    }
-    if (searchCategorySelect.value && searchCategorySelect.value !== "all") {
-        params.set("category", searchCategorySelect.value);
-    }
+        if (searchInput.value.trim()) params.set("search", searchInput.value.trim());
+        if (searchRestaurantSelect.value && searchRestaurantSelect.value !== "all") {
+            params.set("restaurant", searchRestaurantSelect.value);
+        }
+        if (searchCategorySelect.value && searchCategorySelect.value !== "all") {
+            params.set("category", searchCategorySelect.value);
+        }
 
-    const numericFields = [
-        ["min_calories", minCalories], ["max_calories", maxCalories],
-        ["min_protein", minProtein], ["max_protein", maxProtein],
-        ["min_carbs", minCarbs], ["max_carbs", maxCarbs],
-        ["min_fat", minFat], ["max_fat", maxFat],
-        ["target_calories", targetCalories], ["target_protein", targetProtein],
-        ["target_carbs", targetCarbs], ["target_fat", targetFat],
-    ];
-    numericFields.forEach(([key, el]) => {
-        if (el.value !== "") params.set(key, el.value);
-    });
+        const numericFields = [
+            ["min_calories", minCalories], ["max_calories", maxCalories],
+            ["min_protein", minProtein], ["max_protein", maxProtein],
+            ["min_carbs", minCarbs], ["max_carbs", maxCarbs],
+            ["min_fat", minFat], ["max_fat", maxFat],
+            ["target_calories", targetCalories], ["target_protein", targetProtein],
+            ["target_carbs", targetCarbs], ["target_fat", targetFat],
+        ];
+        numericFields.forEach(([key, el]) => {
+            if (el.value !== "") params.set(key, el.value);
+        });
 
-    if (activeQuickFilter) params.set("quick", activeQuickFilter);
-    if (activeDietFilters.size > 0) params.set("diet", Array.from(activeDietFilters).join(","));
-    if (sortSelect.value) params.set("sort", sortSelect.value);
+        if (activeQuickFilter) params.set("quick", activeQuickFilter);
+        if (activeDietFilters.size > 0) params.set("diet", Array.from(activeDietFilters).join(","));
+        if (activeAllergenFilters.size > 0) params.set("exclude_allergens", Array.from(activeAllergenFilters).join(","));
+        if (strictAllergensToggle.checked) params.set("strict_allergens", "true");
+        if (sortSelect.value) params.set("sort", sortSelect.value);
 
-    return params;
+        return params;
     }
 
     async function runSearch() {
@@ -605,26 +654,33 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
 
     function renderSearchResults(data) {
-    const results = data.results || [];
-    if (results.length === 0) {
-        setSearchState("empty");
-        renderEmptyState(searchResultsEmpty, {
-        title: "No foods found",
-        message: "Try changing your search or filters.",
-        showClear: true,
-        onClear: () => clearFiltersBtn.click(),
+        const results = data.results || [];
+        if (results.length === 0) {
+            setSearchState("empty");
+            renderEmptyState(searchResultsEmpty, {
+            title: "No foods found",
+            message: "Try changing your search or filters.",
+            showClear: true,
+            onClear: () => clearFiltersBtn.click(),
+            });
+            return;
+        }
+
+        searchResultsCount.textContent = `Showing ${data.returned} of ${data.count} result${data.count === 1 ? "" : "s"}`;
+
+        if (data.warnings && data.warnings.length > 0) {
+            searchResultsWarning.textContent = data.warnings.join(" ");
+            searchResultsWarning.hidden = false;
+        } else {
+            searchResultsWarning.hidden = true;
+        }
+
+        searchResultsGrid.innerHTML = "";
+        results.forEach((item) => {
+            searchResultsGrid.appendChild(buildSearchCard(item));
         });
-        return;
-    }
 
-    searchResultsCount.textContent = `Showing ${data.returned} of ${data.count} result${data.count === 1 ? "" : "s"}`;
-
-    searchResultsGrid.innerHTML = "";
-    results.forEach((item) => {
-        searchResultsGrid.appendChild(buildSearchCard(item));
-    });
-
-    setSearchState("content");
+        setSearchState("content");
     }
 
     function buildSearchCard(item) {

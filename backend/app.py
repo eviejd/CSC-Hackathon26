@@ -9,6 +9,7 @@ app = Flask(__name__)
 CORS(app) 
 
 DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "menu.json")
+INGREDIENTS_PATH = os.path.join(os.path.dirname(__file__), "data", "menuIngredients.json")
 
 CATEGORY_GROUPS = {
     "mains": ["burger", "chicken", "taco", "burrito", "quesadilla", "bowl", "dos-capas", "chikito"],
@@ -46,11 +47,77 @@ SORT_OPTIONS = {
     "efficiency_desc": ("_efficiency", True),
 }
 
+TAG_WEIGHTS = {
+    # Tier 1 — food type + protein: the "core identity" of the item
+    "burger": 3, "chicken": 3, "beef": 3, "lamb": 3, "pork": 3,
+    "cauliflower": 3, "vegetarian": 3, "bowl": 3, "taco": 3,
+    "burrito": 3, "wrap": 3, "quesadilla": 3, "chikito": 3,
+    "dos-capas": 3, "nuggets": 3, "wings": 3,
+
+    # Tier 2 — meaningful but secondary attributes
+    "cheese": 1, "bacon": 1, "double": 1, "high-protein": 1,
+    "leaner": 1, "crispy": 1, "spicy": 1, "zinger": 1,
+    "original": 1, "wicked": 1, "tenders": 1, "fillet": 1,
+
+    # Tier 3 — flavor/branding descriptors
+    "bbq": 0.3, "stacker": 0.3, "supercharged": 0.3, "mayo": 0.3,
+    "slider": 0.3, "no-sauce": 0.3, "sweet": 0.3, "chocolate": 0.3,
+    "caramel": 0.3, "strawberry": 0.3, "vanilla": 0.3,
+}
+
+ALLERGEN_KEYS = ("ingredients", "allergens", "may_contain", "allergen_status", "allergen_source")
+
+_ingredients_cache = None
+
+DEFAULT_TAG_WEIGHT = 0.3  # fallback for any tag not listed above
+
+def _load_ingredients_by_id():
+    """Loads menuIngredients.json once and indexes it by item id.
+    Only ALLERGEN_KEYS are ever pulled from this file — everything else
+    in it (calories, price, image, etc.) is ignored, since menu.json
+    stays the source of truth for those fields."""
+    global _ingredients_cache
+    if _ingredients_cache is not None:
+        return _ingredients_cache
+
+    try:
+        with open(INGREDIENTS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Warning: could not load menuIngredients.json ({e}); allergen data will be unavailable.")
+        _ingredients_cache = {}
+        return _ingredients_cache
+
+    by_id = {}
+    for entry in data.get("items", []):
+        item_id = entry.get("id")
+        if not item_id:
+            continue
+        by_id[item_id] = {key: entry.get(key) for key in ALLERGEN_KEYS}
+
+    _ingredients_cache = by_id
+    return _ingredients_cache
+
 
 def load_menu():
     with open(DATA_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
-    return data["items"]
+    
+    items = data["items"]
+    ingredients_by_id = _load_ingredients_by_id()
+    for item in items:
+        allergen_data = ingredients_by_id.get(item.get("id"))
+        if allergen_data:
+            item.update(allergen_data)
+        else:
+            # No matching entry in menuIngredients.json for this id —
+            # treat exactly like an "unavailable" item so the allergen
+            # filter hides it rather than guessing.
+            item.setdefault("allergen_status", "unavailable")
+            item.setdefault("allergens", None)
+            item.setdefault("may_contain", None)
+            item.setdefault("allergen_source", None)
+    return items
 
 
 def _as_number(value):
@@ -246,6 +313,9 @@ def search_items():
     exclude_allergens_raw = (args.get("exclude_allergens") or "").strip()
     exclude_allergens = [a.strip().lower() for a in exclude_allergens_raw.split(",") if a.strip()]
 
+    strict_allergens_raw = (args.get("strict_allergens") or "").strip().lower()
+    strict_allergens = strict_allergens_raw in ("1", "true", "yes")
+
     try:
         limit = int(args.get("limit", 60))
     except (TypeError, ValueError):
@@ -253,7 +323,7 @@ def search_items():
     limit = max(1, min(limit, 500))
 
     items = load_menu()
-    allergen_data_available = any(ALLERGEN_FIELD in item for item in items)
+    allergen_data_available = any(item.get(ALLERGEN_FIELD) is not None for item in items)
 
     results = []
     for original in items:
@@ -274,6 +344,24 @@ def search_items():
                 for f in diet_filters
             ):
                 continue
+
+        if exclude_allergens:
+            item_status = item.get("allergen_status")
+            item_allergens = item.get(ALLERGEN_FIELD)
+            item_may_contain = item.get("may_contain")
+
+            # unknown allergen data -> hide for safety, don't guess
+            if item_status == "unavailable" or item_allergens is None:
+                continue
+
+            present = set(a.lower() for a in item_allergens)
+            if any(a in present for a in exclude_allergens):
+                continue
+
+            if strict_allergens:
+                traces = set(a.lower() for a in (item_may_contain or []))
+                if any(a in traces for a in exclude_allergens):
+                    continue
 
         calories = _as_number(item.get("calories"))
         protein = _as_number(item.get("protein_g"))
@@ -365,6 +453,8 @@ def search_items():
             "diet": diet_filters,
             "quick": quick or None,
             "sort": sort_key,
+            "exclude_allergens": exclude_allergens,
+            "strict_allergens": strict_allergens,
         },
     }
 
@@ -563,6 +653,30 @@ def _macro_match_score(item, target_calories, target_protein, target_carbs, targ
         return 0
     avg_penalty = sum(diffs) / len(diffs)
     return max(0, round(100 - avg_penalty))
+
+# for node edge cimilarity colouring
+def _tag_similarity(item_a, item_b, tag_weights=TAG_WEIGHTS):
+    tags_a = set(item_a.get("tags") or [])
+    tags_b = set(item_b.get("tags") or [])
+
+    shared = tags_a & tags_b  # set intersection: tags both items have
+
+    def weight(tag):
+        return tag_weights.get(tag, DEFAULT_TAG_WEIGHT)
+
+    shared_weight = sum(weight(t) for t in shared)
+    total_weight_a = sum(weight(t) for t in tags_a)
+    total_weight_b = sum(weight(t) for t in tags_b)
+
+    # avoid divide-by-zero for an item with no tags at all
+    match_pct_a = round((shared_weight / total_weight_a) * 100, 1) if total_weight_a else 0
+    match_pct_b = round((shared_weight / total_weight_b) * 100, 1) if total_weight_b else 0
+
+    return {
+        "shared_tags": sorted(shared),
+        "match_pct_a": match_pct_a,
+        "match_pct_b": match_pct_b,
+    }
 
 
 if __name__ == "__main__":
