@@ -1496,81 +1496,6 @@
             "price": 1.9
         },
         {
-            "id": "kfc-zinger-crunch-twister",
-            "name": "Zinger® Crunch Twister",
-            "restaurant": "KFC",
-            "category": "chicken",
-            "calories": 582,
-            "protein_g": 27.4,
-            "carbs_g": 53.4,
-            "fat_g": 27.9,
-            "tags": [
-                "chicken",
-                "wrap",
-                "zinger",
-                "crunch"
-            ],
-            "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/66hM6d8Y383Xh9N4v0m1iC/277b4b4e24cd3572d18e0b16a4c1f31b/Zinger_Crunch_Twister_Product_Card.png",
-            "price": 13.95
-        },
-        {
-            "id": "kfc-original-crunch-twister",
-            "name": "Original Crunch Twister",
-            "restaurant": "KFC",
-            "category": "chicken",
-            "calories": 517,
-            "protein_g": 23.5,
-            "carbs_g": 45.4,
-            "fat_g": 26.0,
-            "tags": [
-                "chicken",
-                "wrap",
-                "original"
-            ],
-            "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/227XJj6c6G72bBqjJ99mNn/605a3d58c8215632f309135e1977a79b/Original_Crunch_Twister_Product_Card.png",
-            "price": 13.95
-        },
-        {
-            "id": "kfc-zinger-crunch-bowl",
-            "name": "Zinger® Crunch Bowl",
-            "restaurant": "KFC",
-            "category": "chicken",
-            "calories": 415,
-            "protein_g": 23.2,
-            "carbs_g": 27.5,
-            "fat_g": 23.2,
-            "tags": [
-                "chicken",
-                "bowl",
-                "zinger",
-                "crunch"
-            ],
-            "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/6zO5hGzM19jFv8794QjWbE/df0d7152a6a7e7d6252085a6c2dfb817/Zinger_Crunch_Bowl_Product_Card.png",
-            "price": 14.95
-        },
-        {
-            "id": "kfc-original-tenders-crunch-bowl",
-            "name": "Original Tenders™ Crunch Bowl",
-            "restaurant": "KFC",
-            "category": "chicken",
-            "calories": 403,
-            "protein_g": 20.0,
-            "carbs_g": 25.8,
-            "fat_g": 23.8,
-            "tags": [
-                "chicken",
-                "bowl",
-                "tenders",
-                "original"
-            ],
-            "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/5K4s6T2eEHYoK17Xwz3FzQ/ae611742940d2f37f1c2f8e2f44b05f2/Original_Tenders_Crunch_Bowl_Product_Card.png",
-            "price": 14.95
-        },
-        {
             "id": "kfc-original-crispy-burger",
             "name": "Original Crispy Burger",
             "restaurant": "KFC",
@@ -1761,7 +1686,7 @@
                 "mayo"
             ],
             "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/5YhFRIOcNxCMzqBP3iYfGG/2a346945f943991a82b113405229211a/J5671_22P09_Original_Crispy_burger.png?h=600&w=800&fm=webp&fit=fill",
+            "image": "https://images.ctfassets.net/crbk84xktnsl/5RduJ4LRbEQtgbqeEYKx9h/ccf9c3e2b4c39c75b6b4849c475fefe9/Slider_Pepper_Mayo.png?h=600&w=800&fm=webp&fit=fill",
             "price": 4.95
         },
         {
@@ -1780,7 +1705,7 @@
                 "bbq"
             ],
             "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/5YhFRIOcNxCMzqBP3iYfGG/2a346945f943991a82b113405229211a/J5671_22P09_Original_Crispy_burger.png?h=600&w=800&fm=webp&fit=fill",
+            "image": "https://images.ctfassets.net/crbk84xktnsl/5RduJ4LRbEQtgbqeEYKx9h/ccf9c3e2b4c39c75b6b4849c475fefe9/Slider_Pepper_Mayo.png?h=600&w=800&fm=webp&fit=fill",
             "price": 4.95
         },
         {
@@ -1799,7 +1724,7 @@
                 "supercharged"
             ],
             "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/4zgRg2g2ZRBey10D3qfjyZ/e9f079f486f401b884ad570be0a48af8/Zinger_Burger.png?h=600&w=800&fm=webp&fit=fill",
+            "image": "https://images.ctfassets.net/crbk84xktnsl/5RduJ4LRbEQtgbqeEYKx9h/ccf9c3e2b4c39c75b6b4849c475fefe9/Slider_Pepper_Mayo.png?h=600&w=800&fm=webp&fit=fill",
             "price": 4.95
         },
         {
@@ -2077,7 +2002,7 @@
                 "original"
             ],
             "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/51fBfA5cWJ20O6uB4XvF2U/e0c5d4c489f2b405e80e3034168d298e/3-original-tenders-item.png?w=256&fm=webp",
+            "image": "https://images.ctfassets.net/crbk84xktnsl/2xNwmtC0jHCqay6j8QPhNa/4303b3fb03db0d38247d2b02b419c1d2/Original_Tender_5.png?h=600&w=800&fm=webp&fit=fill",
             "price": 7.95
         },
         {
@@ -2095,7 +2020,7 @@
                 "original"
             ],
             "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/51fBfA5cWJ20O6uB4XvF2U/e0c5d4c489f2b405e80e3034168d298e/3-original-tenders-item.png?w=256&fm=webp",
+            "image": "https://images.ctfassets.net/crbk84xktnsl/2xNwmtC0jHCqay6j8QPhNa/4303b3fb03db0d38247d2b02b419c1d2/Original_Tender_5.png?h=600&w=800&fm=webp&fit=fill",
             "price": 11.95
         },
         {
@@ -2112,7 +2037,7 @@
                 "nuggets"
             ],
             "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/6agA517RXGRbgFxscxPsiQ/3458ad387eeee55f50339f407f89b140/Popcorn_Snack.png?h=600&w=800&fm=webp&fit=fill",
+            "image": "https://images.ctfassets.net/crbk84xktnsl/3uc78BrQBBH3MAMe5xXz7J/0b2be45f972b97b0bc132bf21825e758/Nuggets_6.png?h=600&w=800&fm=webp&fit=fill",
             "price": 4.95
         },
         {
@@ -2129,7 +2054,7 @@
                 "nuggets"
             ],
             "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/6agA517RXGRbgFxscxPsiQ/3458ad387eeee55f50339f407f89b140/Popcorn_Snack.png?h=600&w=800&fm=webp&fit=fill",
+            "image": "https://images.ctfassets.net/crbk84xktnsl/3uc78BrQBBH3MAMe5xXz7J/0b2be45f972b97b0bc132bf21825e758/Nuggets_6.png?h=600&w=800&fm=webp&fit=fill",
             "price": 7.95
         },
         {
@@ -2146,7 +2071,7 @@
                 "nuggets"
             ],
             "source": "CaloriesInKFC.com, KFC Australia published nutrition information, last checked 16 August 2026",
-            "image": "https://images.ctfassets.net/crbk84xktnsl/6TYbrMpuEKAWEO7xwiJAKS/edfd5917f85c08fc790ec5780e018bf1/Popcorn_Reg.png?h=900&w=1200&fm=webp&fit=fill",
+            "image": "https://images.ctfassets.net/crbk84xktnsl/3uc78BrQBBH3MAMe5xXz7J/0b2be45f972b97b0bc132bf21825e758/Nuggets_6.png?h=600&w=800&fm=webp&fit=fill",
             "price": 10.95
         },
         {
@@ -4284,42 +4209,6 @@
             "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
             "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Nachos_600x400_72ppi_RGB.jpg",
             "price": 11.9
-        },
-        {
-            "id": "zambrero-sweet-quesadilla-qld-only",
-            "name": "Sweet Quesadilla (Qld Only)",
-            "restaurant": "Zambrero",
-            "category": "quesadilla",
-            "calories": 187,
-            "protein_g": 5.4,
-            "carbs_g": 29.8,
-            "fat_g": 4.8,
-            "tags": [
-                "quesadilla",
-                "sweet",
-                "qld-only"
-            ],
-            "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-            "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/NEW_MENU_ZamApp_Kids-Box-Quesadilla_600x400_72ppi_RGB.jpg",
-            "price": 9.9
-        },
-        {
-            "id": "zambrero-chips-dip-sour-cream-guac-salsas",
-            "name": "Chips & Dip - Sour Cream, Guac & Salsas",
-            "restaurant": "Zambrero",
-            "category": "sides",
-            "calories": 500,
-            "protein_g": 6.2,
-            "carbs_g": 43.6,
-            "fat_g": 32.4,
-            "tags": [
-                "sides",
-                "chips",
-                "dip"
-            ],
-            "source": "Zambrero Nutritional Information v18, nutrition data correct as of 23 April 2018",
-            "image": "https://dph95f73vdxmz.cloudfront.net/uploads/_AUTOx280_fit_center-center_none/MENU_ITEM_IMAGE_600x400_BIG_CHIPS-TRIAL3.jpg",
-            "price": 8.9
         },
         {
             "id": "zambrero-chips",
