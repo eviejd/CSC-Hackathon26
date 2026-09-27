@@ -52,6 +52,11 @@ function outlineColor(pct) {
     return `rgba(179, 68, 47, ${Math.max(0.15, pct / 100)})`;
 }
 
+const graphResetBtn = document.getElementById("graph-reset-btn");
+
+let lastGraphData = null;
+let removedNodeIds = new Set();
+
 async function drawGraph() {
     setGraphState("loading");
 
@@ -77,8 +82,17 @@ async function drawGraph() {
         return;
     }
 
-    graphContainer.innerHTML = "";
+    lastGraphData = data;
+    removedNodeIds = new Set();
+    renderGraph();
+}
+
+function renderGraph() {
+    const data = lastGraphData;
+    const activeCategory = graphCategory.value;
     const NODE_RADIUS = 40;
+
+    graphContainer.innerHTML = "";
     const width = graphContainer.clientWidth || 800;
     const height = 800;
 
@@ -88,25 +102,23 @@ async function drawGraph() {
         .attr("height", height);
 
     const zoomLayer = svg.append("g");
-
-    // pan + zoom, so a large graph can be explored rather than all crammed on screen
     const zoom = d3.zoom()
         .scaleExtent([0.3, 4])
-        .on("zoom", event => {
-            zoomLayer.attr("transform", event.transform);
-        });
+        .on("zoom", event => zoomLayer.attr("transform", event.transform));
     svg.call(zoom);
 
     const defs = svg.append("defs");
 
-    const activeCategory = graphCategory.value;
+    // nodes the user hasn't removed
+    const nodes = data.nodes
+        .filter(d => !removedNodeIds.has(d.id))
+        .map(d => ({ ...d }));
+    const visibleIds = new Set(nodes.map(n => n.id));
 
-    const nodes = data.nodes.map(d => ({ ...d }));
     const EDGE_MIN_PCT = 55;
     const links = data.edges
+        .filter(d => visibleIds.has(d.source) && visibleIds.has(d.target)) // drop edges to removed nodes
         .map(d => {
-            // when everything on screen already shares the active category's tag,
-            // that tag is no longer a meaningful signal — treat it as noise here
             const meaningfulTags = activeCategory !== "all"
                 ? d.shared_tags.filter(t => t !== activeCategory)
                 : d.shared_tags;
@@ -131,7 +143,7 @@ async function drawGraph() {
         .force("link", d3.forceLink(links).id(d => d.id).distance(220).strength(0.15))
         .force("charge", d3.forceManyBody().strength(-450))
         .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collide", d3.forceCollide(NODE_RADIUS + 12))
+        .force("collide", d3.forceCollide(NODE_RADIUS + 12));
 
     const link = zoomLayer.append("g")
         .selectAll("line")
@@ -144,8 +156,9 @@ async function drawGraph() {
         .selectAll("g")
         .data(nodes)
         .join("g")
-        .style("cursor", "grab")
+        .style("cursor", "pointer")
         .call(d3.drag()
+            .clickDistance(4) // small jitter still counts as a click, not a drag
             .on("start", (event, d) => {
                 if (!event.active) simulation.alphaTarget(0.3).restart();
                 d.fx = d.x; d.fy = d.y;
@@ -154,10 +167,12 @@ async function drawGraph() {
             .on("end", (event, d) => {
                 if (!event.active) simulation.alphaTarget(0);
                 d.fx = null; d.fy = null;
-            }));
+            }))
+        .on("click", (event, d) => {
+            removedNodeIds.add(d.id);
+            renderGraph(); // re-render from the same cached data, no new fetch
+        });
 
-
-    // unique clip path per node so the image is cropped to a circle
     defs.selectAll("clipPath")
         .data(nodes)
         .join("clipPath")
@@ -165,33 +180,34 @@ async function drawGraph() {
         .append("circle")
         .attr("r", NODE_RADIUS - 3);
 
-    node.append("circle") // hairline
+    node.append("circle")
         .attr("r", NODE_RADIUS + 3)
         .attr("fill", "none")
         .attr("stroke", "#000")
         .attr("stroke-width", 1);
 
-    node.append("circle") // protein ring
+    node.append("circle")
         .attr("r", NODE_RADIUS + 1)
         .attr("fill", "none")
         .attr("stroke", d => outlineColor(d.protein_pct))
         .attr("stroke-width", 5);
 
-    node.append("circle") // calorie fill (shows even if image fails/missing)
+    node.append("circle")
         .attr("r", NODE_RADIUS - 3)
         .attr("fill", d => fillColor(d.cal_pct));
 
     node.filter(d => d.image)
         .append("image")
         .attr("href", d => d.image)
+        .attr("xlink:href", d => d.image)
         .attr("x", -NODE_RADIUS + 3)
         .attr("y", -NODE_RADIUS + 3)
         .attr("width", (NODE_RADIUS - 3) * 2)
         .attr("height", (NODE_RADIUS - 3) * 2)
         .attr("clip-path", d => `url(#clip-${d.id})`)
         .attr("preserveAspectRatio", "xMidYMid slice")
-        .attr("opacity", 0.85); // let the calorie-color still show through slightly
-    
+        .attr("opacity", 0.85);
+
     node.each(function (d) {
         const words = d.name.split(" ");
         const lines = [];
@@ -239,6 +255,11 @@ async function drawGraph() {
 graphForm.addEventListener("submit", e => {
     e.preventDefault();
     drawGraph();
+});
+
+graphResetBtn.addEventListener("click", () => {
+    removedNodeIds = new Set();
+    if (lastGraphData) renderGraph();
 });
 
 async function init() {
