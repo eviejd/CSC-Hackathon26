@@ -1,5 +1,5 @@
-// const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
-const API_BASE = "http://127.0.0.1:5001/api";
+const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
+// const API_BASE = "http://127.0.0.1:5001/api";
 
 const graphForm = document.getElementById("graph-form");
 const graphCalories = document.getElementById("graph-calories");
