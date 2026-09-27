@@ -675,6 +675,11 @@
     display: flex;
     flex-direction: column;
     }
+    #graph-container {
+        background: var(--color-bg);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+    }
 
     .state-message {
     padding: var(--space-3) 0;

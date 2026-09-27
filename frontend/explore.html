@@ -22,7 +22,6 @@
                 <p class="brand-tagline">Map your macros to the menu</p>
             </div>
         </div>
-
         <div class="header-nav-bar">
             <div class="wrap">
                 <nav class="site-nav" aria-label="Main Navigation">
@@ -38,9 +37,50 @@
     </header>
 
     <main class="wrap">
-        <section class="panel">
-            <h2>Explore the full menu</h2>
-            <p class="hint-text">Browse through our restaurant directory and find meals that align with your fitness goals.</p>
+        <section class="panel input-panel search-panel">
+            <h2>Explore the menu</h2>
+            <p class="hint-text">Set your targets, pick a craving, and see how everything connects.</p>
+
+            <form id="graph-form" class="match-form" novalidate>
+                <div class="field-row">
+                    <div class="field">
+                        <label for="graph-calories">Calorie target</label>
+                        <input type="number" id="graph-calories" min="0" step="1" placeholder="e.g. 500">
+                    </div>
+                    <div class="field">
+                        <label for="graph-protein">Protein target (g)</label>
+                        <input type="number" id="graph-protein" min="0" step="1" placeholder="e.g. 30">
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="field">
+                        <label for="graph-category">Craving</label>
+                        <select id="graph-category">
+                            <option value="all" selected>All</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="graph-restaurant">Restaurant</label>
+                        <select id="graph-restaurant">
+                            <option value="all" selected>All restaurants</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="cta-row">
+                    <button type="submit" class="cta cta-primary">Show graph</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel results-panel">
+            <div id="graph-empty" class="state-message">
+                Set your targets and pick a craving to see the map.
+            </div>
+            <div id="graph-loading" class="state-message" hidden>Building your map…</div>
+            <div id="graph-legend" class="hint-text" hidden>
+                Fill color = calorie closeness. Outline color = protein closeness. Lines connect similar items.
+            </div>
+            <div id="graph-container" hidden></div>
         </section>
     </main>
 
@@ -48,6 +88,7 @@
         <p class="wrap">Nutrition information sourced from restaurant-provided data. Values may change.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+    <script src="explore.js"></script>
 </body>
 </html>

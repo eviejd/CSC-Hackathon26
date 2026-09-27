@@ -1120,6 +1120,143 @@ def _tag_similarity(item_a, item_b, tag_weights=TAG_WEIGHTS):
         "match_pct_b": match_pct_b,
     }
 
+    # ---- Explore graph: precomputed tag-similarity edges between items -----------------
+
+GRAPH_CACHE_PATH = os.path.join(os.path.dirname(__file__), "data", "graph_cache.json")
+
+
+def _build_edge_index(items):
+    """All pairwise tag-similarity edges among items that share at least one tag.
+    Stored per item id, from that item's own perspective (match_pct_a when the
+    item is item_a in _tag_similarity), so a node always finds its own % when
+    looked up by its own id."""
+    edges = {item["id"]: [] for item in items if item.get("id")}
+
+    for i, item_a in enumerate(items):
+        id_a = item_a.get("id")
+        if not id_a:
+            continue
+        for item_b in items[i + 1:]:
+            id_b = item_b.get("id")
+            if not id_b:
+                continue
+            result = _tag_similarity(item_a, item_b)
+            if not result["shared_tags"]:
+                continue  # no shared tags -> no edge at all
+            edges[id_a].append({
+                "neighbor_id": id_b,
+                "match_pct": result["match_pct_a"],
+                "shared_tags": result["shared_tags"],
+            })
+            edges[id_b].append({
+                "neighbor_id": id_a,
+                "match_pct": result["match_pct_b"],
+                "shared_tags": result["shared_tags"],
+            })
+
+    return edges
+
+
+def _load_edge_index(items):
+    """Loads cached edges if menu.json hasn't changed since they were generated;
+    otherwise recomputes and re-caches. Avoids recalculating every tag comparison
+    on every request."""
+    current_mtime = os.path.getmtime(DATA_PATH)
+
+    if os.path.exists(GRAPH_CACHE_PATH):
+        try:
+            with open(GRAPH_CACHE_PATH, "r", encoding="utf-8") as f:
+                cache = json.load(f)
+            if cache.get("menu_mtime") == current_mtime:
+                return cache["edges"]
+        except (json.JSONDecodeError, KeyError):
+            pass  # fall through and regenerate
+
+    edges = _build_edge_index(items)
+    try:
+        with open(GRAPH_CACHE_PATH, "w", encoding="utf-8") as f:
+            json.dump({"menu_mtime": current_mtime, "edges": edges}, f)
+    except OSError:
+        pass  # cache write failing shouldn't break the request
+
+    return edges
+
+
+def _closeness_pct(value, target):
+    """100 = exactly at target, dropping toward 0 the further away value is
+    (in either direction). Used for both the calorie fill and protein outline."""
+    if value is None or target is None or target <= 0:
+        return 0
+    diff_pct = abs(value - target) / target * 100
+    return max(0, round(100 - diff_pct, 1))
+
+
+@app.route("/api/graph", methods=["GET"])
+def get_graph():
+    args = request.args
+    target_calories = _parse_query_number(args.get("target_calories"))
+    target_protein = _parse_query_number(args.get("target_protein"))
+    restaurant = (args.get("restaurant") or "all").strip()
+    category = (args.get("category") or "all").strip()
+
+    items = load_menu()
+    edge_index = _load_edge_index(items)
+
+    filtered = []
+    for item in items:
+        if restaurant.lower() != "all" and item.get("restaurant") != restaurant:
+            continue
+        if category.lower() != "all" and str(item.get("category", "")).lower() != category.lower():
+            continue
+        filtered.append(item)
+
+    visible_ids = {item["id"] for item in filtered if item.get("id")}
+
+    nodes = []
+    for item in filtered:
+        calories = _as_number(item.get("calories"))
+        protein = _as_number(item.get("protein_g"))
+        nodes.append({
+            "id": item.get("id"),
+            "name": item.get("name"),
+            "restaurant": item.get("restaurant"),
+            "category": item.get("category"),
+            "image": item.get("image"),
+            "calories": calories,
+            "protein_g": protein,
+            "cal_pct": _closeness_pct(calories, target_calories),
+            "protein_pct": _closeness_pct(protein, target_protein),
+        })
+
+    edges = []
+    seen_pairs = set()
+    for item_id in visible_ids:
+        for edge in edge_index.get(item_id, []):
+            neighbor_id = edge["neighbor_id"]
+            if neighbor_id not in visible_ids:
+                continue
+            pair = tuple(sorted((item_id, neighbor_id)))
+            if pair in seen_pairs:
+                continue
+            seen_pairs.add(pair)
+            neighbor_pct = next(
+                (e["match_pct"] for e in edge_index.get(neighbor_id, []) if e["neighbor_id"] == item_id),
+                edge["match_pct"],
+            )
+            edges.append({
+                "source": item_id,
+                "target": neighbor_id,
+                "source_match_pct": edge["match_pct"],
+                "target_match_pct": neighbor_pct,
+                "shared_tags": edge["shared_tags"],
+            })
+
+    return jsonify({
+        "target": {"calories": target_calories, "protein_g": target_protein},
+        "nodes": nodes,
+        "edges": edges,
+    })
+
 
 if __name__ == "__main__":
     import os
