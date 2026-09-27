@@ -671,9 +671,12 @@ function buildSearchParams() {
     }
 
     // No sort parameter is sent.
-    // The backend ranks by macro match score.
+    // The backend handles the result ordering.
     return params;
 }
+
+
+// ---- Search request ------------------------------------------------------------
 
 async function runMacroMatch() {
     setResultsState(
@@ -686,25 +689,81 @@ async function runMacroMatch() {
     const params =
         buildSearchParams();
 
+    const url =
+        `${API_BASE}/search?${params.toString()}`;
+
+    // Log the exact request so we can diagnose
+    // any frontend/backend communication issue.
+    console.log(
+        "Searching:",
+        url
+    );
+
     try {
-        const res = await fetch(
-            `${API_BASE}/search?${params.toString()}`
+        const res = await fetch(url);
+
+        // Read the response as text first.
+        // This lets us see the actual backend response
+        // even if it isn't valid JSON.
+        const responseText =
+            await res.text();
+
+        console.log(
+            "API response:",
+            res.status,
+            responseText
         );
 
         if (!res.ok) {
-            const body =
-                await res
-                    .json()
-                    .catch(() => ({}));
+            let errorMessage =
+                `HTTP ${res.status}`;
+
+            try {
+                const body =
+                    JSON.parse(
+                        responseText
+                    );
+
+                if (body.error) {
+                    errorMessage =
+                        body.error;
+                } else if (body.message) {
+                    errorMessage =
+                        body.message;
+                }
+            } catch {
+                // Response wasn't JSON.
+                // Keep the HTTP status and include
+                // the response text below.
+            }
+
+            if (responseText) {
+                errorMessage +=
+                    ` — ${responseText}`;
+            }
 
             throw new Error(
-                body.error ||
-                `Server returned ${res.status}`
+                errorMessage
             );
         }
 
-        const data =
-            await res.json();
+        let data;
+
+        try {
+            data =
+                JSON.parse(
+                    responseText
+                );
+        } catch (parseError) {
+            console.error(
+                "Failed to parse API response as JSON:",
+                parseError
+            );
+
+            throw new Error(
+                `The server returned an invalid JSON response: ${responseText}`
+            );
+        }
 
         renderResults(data);
 
@@ -714,8 +773,13 @@ async function runMacroMatch() {
             err
         );
 
+        // IMPORTANT:
+        // Don't hide the actual error behind the old
+        // "server isn't running" message.
         resultsError.textContent =
-            "Couldn't reach the server. Is the Flask backend running?";
+            `Request failed: ${
+                err.message || err
+            }`;
 
         setResultsState("error");
 
@@ -834,7 +898,7 @@ function buildResultCard(item) {
         item.restaurant
             .toLowerCase()
             .replace(/[^a-z]/g, "") ===
-            "mcdonalds";
+        "mcdonalds";
 
 
     const imageMarkup = item.image
@@ -992,7 +1056,7 @@ function buildBundleCard(bundle) {
         primaryItem.restaurant
             .toLowerCase()
             .replace(/[^a-z]/g, "") ===
-            "mcdonalds";
+        "mcdonalds";
 
 
     const imageMarkup =
