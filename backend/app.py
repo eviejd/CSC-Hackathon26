@@ -30,24 +30,6 @@ DIETARY_TAG_FILTERS = {
 
 ALLERGEN_FIELD = "allergens"
 
-SORT_OPTIONS = {
-    "relevance": None,
-    "macro_match": None, 
-    "calories_asc": ("calories", False),
-    "calories_desc": ("calories", True),
-    "protein_asc": ("protein_g", False),
-    "protein_desc": ("protein_g", True),
-    "carbs_asc": ("carbs_g", False),
-    "carbs_desc": ("carbs_g", True),
-    "fat_asc": ("fat_g", False),
-    "fat_desc": ("fat_g", True),
-    "name_asc": ("name", False),
-    "name_desc": ("name", True),
-    "efficiency_desc": ("_efficiency", True),
-    "price_asc": ("price", False),
-    "price_desc": ("price", True),
-}
-
 CHEAP_PRICE_THRESHOLD = 10.0
 
 

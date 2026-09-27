@@ -122,14 +122,6 @@ function formatCategory(category) {
         .join(" ");
 }
 
-function formatRemaining(value, label) {
-    const over = value < 0;
-
-    return `${Math.abs(value)}${label} ${
-        over ? "over" : "remaining"
-    }`;
-}
-
 function formatPrice(value) {
     const num = Number(value);
 
