@@ -6,6 +6,7 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const caloriesInput = document.getElementById("calories");
     const proteinInput = document.getElementById("protein");
     const restaurantSelect = document.getElementById("restaurant");
+    const budgetInput = document.getElementById("budget-input");
     const categorySelect = document.getElementById("category-select");
     const submitBtn = document.getElementById("submit-btn");
 
@@ -24,8 +25,6 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     const targetFat = document.getElementById("target-fat");
     const quickFilterGroup = document.getElementById("quick-filter-group");
     const dietFilterGroup = document.getElementById("diet-filter-group");
-    const sortSelect = document.getElementById("sort-select");
-    const sortRow = document.getElementById("sort-row");
     const clearFiltersBtn = document.getElementById("clear-filters-btn");
 
     const resultsEmpty = document.getElementById("results-empty");
@@ -252,6 +251,15 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     // fetching happens on form submit via the Find My Match button) --------------------
 
     function attachFilterListeners() {
+    // The top-level Budget field and the Advanced Search "Max price" field both
+    // represent the same underlying budget cap, so keep them mirrored.
+    budgetInput.addEventListener("input", () => {
+        maxPrice.value = budgetInput.value;
+    });
+    maxPrice.addEventListener("input", () => {
+        budgetInput.value = maxPrice.value;
+    });
+
     quickFilterGroup.addEventListener("click", (event) => {
         const btn = event.target.closest(".quick-filter-btn");
         if (!btn) return;
@@ -274,23 +282,14 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         }
     });
 
-    sortSelect.addEventListener("change", () => {
-        // Re-run automatically if results are already on screen, so re-sorting
-        // doesn't require a full resubmit.
-        if (!resultsContent.hidden) {
-        runMacroMatch();
-        }
-    });
-
     clearFiltersBtn.addEventListener("click", () => {
         searchInput.value = "";
         if (restaurantSelect.querySelector('option[value="all"]')) restaurantSelect.value = "all";
         if (categorySelect.querySelector('option[value="all"]')) categorySelect.value = "all";
         [
         minCalories, maxCalories, minProtein, maxProtein, minCarbs, maxCarbs, minFat, maxFat,
-        minPrice, maxPrice, targetCarbs, targetFat,
+        minPrice, maxPrice, budgetInput, targetCarbs, targetFat,
         ].forEach((el) => (el.value = ""));
-        sortSelect.value = "most_relevant";
         activeQuickFilter = null;
         activeDietFilters.clear();
         quickFilterGroup.querySelectorAll(".quick-filter-btn").forEach((b) => b.classList.remove("is-active"));
@@ -329,7 +328,9 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
     if (activeQuickFilter) params.set("quick", activeQuickFilter);
     if (activeDietFilters.size > 0) params.set("diet", Array.from(activeDietFilters).join(","));
-    if (sortSelect.value) params.set("sort", sortSelect.value);
+
+    // No sort parameter is sent: the backend always ranks by macro match
+    // score, highest first, across both individual items and bundles.
 
     return params;
     }
@@ -438,59 +439,60 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
         <span>Fat</span><strong>${fat}</strong>
         </dl>
         ${efficiency}
-        <span class="category-chip">${escapeHtml(formatCategory(item.category))}</span>
     `;
     return card;
     }
 
     // ---- Meal bundle card: 2-3 item combinations the backend suggests automatically
     // as part of the normal Macro Match response, rendered inline alongside individual
-    // item cards in the same results grid -------------------------------------------
+    // item cards in the same results grid. It reuses the normal .result-card structure
+    // and styling so it reads as another recommendation from the same ranking system,
+    // not a separate feature — the bundle's title is simply its component item names. --
 
     function buildBundleCard(bundle) {
     const card = document.createElement("article");
-    card.className = "meal-card";
+    card.className = "result-card";
+    card.dataset.resultType = "bundle";
 
-    const itemsMarkup = (bundle.items || [])
-        .map((item) => {
-        const thumb = item.image
-            ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.parentElement.innerHTML=''">`
-            : "";
-        const price = formatPrice(item.price);
-        return `
-            <div class="meal-item-row">
-            <div class="meal-item-thumb">${thumb}</div>
-            <span class="meal-item-name">${escapeHtml(item.name)}</span>
-            ${price ? `<span class="meal-item-price">${escapeHtml(price)}</span>` : ""}
-            </div>
-        `;
-        })
-        .join("");
+    const bundleItems = bundle.items || [];
+    const primaryItem = bundleItems.find((item) => item.image) || bundleItems[0] || {};
+    const { scale, position } = getImagePresentation(primaryItem);
+    const styleString = `--img-scale: ${scale}; --img-pos: ${position};`;
+
+    const imageMarkup = primaryItem.image
+        ? `<div class="food-card-image-container" style="${styleString}">
+            <img class="food-card-image" src="${escapeHtml(primaryItem.image)}" alt="${escapeHtml(bundleItems.map((i) => i.name).join(" + "))}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'food-card-placeholder\\'>No image available</div>'">
+        </div>`
+        : `<div class="food-card-image-container">
+            <div class="food-card-placeholder">No image available</div>
+        </div>`;
+
+    const bundleName = bundleItems.map((item) => item.name).join(" + ");
 
     const scoreBadge = bundle.macro_match_score !== undefined
         ? `<span class="match-badge">${bundle.macro_match_score}% match</span>`
         : "";
 
-    const carbs = bundle.carbs_g != null ? `${bundle.carbs_g}g carbs` : "";
-    const fat = bundle.fat_g != null ? `${bundle.fat_g}g fat` : "";
-    const totalPrice = formatPrice(bundle.price);
+    const calories = bundle.calories != null ? `${bundle.calories} kcal` : "—";
+    const protein = bundle.protein_g != null ? `${bundle.protein_g}g` : "—";
+    const carbs = bundle.carbs_g != null ? `${bundle.carbs_g}g` : "—";
+    const fat = bundle.fat_g != null ? `${bundle.fat_g}g` : "—";
 
     card.innerHTML = `
-        <div class="meal-card-header">
-        <span class="meal-name">${escapeHtml(bundle.restaurant || "")}</span>
-        <span style="display:flex; align-items:center; gap:0.4rem;">
-            ${scoreBadge}
-            <span class="bundle-tag">Suggested bundle</span>
-        </span>
+        ${priceTagMarkup(bundle)}
+        ${imageMarkup}
+        <div class="result-card-header">
+        <span class="result-name">${escapeHtml(bundleName)}</span>
+        ${scoreBadge}
         </div>
-        <div class="meal-item-list">${itemsMarkup}</div>
-        <div class="meal-macro-row">
-        <span><strong>${bundle.calories}</strong> kcal</span>
-        <span><strong>${bundle.protein_g}g</strong> protein</span>
-        ${carbs ? `<span><strong>${carbs}</strong></span>` : ""}
-        ${fat ? `<span><strong>${fat}</strong></span>` : ""}
-        ${totalPrice ? `<span><strong>${totalPrice}</strong> total</span>` : ""}
-        </div>
+        <p class="result-restaurant">${escapeHtml(bundle.restaurant || "")}</p>
+        <dl class="macro-list">
+        <span>Calories</span><strong>${calories}</strong>
+        <span>Protein</span><strong>${protein}</strong>
+        <span>Carbs</span><strong>${carbs}</strong>
+        <span>Fat</span><strong>${fat}</strong>
+        </dl>
+        <span class="category-chip">Suggested bundle</span>
     `;
     return card;
     }

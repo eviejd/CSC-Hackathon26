@@ -56,11 +56,17 @@
                         </div>
                     </div>
 
-                    <div class="field">
-                        <label for="restaurant">Choose a restaurant</label>
-                        <select id="restaurant" name="restaurant">
-                            <option value="" disabled selected>Loading restaurants…</option>
-                        </select>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="restaurant">Choose a restaurant</label>
+                            <select id="restaurant" name="restaurant">
+                                <option value="" disabled selected>Loading restaurants…</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="budget-input">Budget ($)</label>
+                            <input type="number" id="budget-input" name="budget" min="0" step="0.01" placeholder="e.g. 15" inputmode="decimal">
+                        </div>
                     </div>
 
                     <details class="more-filters-details" id="advanced-search-details">
@@ -102,7 +108,7 @@
                                                 <span class="range-sep" aria-hidden="true">–</span>
                                                 <input type="number" id="max-price" min="0" step="0.01" placeholder="Max" aria-label="Maximum Price">
                                             </div>
-                                            <p class="hint-text">The Max price also doubles as your budget cap when building a meal.</p>
+                                            <p class="hint-text">Max price stays in sync with the Budget field above.</p>
                                         </div>
                                         <div class="range-field">
                                             <span class="field-label">Calories (range)</span>
@@ -164,19 +170,9 @@
                         </div>
                     </details>
 
-                    <div class="search-footer-row" id="sort-row">
-                        <div class="field sort-field">
-                            <label for="sort-select">Sort</label>
-                            <select id="sort-select">
-                                <option value="most_relevant" selected>Most relevant</option>
-                                <option value="price_asc">Cheapest first</option>
-                                <option value="protein_desc">Highest protein</option>
-                                <option value="calories_asc">Lowest calories</option>
-                            </select>
-                        </div>
+                    <div class="cta-row">
+                        <button type="submit" class="cta cta-primary" id="submit-btn">Find My Match</button>
                     </div>
-
-                    <button type="submit" class="cta" id="submit-btn">Find My Match</button>
                 </form>
             </section>
 

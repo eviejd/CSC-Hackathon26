@@ -655,8 +655,23 @@
     flex-wrap: wrap;
     }
 
-    .sort-field {
-    min-width: 240px;
+    .cta-row {
+    display: flex;
+    justify-content: center;
+
+    margin-top: var(--space-2);
+    }
+
+    .cta-primary {
+    justify-self: center;
+
+    padding: 1.05rem 3rem;
+    min-height: 52px;
+
+    font-size: 1.15rem;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.18);
     }
 
     .clear-btn {
@@ -1164,201 +1179,6 @@
     margin-top: 0.25rem;
     }
 
-    .meal-results-grid {
-    display: grid;
-
-    gap: 1.5rem;
-
-    grid-template-columns:
-        repeat(auto-fill, minmax(300px, 1fr));
-
-    width: 100%;
-    }
-
-    .meal-card {
-    position: relative;
-
-    border: 1.5px solid var(--color-border);
-
-    border-radius: var(--radius-md);
-
-    padding: var(--space-3);
-
-    background: rgba(255, 249, 239, 0.96);
-
-    color: var(--color-ink);
-
-    display: grid;
-
-    gap: 0.75rem;
-
-    animation: card-in 0.25s ease both;
-
-    box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.08);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-    .meal-card:active {
-    transform: scale(0.99);
-    }
-
-    .meal-card.is-best {
-    border-color: var(--color-accent);
-
-    background: var(--color-accent-tint);
-
-    box-shadow:
-        0 6px 20px rgba(161, 140, 112, 0.3);
-    }
-
-    .meal-card-header {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    align-items: flex-start;
-
-    justify-content: space-between;
-
-    gap: 0.5rem;
-    }
-
-    .meal-name {
-    font-family: var(--font-display);
-
-    font-weight: 700;
-
-    font-size: 1.05rem;
-
-    line-height: 1.25;
-
-    min-width: 0;
-    overflow-wrap: anywhere;
-    }
-
-    .meal-best-badge {
-    background: var(--color-accent);
-
-    color: #fff;
-
-    font-size: 0.72rem;
-    font-weight: 700;
-
-    padding: 0.25rem 0.65rem;
-
-    border-radius: var(--radius-pill);
-
-    white-space: nowrap;
-
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    }
-
-    .meal-item-list {
-    display: flex;
-    flex-direction: column;
-
-    gap: 0.5rem;
-    }
-
-    .meal-item-row {
-    display: flex;
-    align-items: flex-start;
-
-    gap: 0.6rem;
-    }
-
-    .meal-item-thumb {
-    width: 40px;
-    height: 40px;
-    flex: none;
-
-    border-radius: var(--radius-sm);
-
-    overflow: hidden;
-
-    background: #ffffff;
-
-    border: 1px solid var(--color-border-subtle);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
-
-    .meal-item-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    }
-
-    .meal-item-name {
-    font-size: 0.88rem;
-    font-weight: 500;
-
-    min-width: 0;
-    overflow-wrap: anywhere;
-    flex: 1 1 auto;
-    }
-
-    .meal-item-price {
-    font-size: 0.85rem;
-    font-weight: 600;
-
-    color: var(--color-ink-soft);
-
-    flex: none;
-    margin-left: auto;
-    white-space: nowrap;
-    }
-
-    .meal-macro-row {
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 0.5rem;
-
-    padding: 0.6rem 0.65rem;
-
-    background: rgba(255, 255, 255, 0.5);
-
-    border-radius: var(--radius-sm);
-
-    font-size: 0.85rem;
-
-    color: var(--color-ink-soft);
-    }
-
-    .meal-macro-row strong {
-    color: var(--color-ink);
-    }
-
-    .meal-target-diff {
-    font-size: 0.82rem;
-
-    color: var(--color-ink-soft);
-
-    border-top: 1px dashed var(--color-border);
-
-    padding-top: 0.5rem;
-
-    margin: 0;
-    }
-
-    .meal-target-diff .diff-good {
-    color: #3f7d52;
-    font-weight: 600;
-    }
-
-    .meal-target-diff .diff-over {
-    color: var(--color-error);
-    font-weight: 600;
-    }
-
     @media (hover: hover) and (pointer: fine) {
     .brand-logo-wrap:hover {
         transform: scale(1.04);
@@ -1373,13 +1193,6 @@
 
     .result-card:hover .food-card-image {
         transform: scale(calc(var(--img-scale, 1.15) * 1.04));
-    }
-
-    .meal-card:hover {
-        transform: translateY(-3px);
-
-        box-shadow:
-            0 8px 24px rgba(0, 0, 0, 0.12);
     }
     }
 
@@ -1401,7 +1214,6 @@
     }
 
     .results-grid,
-    .meal-results-grid,
     .skeleton-grid {
         gap: 1.1rem;
     }
@@ -1430,10 +1242,6 @@
         grid-template-columns: 1fr;
     }
 
-    .sort-field {
-        min-width: 100%;
-    }
-
     .search-footer-row {
         flex-direction: column;
         align-items: stretch;
@@ -1450,7 +1258,6 @@
 
 
     .results-grid,
-    .meal-results-grid,
     .skeleton-grid {
         grid-template-columns: 1fr;
     }
