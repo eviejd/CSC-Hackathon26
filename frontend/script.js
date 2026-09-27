@@ -57,6 +57,13 @@ const DIET_FILTER_LABELS = {
     lamb: "Lamb",
 };
 
+const RESTAURANT_MAPS_URLS = {
+    "McDonald's": "https://maps.app.goo.gl/YvHzcgokYmms99289",
+    "Zambrero": "https://maps.app.goo.gl/fBLo3vnxpf6Zqzq1A",
+    "Subway": "https://maps.app.goo.gl/qtpzQ5Td28CsEKKs9",
+    "KFC": "https://maps.app.goo.gl/rAHNNePbN1eRBFTH6",
+};
+
 let activeQuickFilter = null;
 let activeDietFilters = new Set();
 let activeAllergenFilters = new Set();
@@ -1042,6 +1049,14 @@ function buildResultCard(item) {
               `
             : "";
 
+    const mapsUrl = RESTAURANT_MAPS_URLS[item.restaurant];
+    const directionsMarkup = mapsUrl
+        ? `
+            <a class="directions-btn" href="${mapsUrl}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-location-dot"></i> Get directions
+            </a>
+        `
+        : "";
 
     card.innerHTML = `
         ${priceTagMarkup(item)}
@@ -1050,18 +1065,14 @@ function buildResultCard(item) {
 
         <div class="result-card-header">
             <span class="result-name">
-                ${escapeHtml(
-                    item.name
-                )}
+                ${escapeHtml(item.name)}
             </span>
 
             ${scoreBadge}
         </div>
 
         <p class="result-restaurant">
-            ${escapeHtml(
-                item.restaurant
-            )}
+            ${escapeHtml(item.restaurant)}
         </p>
 
         <dl class="macro-list">
@@ -1079,6 +1090,8 @@ function buildResultCard(item) {
         </dl>
 
         ${efficiency}
+
+        ${directionsMarkup}
     `;
 
     return card;
@@ -1181,6 +1194,14 @@ function buildBundleCard(bundle) {
             : "—";
 
 
+    const mapsUrl = RESTAURANT_MAPS_URLS[restaurantName];
+    const directionsMarkup = mapsUrl
+        ? `
+            <a class="directions-btn directions-btn--icon-only" href="${mapsUrl}" target="_blank" rel="noopener noreferrer" aria-label="Get directions to ${escapeHtml(restaurantName)}" title="Get directions">
+                <i class="fa-solid fa-location-dot"></i>
+            </a>
+        `
+        : "";
     card.innerHTML = `
         ${priceTagMarkup(bundle)}
 
@@ -1188,18 +1209,14 @@ function buildBundleCard(bundle) {
 
         <div class="result-card-header">
             <span class="result-name">
-                ${escapeHtml(
-                    bundleTitle
-                )}
+                ${escapeHtml(bundleTitle)}
             </span>
 
             ${scoreBadge}
         </div>
 
         <p class="result-restaurant">
-            ${escapeHtml(
-                restaurantName
-            )}
+            ${escapeHtml(restaurantName)}
         </p>
 
         <dl class="macro-list">
@@ -1216,9 +1233,13 @@ function buildBundleCard(bundle) {
             <strong>${fat}</strong>
         </dl>
 
-        <span class="category-chip">
-            Suggested bundle
-        </span>
+        <div class="bundle-footer-row">
+            <span class="category-chip">
+                Suggested bundle
+            </span>
+
+        ${directionsMarkup}
+    </div>
     `;
 
     return card;
