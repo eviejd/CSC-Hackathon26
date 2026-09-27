@@ -902,6 +902,63 @@
     border: 1px dashed var(--color-border);
     }
 
+    /* ---- Bundle item list: replaces the single hero image on bundle cards
+       with a compact, evenly-spaced row per component item (small thumbnail
+       + name), styled to match the rest of the .result-card system. -------- */
+
+    .bundle-item-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.65rem;
+
+    padding: 0.65rem;
+
+    background: rgba(255, 255, 255, 0.5);
+
+    border-radius: var(--radius-sm);
+    }
+
+    .bundle-item-row {
+    display: flex;
+    align-items: center;
+
+    gap: 0.75rem;
+    }
+
+    .bundle-item-thumb {
+    width: 56px;
+    height: 56px;
+    flex: none;
+
+    border-radius: var(--radius-sm);
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid var(--color-border-subtle);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .bundle-item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+
+    .bundle-item-name {
+    font-size: 0.92rem;
+    font-weight: 500;
+
+    min-width: 0;
+    overflow-wrap: anywhere;
+    flex: 1 1 auto;
+    }
+
     .result-card.is-best {
     border-color: var(--color-accent);
 

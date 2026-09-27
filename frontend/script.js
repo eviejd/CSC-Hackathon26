@@ -1032,75 +1032,53 @@ function buildBundleCard(bundle) {
     const bundleItems =
         bundle.items || [];
 
-    const primaryItem =
-        bundleItems.find(
-            item => item.image
-        ) ||
-        bundleItems[0] ||
-        {};
+    const restaurantName =
+        bundle.restaurant ||
+        (bundleItems[0] && bundleItems[0].restaurant) ||
+        "";
 
+    const bundleTitle =
+        restaurantName
+            ? `${restaurantName} Bundle`
+            : "Bundle";
 
-    const {
-        scale,
-        position,
-    } = getImagePresentation(
-        primaryItem
-    );
-
-    const styleString =
-        `--img-scale: ${scale}; --img-pos: ${position};`;
-
-
-    const isMcDonalds =
-        primaryItem.restaurant &&
-        primaryItem.restaurant
-            .toLowerCase()
-            .replace(/[^a-z]/g, "") ===
-        "mcdonalds";
-
-
-    const imageMarkup =
-        primaryItem.image
+    // Instead of one large hero image, show each component item as a
+    // compact thumbnail + name row, using the item images already in
+    // the menu data (no separate hard-coded bundle image list).
+    const itemListMarkup =
+        bundleItems.length
             ? `
-                <div
-                    class="food-card-image-container"
-                    style="${styleString}"
-                >
-                    <img
-                        class="food-card-image${
-                            isMcDonalds
-                                ? " mcdonalds-image"
-                                : ""
-                        }"
-                        src="${escapeHtml(
-                            primaryItem.image
-                        )}"
-                        alt="${escapeHtml(
-                            bundleItems
-                                .map(
-                                    item =>
+                <div class="bundle-item-list">
+                    ${bundleItems
+                        .map(item => {
+                            const thumb =
+                                item.image
+                                    ? `<img src="${escapeHtml(
+                                          item.image
+                                      )}" alt="${escapeHtml(
+                                          item.name
+                                      )}" loading="lazy" onerror="this.parentElement.innerHTML=''">`
+                                    : "";
+
+                            return `
+                                <div class="bundle-item-row">
+                                    <div class="bundle-item-thumb">${thumb}</div>
+                                    <span class="bundle-item-name">${escapeHtml(
                                         item.name
-                                )
-                                .join(" + ")
-                        )}"
-                        loading="lazy"
-                        onerror="this.parentElement.innerHTML='<div class=\\'food-card-placeholder\\'>No image available</div>'"
-                    >
+                                    )}</span>
+                                </div>
+                            `;
+                        })
+                        .join("")}
                 </div>
               `
             : `
                 <div class="food-card-image-container">
                     <div class="food-card-placeholder">
-                        No image available
+                        No item details available
                     </div>
                 </div>
               `;
-
-
-    const bundleName =
-        bundleItems
-            .map(item => item.name)
-            .join(" + ");
 
 
     const scoreBadge =
@@ -1138,12 +1116,12 @@ function buildBundleCard(bundle) {
     card.innerHTML = `
         ${priceTagMarkup(bundle)}
 
-        ${imageMarkup}
+        ${itemListMarkup}
 
         <div class="result-card-header">
             <span class="result-name">
                 ${escapeHtml(
-                    bundleName
+                    bundleTitle
                 )}
             </span>
 
@@ -1152,7 +1130,7 @@ function buildBundleCard(bundle) {
 
         <p class="result-restaurant">
             ${escapeHtml(
-                bundle.restaurant || ""
+                restaurantName
             )}
         </p>
 
