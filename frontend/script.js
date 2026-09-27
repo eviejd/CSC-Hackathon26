@@ -1086,7 +1086,7 @@ function buildResultCard(item) {
     const directionsMarkup = mapsUrl
         ? `
             <a class="directions-btn" href="${mapsUrl}" target="_blank" rel="noopener noreferrer">
-                <i class="fa-solid fa-location-dot"></i> Get directions
+                <i class="fa-solid fa-map-location-dot"></i> Get Map
             </a>
         `
         : "";
@@ -1231,7 +1231,7 @@ function buildBundleCard(bundle) {
     const directionsMarkup = mapsUrl
         ? `
             <a class="directions-btn directions-btn--icon-only" href="${mapsUrl}" target="_blank" rel="noopener noreferrer" aria-label="Get directions to ${escapeHtml(restaurantName)}" title="Get directions">
-                <i class="fa-solid fa-location-dot"></i>
+                <i class="fa-solid fa-map-location-dot"></i>
             </a>
         `
         : "";
