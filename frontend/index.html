@@ -206,10 +206,32 @@
                         Set your targets and pick a craving to see the map.
                     </div>
                     <div id="graph-loading" class="state-message" hidden>Building your map…</div>
-                    <div id="graph-legend" class="hint-text" hidden>
-                        Only 75%+ matches are shown. Centre = strongest match, branching out to lower (but still strong) matches.
-                        Fill color = calorie closeness, outline color = protein closeness. Click a node to remove it.
-                        <button type="button" id="graph-reset-btn" class="clear-btn" style="margin-left: 1rem;">Reset graph</button>
+                    <div id="graph-legend" class="graph-legend" hidden>
+                        <div class="graph-legend-card">
+                            <p class="graph-legend-title">Match quality</p>
+                            <ul class="graph-legend-list">
+                                <li class="graph-legend-row">
+                                    <span class="graph-legend-swatch graph-legend-swatch--best" aria-hidden="true"></span>
+                                    <span class="graph-legend-range">90–100%</span>
+                                    <span class="graph-legend-desc">Best matches</span>
+                                </li>
+                                <li class="graph-legend-row">
+                                    <span class="graph-legend-swatch graph-legend-swatch--strong" aria-hidden="true"></span>
+                                    <span class="graph-legend-range">80–89%</span>
+                                    <span class="graph-legend-desc">Strong matches</span>
+                                </li>
+                                <li class="graph-legend-row">
+                                    <span class="graph-legend-swatch graph-legend-swatch--good" aria-hidden="true"></span>
+                                    <span class="graph-legend-range">75–79%</span>
+                                    <span class="graph-legend-desc">Good matches</span>
+                                </li>
+                            </ul>
+                            <p class="graph-legend-note">
+                                Meals closer to the centre match your targets more closely; further out is still a good match, just not as close.
+                                Only 75%+ matches are shown. Click a meal to remove it from the map.
+                            </p>
+                            <button type="button" id="graph-reset-btn" class="clear-btn graph-legend-reset">Reset graph</button>
+                        </div>
                     </div>
                     <div id="graph-container" hidden></div>
                 </div>

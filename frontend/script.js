@@ -48,6 +48,11 @@ const graphLoading = document.getElementById("graph-loading");
 const graphLegend = document.getElementById("graph-legend");
 const graphContainer = document.getElementById("graph-container");
 
+// "View Map" only ever makes sense once a single restaurant is selected (the
+// map is scoped to one restaurant's matches), so it starts hidden and stays
+// hidden until a specific restaurant is chosen — see updateGraphButtonVisibility().
+showGraphBtn.hidden = true;
+
 const DIET_FILTER_LABELS = {
     vegetarian: "Vegetarian",
     spicy: "Spicy",
@@ -632,9 +637,35 @@ function attachFilterListeners() {
                         "is-active"
                     )
                 );
+
+            // restaurantSelect.value was set programmatically above, which
+            // doesn't fire a native "change" event, so sync the map button too.
+            updateGraphButtonVisibility();
         }
     );
 }
+
+
+// ---- View Map visibility (only for a specific restaurant) ----------------------
+
+function isSpecificRestaurantSelected() {
+    return !!restaurantSelect.value && restaurantSelect.value !== "all";
+}
+
+function updateGraphButtonVisibility() {
+    const show = isSpecificRestaurantSelected();
+
+    showGraphBtn.hidden = !show;
+
+    // If the user was viewing the map and the restaurant selection no longer
+    // maps to a single restaurant, don't leave them stranded in the map view.
+    if (!show && !graphView.hidden) {
+        graphView.hidden = true;
+        resultsContent.hidden = false;
+    }
+}
+
+restaurantSelect.addEventListener("change", updateGraphButtonVisibility);
 
 
 // ---- Search --------------------------------------------------------------------
@@ -860,6 +891,8 @@ async function runMacroMatch() {
 // ---- Results rendering ---------------------------------------------------------
 
 function renderResults(data) {
+    updateGraphButtonVisibility();
+
     const results =
         data.results || [];
 
@@ -1247,6 +1280,54 @@ function setGraphState(state) {
     graphContainer.hidden = state !== "content";
 }
 
+// ---- Sizing: the map is measured from its own container's real, laid-out
+// dimensions rather than a guessed/default width, and re-measured whenever
+// that container's size actually changes (shown for the first time, window
+// resized, device rotated, etc). This is what fixes the "cut off until you
+// press Reset" bug at its root, instead of papering over it.
+
+// Waits for a real layout/paint pass to happen before resolving. A single
+// requestAnimationFrame can still land before the browser has applied a
+// visibility change made moments earlier in the same tick, so we wait two.
+function nextRenderFrame() {
+    return new Promise(resolve => {
+        requestAnimationFrame(() => requestAnimationFrame(resolve));
+    });
+}
+
+let graphResizeObserver = null;
+let graphRenderQueued = false;
+
+// Coalesces bursts of resize/observer callbacks into a single re-render on
+// the next frame, rather than a timer-based poll.
+function queueGraphResize() {
+    if (graphRenderQueued) return;
+    graphRenderQueued = true;
+
+    requestAnimationFrame(() => {
+        graphRenderQueued = false;
+
+        if (!graphView.hidden && lastGraphData) {
+            renderGraph();
+        }
+    });
+}
+
+function ensureGraphResizeObserver() {
+    if (graphResizeObserver || typeof ResizeObserver === "undefined") return;
+
+    graphResizeObserver = new ResizeObserver(() => {
+        queueGraphResize();
+    });
+
+    graphResizeObserver.observe(graphContainer);
+}
+
+// Fallback for browsers/environments without ResizeObserver, and covers
+// mobile orientation changes uniformly alongside plain window resizes.
+window.addEventListener("resize", queueGraphResize);
+window.addEventListener("orientationchange", queueGraphResize);
+
 // red at target, fading to transparent the further off — brand primary color
 function fillColor(pct) {
     return `rgba(110, 40, 34, ${Math.max(0.05, pct / 100)})`;
@@ -1331,7 +1412,12 @@ function renderGraph() {
 
     graphContainer.innerHTML = "";
     document.getElementById("graph-cap-note")?.remove();
-    const containerWidth = graphContainer.clientWidth || 800;
+
+    // graphContainer's own laid-out width — by the time this runs the caller
+    // has already guaranteed the container is visible and has completed a
+    // layout pass (see showGraphBtn's click handler / queueGraphResize), so
+    // this reflects real available space rather than a stale/zero value.
+    const containerWidth = graphContainer.clientWidth || graphContainer.parentElement?.clientWidth || 800;
 
     // ---- filter -> sort -> cap -> build the hierarchy (steps 1-6 of the spec) ----
     const qualifying = data.nodes
@@ -1530,9 +1616,18 @@ function renderGraph() {
     }
 }
 
-showGraphBtn.addEventListener("click", () => {
+showGraphBtn.addEventListener("click", async () => {
     resultsContent.hidden = true;
     graphView.hidden = false;
+
+    ensureGraphResizeObserver();
+
+    // Make sure the browser has actually laid out graph-container at its
+    // final (now-visible) size before drawGraph()/renderGraph() measure it —
+    // this is what makes the map correctly sized on the very first open,
+    // with no need to press Reset.
+    await nextRenderFrame();
+
     drawGraph();
 });
 
@@ -1608,6 +1703,7 @@ async function init() {
     ]);
 
     attachFilterListeners();
+    updateGraphButtonVisibility();
 }
 
 init();
