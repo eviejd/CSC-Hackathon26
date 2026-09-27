@@ -37,7 +37,6 @@
     --space-4: 2rem;
     --space-5: 3rem;
 
-    /* Max width for large responsive screens */
     --content-max-width: min(94%, 1480px);
     }
 
@@ -70,14 +69,10 @@
 
     -webkit-font-smoothing: antialiased;
 
-    /* Allows the pattern to sit behind the page content */
     position: relative;
     isolation: isolate;
     }
 
-    /* =========================================================
-    SUBTLE PAGE-WIDE BACKGROUND PATTERN
-    ========================================================= */
 
     body::before {
     content: "";
@@ -89,19 +84,12 @@
     background-size: 420px;
     background-position: center;
 
-    /* Keep the pattern subtle */
     opacity: 0.16;
 
-    /* Never interfere with clicks or scrolling */
     pointer-events: none;
 
-    /* Keep behind all page content */
     z-index: -1;
     }
-
-    /* =========================================================
-    RESPONSIVE MAIN CONTAINER
-    ========================================================= */
 
     .wrap {
     width: var(--content-max-width);
@@ -133,11 +121,6 @@
     color: inherit;
     text-decoration: none;
     }
-
-    
-    /* =========================================================
-    1 & 2. PROMINENT HEADER BRANDING & SUB-NAV
-    ========================================================= */
 
     .site-header {
     background: rgba(255, 244, 227, 0.94);
@@ -199,7 +182,6 @@
     font-weight: 600;
     }
 
-    /* Secondary Nav Bar Underneath Logo & Title */
 
     .header-nav-bar {
     border-top: 1px solid var(--color-border);
@@ -264,9 +246,6 @@
         0 2px 6px rgba(41, 31, 30, 0.05);
     }
 
-    /* =========================================================
-    3. MAIN CONTENT CONTAINER
-    ========================================================= */
 
     main.wrap {
     flex: 1;
@@ -279,60 +258,6 @@
 
     gap: var(--space-4);
     }
-
-    /* =========================================================
-    MODE SWITCHING TABS
-    ========================================================= */
-
-    .mode-tabs {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 0.5rem;
-
-    margin-bottom: var(--space-1);
-    }
-
-    .mode-tab {
-    font-family: var(--font-display);
-
-    font-size: 0.95rem;
-    font-weight: 600;
-
-    padding: 0.65rem 1.35rem;
-    min-height: 44px;
-
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-pill);
-
-    background: var(--color-surface);
-    color: var(--color-ink-soft);
-
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-    }
-
-    .mode-tab:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    }
-
-    .mode-tab.is-active {
-    background: var(--color-primary);
-
-    border-color: var(--color-primary);
-
-    color: #fff;
-
-    box-shadow:
-        0 2px 8px rgba(110, 40, 34, 0.25);
-    }
-
-    /* =========================================================
-    PANELS & FORMS
-    ========================================================= */
 
     .panel {
     background: var(--color-primary);
@@ -379,7 +304,6 @@
     background: rgba(0, 0, 0, 0.25);
     }
 
-    .panel .category-btn,
     .panel .quick-filter-btn {
     background: var(--color-surface);
 
@@ -388,12 +312,10 @@
     border: 1.5px solid var(--color-border);
     }
 
-    .panel .category-btn:hover,
     .panel .quick-filter-btn:hover {
     border-color: var(--color-accent);
     }
 
-    .panel .category-btn.is-active,
     .panel .quick-filter-btn.is-active {
     background: var(--color-accent);
 
@@ -414,10 +336,6 @@
     .panel .goal-subsection {
     border-top-color: rgba(255, 255, 255, 0.3);
     }
-
-    /* =========================================================
-    FORM CONTROLS
-    ========================================================= */
 
     .match-form {
     display: grid;
@@ -471,7 +389,6 @@
 
     input:focus,
     select:focus,
-    .category-btn:focus-visible,
     .cta:focus-visible {
     outline: none;
 
@@ -481,7 +398,6 @@
         0 0 0 3px var(--color-primary-tint);
     }
 
-    .category-group,
     .quick-filter-group {
     display: flex;
 
@@ -490,7 +406,6 @@
     gap: 0.5rem;
     }
 
-    .category-btn,
     .quick-filter-btn {
     font-family: var(--font-body);
 
@@ -557,9 +472,6 @@
     cursor: not-allowed;
     }
 
-    /* =========================================================
-    ADVANCED SEARCH & EXTENDED FILTER LAYOUTS
-    ========================================================= */
 
     .search-panel {
     display: grid;
@@ -573,17 +485,6 @@
 
     border-radius: var(--radius-md);
     }
-
-    .search-filters-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
-
-    gap: var(--space-3);
-    }
-
-    /* 4-column desktop layout for macro ranges */
 
     .range-filters-grid {
     display: grid;
@@ -706,8 +607,40 @@
     flex-wrap: wrap;
     }
 
-    .sort-field {
-    min-width: 240px;
+    .cta-row {
+    display: flex;
+    justify-content: center;
+
+    margin-top: var(--space-2);
+    }
+
+    .cta-primary {
+        background: var(--color-banner);
+        color: var(--color-banner-accent);
+        border: 1.5px solid var(--color-banner-accent);
+        justify-self: center;
+        padding: 1.05rem 3rem;
+        min-height: 52px;
+        font-size: 1.15rem;
+        box-shadow: 0 6px 18px rgba(41, 31, 30, 0.16);
+    }
+
+    .cta-primary:hover {
+        background: var(--color-banner-accent);
+        color: var(--color-banner);
+        border-color: var(--color-banner-accent);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(41, 31, 30, 0.2);
+    }
+
+    .cta-primary:active {
+        transform: translateY(0);
+    }
+
+    .cta-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
     }
 
     .clear-btn {
@@ -737,10 +670,6 @@
 
     background: var(--color-primary-tint);
     }
-
-    /* =========================================================
-    RESULTS & FLUID FOOD GRID
-    ========================================================= */
 
     .results-panel {
     display: flex;
@@ -785,52 +714,6 @@
     border-radius: var(--radius-pill);
     }
 
-    .route-line {
-    display: flex;
-
-    align-items: center;
-
-    gap: 0.5rem;
-
-    margin:
-        var(--space-2)
-        0
-        var(--space-4);
-    }
-
-    .route-dot {
-    width: 12px;
-    height: 12px;
-
-    border-radius: 50%;
-
-    flex: none;
-    }
-
-    .route-dot-start {
-    background: var(--color-surface);
-    }
-
-    .route-dot-end {
-    background: var(--color-accent);
-    }
-
-    .route-track {
-    flex: 1;
-
-    height: 2px;
-
-    background: repeating-linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.4) 0 8px,
-        transparent 8px 14px
-    );
-    }
-
-    /* =========================================================
-    FLUID RESPONSIVE FOOD GRID & BALANCED IMAGES
-    ========================================================= */
-
     .results-grid {
     display: grid;
 
@@ -851,7 +734,6 @@
 
     padding: var(--space-3);
 
-    /* Nearly opaque so the background pattern stays outside */
     background: rgba(255, 249, 239, 0.96);
 
     color: var(--color-ink);
@@ -876,7 +758,6 @@
     transform: scale(0.99);
     }
 
-    /* Fixed 1:1 image container to keep card sizes uniform */
     .food-card-image-container {
     width: calc(100% + var(--space-3) * 2);
     margin: calc(var(--space-3) * -1) calc(var(--space-3) * -1) 0;
@@ -894,7 +775,6 @@
     border-top-right-radius: var(--radius-md);
     }
 
-    /* Image scaling & centering */
     .food-card-image {
     width: 100%;
     height: 100%;
@@ -906,6 +786,13 @@
     transform-origin: center center;
 
     transition: transform 0.25s ease;
+    }
+
+    .food-card-image.mcdonalds-image {
+    object-fit: cover;
+    object-position: center bottom;
+    transform: scale(1.6);
+    transform-origin: center bottom;
     }
 
     .food-card-placeholder {
@@ -923,6 +810,63 @@
     color: var(--color-ink-soft);
     background: var(--color-surface);
     border: 1px dashed var(--color-border);
+    }
+
+    /* ---- Bundle item list: replaces the single hero image on bundle cards
+       with a compact, evenly-spaced row per component item (small thumbnail
+       + name), styled to match the rest of the .result-card system. -------- */
+
+    .bundle-item-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.65rem;
+
+    padding: 0.65rem;
+
+    background: rgba(255, 255, 255, 0.5);
+
+    border-radius: var(--radius-sm);
+    }
+
+    .bundle-item-row {
+    display: flex;
+    align-items: center;
+
+    gap: 0.75rem;
+    }
+
+    .bundle-item-thumb {
+    width: 56px;
+    height: 56px;
+    flex: none;
+
+    border-radius: var(--radius-sm);
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid var(--color-border-subtle);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .bundle-item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+
+    .bundle-item-name {
+    font-size: 0.92rem;
+    font-weight: 500;
+
+    min-width: 0;
+    overflow-wrap: anywhere;
+    flex: 1 1 auto;
     }
 
     .result-card.is-best {
@@ -1043,32 +987,28 @@
     margin: 0;
     }
 
-    .best-tag {
+    .price-tag {
     position: absolute;
 
     top: 10px;
-    right: 12px;
+    left: 12px;
     z-index: 2;
 
-    background: var(--color-accent);
+    background: var(--color-primary);
 
     color: #fff;
 
-    font-size: 0.72rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
     font-weight: 700;
 
-    padding: 0.2rem 0.65rem;
+    padding: 0.3rem 0.7rem;
 
     border-radius: var(--radius-pill);
 
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+    letter-spacing: 0.01em;
     }
-
-    /* =========================================================
-    SKELETON LOADING CARDS
-    ========================================================= */
 
     .skeleton-grid {
     display: grid;
@@ -1157,9 +1097,6 @@
     }
     }
 
-    /* =========================================================
-    STRUCTURED EMPTY STATE
-    ========================================================= */
 
     .empty-state {
     display: flex;
@@ -1192,201 +1129,6 @@
     margin-top: 0.25rem;
     }
 
-    /* =========================================================
-    BUILD MY MEAL RESULTS
-    ========================================================= */
-
-    .meal-results-grid {
-    display: grid;
-
-    gap: 1.5rem;
-
-    grid-template-columns:
-        repeat(auto-fill, minmax(300px, 1fr));
-
-    width: 100%;
-    }
-
-    .meal-card {
-    position: relative;
-
-    border: 1.5px solid var(--color-border);
-
-    border-radius: var(--radius-md);
-
-    padding: var(--space-3);
-
-    background: rgba(255, 249, 239, 0.96);
-
-    color: var(--color-ink);
-
-    display: grid;
-
-    gap: 0.75rem;
-
-    animation: card-in 0.25s ease both;
-
-    box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.08);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-    .meal-card:active {
-    transform: scale(0.99);
-    }
-
-    .meal-card.is-best {
-    border-color: var(--color-accent);
-
-    background: var(--color-accent-tint);
-
-    box-shadow:
-        0 6px 20px rgba(161, 140, 112, 0.3);
-    }
-
-    .meal-card-header {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    align-items: flex-start;
-
-    justify-content: space-between;
-
-    gap: 0.5rem;
-    }
-
-    .meal-name {
-    font-family: var(--font-display);
-
-    font-weight: 700;
-
-    font-size: 1.05rem;
-
-    line-height: 1.25;
-
-    min-width: 0;
-    overflow-wrap: anywhere;
-    }
-
-    .meal-best-badge {
-    background: var(--color-accent);
-
-    color: #fff;
-
-    font-size: 0.72rem;
-    font-weight: 700;
-
-    padding: 0.25rem 0.65rem;
-
-    border-radius: var(--radius-pill);
-
-    white-space: nowrap;
-
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    }
-
-    .meal-item-list {
-    display: flex;
-    flex-direction: column;
-
-    gap: 0.5rem;
-    }
-
-    .meal-item-row {
-    display: flex;
-    align-items: flex-start;
-
-    gap: 0.6rem;
-    }
-
-    .meal-item-thumb {
-    width: 40px;
-    height: 40px;
-    flex: none;
-
-    border-radius: var(--radius-sm);
-
-    overflow: hidden;
-
-    background: #ffffff;
-
-    border: 1px solid var(--color-border-subtle);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    }
-
-    .meal-item-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    }
-
-    .meal-item-name {
-    font-size: 0.88rem;
-    font-weight: 500;
-
-    min-width: 0;
-    overflow-wrap: anywhere;
-    }
-
-    .meal-macro-row {
-    display: flex;
-    flex-wrap: wrap;
-
-    gap: 0.5rem;
-
-    padding: 0.6rem 0.65rem;
-
-    background: rgba(255, 255, 255, 0.5);
-
-    border-radius: var(--radius-sm);
-
-    font-size: 0.85rem;
-
-    color: var(--color-ink-soft);
-    }
-
-    .meal-macro-row strong {
-    color: var(--color-ink);
-    }
-
-    .meal-target-diff {
-    font-size: 0.82rem;
-
-    color: var(--color-ink-soft);
-
-    border-top: 1px dashed var(--color-border);
-
-    padding-top: 0.5rem;
-
-    margin: 0;
-    }
-
-    .meal-target-diff .diff-good {
-    color: #3f7d52;
-    font-weight: 600;
-    }
-
-    .meal-target-diff .diff-over {
-    color: var(--color-error);
-    font-weight: 600;
-    }
-
-    /* =========================================================
-    HOVER-ONLY INTERACTIONS
-    Card lift, image zoom, and the logo scale only ever apply on
-    devices that genuinely support hover with a precise pointer,
-    so a tap on a touch screen can never leave a card "stuck" in
-    its hovered state.
-    ========================================================= */
-
     @media (hover: hover) and (pointer: fine) {
     .brand-logo-wrap:hover {
         transform: scale(1.04);
@@ -1403,21 +1145,12 @@
         transform: scale(calc(var(--img-scale, 1.15) * 1.04));
     }
 
-    .meal-card:hover {
-        transform: translateY(-3px);
-
-        box-shadow:
-            0 8px 24px rgba(0, 0, 0, 0.12);
+@media (hover: hover) and (pointer: fine) {
+    .result-card:hover .food-card-image.mcdonalds-image {
+        transform: scale(1.04);
     }
+}
     }
-
-    /* =========================================================
-    MOBILE / TOUCH RESPONSIVE PASS
-    Tablet and below, then phone-specific tightening. Uses fluid
-    sizing where possible; these breakpoints only step in for
-    layout changes (columns, stacking, nav) that fluid CSS alone
-    can't handle.
-    ========================================================= */
 
     @media (max-width: 768px) {
     .site-header {
@@ -1437,15 +1170,12 @@
     }
 
     .results-grid,
-    .meal-results-grid,
     .skeleton-grid {
         gap: 1.1rem;
     }
     }
 
     @media (max-width: 480px) {
-    /* Header & nav: keep the title from ever clipping and let the
-        two nav pills wrap onto their own row instead of overflowing */
     .site-nav {
         flex-wrap: wrap;
         gap: 0.5rem;
@@ -1455,25 +1185,9 @@
         flex: 1 1 auto;
         justify-content: center;
     }
-
-    /* Mode tabs already wrap (see .mode-tabs above); make each pill
-        share the row evenly instead of shrinking unpredictably */
-    .mode-tab {
-        flex: 1 1 auto;
-        padding-left: 0.9rem;
-        padding-right: 0.9rem;
-        font-size: 0.85rem;
-    }
-
-    /* Filters & forms: one full-width column, comfortably spaced */
     .field-row,
-    .search-filters-grid,
     .range-filters-grid {
         grid-template-columns: 1fr;
-    }
-
-    .sort-field {
-        min-width: 100%;
     }
 
     .search-footer-row {
@@ -1490,23 +1204,17 @@
         justify-self: stretch;
     }
 
-    /* Food & meal cards: single column, full width */
+
     .results-grid,
-    .meal-results-grid,
     .skeleton-grid {
         grid-template-columns: 1fr;
     }
 
-    /* Fewer skeleton placeholders on phones so the loading state
-        doesn't force a long scroll before anything real can appear */
+
     .skeleton-grid > .skeleton-card:nth-child(n + 4) {
         display: none;
     }
     }
-
-    /* =========================================================
-    ANIMATIONS & ACCESSIBILITY
-    ========================================================= */
 
     @keyframes card-in {
     from {

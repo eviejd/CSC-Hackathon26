@@ -5,16 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Macro Aware Picks — Map your macros to the menu</title>
     <meta name="description" content="Match your personal calorie and macro targets with real restaurant menus and meals." />
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -44,18 +38,10 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
     <main class="wrap">
 
-        <nav class="mode-tabs" role="tablist" aria-label="Search mode">
-            <button type="button" class="mode-tab is-active" id="tab-macro-match" role="tab" aria-selected="true" aria-controls="macro-match-view">Macro Match</button>
-            <button type="button" class="mode-tab" id="tab-advanced-search" role="tab" aria-selected="false" aria-controls="advanced-search-view">Advanced Search</button>
-            <button type="button" class="mode-tab" id="tab-build-meal" role="tab" aria-selected="false" aria-controls="build-meal-view">Build My Meal</button>
-        </nav>
-
-        <!-- Mode 1: Macro Match -->
-        <div id="macro-match-view" role="tabpanel" aria-labelledby="tab-macro-match">
-            <section class="panel input-panel" aria-labelledby="input-heading">
+        <div id="macro-match-view">
+            <section class="panel input-panel search-panel" aria-labelledby="input-heading">
                 <h2 id="input-heading">Enter your macro targets</h2>
 
                 <form id="match-form" class="match-form" novalidate>
@@ -70,27 +56,132 @@
                         </div>
                     </div>
 
-                    <div class="field">
-                        <label for="restaurant">Choose a restaurant</label>
-                        <select id="restaurant" name="restaurant">
-                            <option value="" disabled selected>Loading restaurants…</option>
-                        </select>
-                    </div>
-
-                    <div class="field">
-                        <span class="field-label">Category</span>
-                        <div class="category-group" id="category-group" role="group" aria-label="Category selection">
-                            <button type="button" class="category-btn is-active" data-category="all">All</button>
-                            <button type="button" class="category-btn" data-category="mains">Mains</button>
-                            <button type="button" class="category-btn" data-category="sides">Sides &amp; Snacks</button>
-                            <button type="button" class="category-btn" data-category="breakfast">Breakfast</button>
-                            <button type="button" class="category-btn" data-category="desserts">Desserts</button>
-                            <button type="button" class="category-btn" data-category="drinks">Drinks</button>
+                    <div class="field-row">
+                        <div class="field">
+                            <label for="restaurant">Choose a restaurant</label>
+                            <select id="restaurant" name="restaurant">
+                                <option value="" disabled selected>Loading restaurants…</option>
+                            </select>
                         </div>
-                        <input type="hidden" id="category" name="category" value="all">
+                        <div class="field">
+                            <label for="budget-input">Budget ($)</label>
+                            <input type="number" id="budget-input" name="budget" min="0" step="0.01" placeholder="e.g. 15" inputmode="decimal">
+                        </div>
                     </div>
 
-                    <button type="submit" class="cta" id="submit-btn">Find my match</button>
+                    <details class="more-filters-details" id="advanced-search-details">
+                        <summary>Advanced Search <span class="more-filters-hint">search, quick filters, price, dietary &amp; more</span></summary>
+
+                        <div class="more-filters-body">
+                            <div class="search-box">
+                                <input type="search" id="search-input" placeholder="Search food… e.g. “big mac”, “chicken”, “wrap”" aria-label="Search food">
+                            </div>
+
+                            <div class="field">
+                                <label for="category-select">Product type</label>
+                                <select id="category-select">
+                                    <option value="all" selected>All</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <span class="field-label">Quick filters</span>
+                                <div class="quick-filter-group" id="quick-filter-group" role="group" aria-label="Quick filters">
+                                    <button type="button" class="quick-filter-btn" data-quick="high_protein">High Protein</button>
+                                    <button type="button" class="quick-filter-btn" data-quick="low_calorie">Under 400 kcal</button>
+                                    <button type="button" class="quick-filter-btn" data-quick="low_carb">Low Carb</button>
+                                    <button type="button" class="quick-filter-btn" data-quick="low_fat">Low Fat</button>
+                                    <button type="button" class="quick-filter-btn" data-quick="best_efficiency">Best Protein Efficiency</button>
+                                    <button type="button" class="quick-filter-btn" data-quick="budget_friendly">Budget Friendly</button>
+                                </div>
+                            </div>
+
+                            <details class="more-filters-details" id="more-filters-details">
+                                <summary>More filters <span class="more-filters-hint">nutrition ranges, price, dietary</span></summary>
+
+                                <div class="more-filters-body">
+                                    <div class="range-filters-grid">
+                                        <div class="range-field">
+                                            <span class="field-label">Price ($)</span>
+                                            <div class="range-inputs">
+                                                <input type="number" id="min-price" min="0" step="0.01" placeholder="Min" aria-label="Minimum Price">
+                                                <span class="range-sep" aria-hidden="true">–</span>
+                                                <input type="number" id="max-price" min="0" step="0.01" placeholder="Max" aria-label="Maximum Price">
+                                            </div>
+                                            <p class="hint-text">Max price stays in sync with the Budget field above.</p>
+                                        </div>
+                                        <div class="range-field">
+                                            <span class="field-label">Calories (range)</span>
+                                            <div class="range-inputs">
+                                                <input type="number" id="min-calories" min="0" step="1" placeholder="Min" aria-label="Minimum Calories">
+                                                <span class="range-sep" aria-hidden="true">–</span>
+                                                <input type="number" id="max-calories" min="0" step="1" placeholder="Max" aria-label="Maximum Calories">
+                                            </div>
+                                        </div>
+                                        <div class="range-field">
+                                            <span class="field-label">Protein (g, range)</span>
+                                            <div class="range-inputs">
+                                                <input type="number" id="min-protein" min="0" step="1" placeholder="Min" aria-label="Minimum Protein">
+                                                <span class="range-sep" aria-hidden="true">–</span>
+                                                <input type="number" id="max-protein" min="0" step="1" placeholder="Max" aria-label="Maximum Protein">
+                                            </div>
+                                        </div>
+                                        <div class="range-field">
+                                            <span class="field-label">Carbs (g)</span>
+                                            <div class="range-inputs">
+                                                <input type="number" id="min-carbs" min="0" step="1" placeholder="Min" aria-label="Minimum Carbohydrates">
+                                                <span class="range-sep" aria-hidden="true">–</span>
+                                                <input type="number" id="max-carbs" min="0" step="1" placeholder="Max" aria-label="Maximum Carbohydrates">
+                                            </div>
+                                        </div>
+                                        <div class="range-field">
+                                            <span class="field-label">Fat (g)</span>
+                                            <div class="range-inputs">
+                                                <input type="number" id="min-fat" min="0" step="1" placeholder="Min" aria-label="Minimum Fat">
+                                                <span class="range-sep" aria-hidden="true">–</span>
+                                                <input type="number" id="max-fat" min="0" step="1" placeholder="Max" aria-label="Maximum Fat">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="goal-subsection">
+                                        <div class="range-filters-grid">
+                                            <div class="field">
+                                                <label for="target-carbs">Target carbs (g)</label>
+                                                <input type="number" id="target-carbs" min="0" step="1" placeholder="e.g. 50">
+                                            </div>
+                                            <div class="field">
+                                                <label for="target-fat">Target fat (g)</label>
+                                                <input type="number" id="target-fat" min="0" step="1" placeholder="e.g. 20">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <span class="field-label">Dietary</span>
+                                        <div class="quick-filter-group" id="diet-filter-group" role="group" aria-label="Dietary filters"></div>
+                                    </div>
+            
+                        <div class="field">
+                            <span class="field-label">Exclude allergens</span>
+                            <div class="quick-filter-group" id="allergen-filter-group" role="group" aria-label="Allergen exclusion filters"></div>
+                            <label class="strict-allergen-label">
+                                <input type="checkbox" id="strict-allergens-toggle">
+                                Also hide items that may contain traces (strict mode)
+                            </label>
+                        </div>
+                    </div>
+                            </details>
+
+                            <div class="search-footer-row">
+                                <button type="button" class="clear-btn" id="clear-filters-btn">Clear filters</button>
+                            </div>
+                        </div>
+                    </details>
+
+                    <div class="cta-row">
+                        <button type="submit" class="cta cta-primary" id="submit-btn">Find My Match</button>
+                    </div>
                 </form>
             </section>
 
@@ -106,221 +197,13 @@
                 <div id="results-error" class="state-message state-error" hidden></div>
 
                 <div id="results-content" hidden>
-                    <h2>Options mapped to your goals</h2>
+                    <h2 id="results-heading">Best picks for your goals</h2>
+
+                    <p class="results-count" id="results-count"></p>
 
                     <div class="target-summary" id="target-summary"></div>
 
-                    <div class="route-line" aria-hidden="true">
-                        <span class="route-dot route-dot-start"></span>
-                        <span class="route-track"></span>
-                        <span class="route-dot route-dot-end"></span>
-                    </div>
-
                     <div class="results-grid" id="results-grid"></div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Mode 2: Advanced Search -->
-        <div id="advanced-search-view" role="tabpanel" aria-labelledby="tab-advanced-search" hidden>
-            <section class="panel search-panel" aria-labelledby="search-heading">
-                <h2 id="search-heading">Advanced food search</h2>
-
-                <div class="search-box">
-                    <input type="search" id="search-input" placeholder="Search food… e.g. “big mac”, “chicken”, “wrap”" aria-label="Search food">
-                </div>
-
-                <div class="search-filters-grid">
-                    <div class="field">
-                        <label for="search-restaurant">Restaurant</label>
-                        <select id="search-restaurant">
-                            <option value="all" selected>All restaurants</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label for="search-category">Product type</label>
-                        <select id="search-category">
-                            <option value="all" selected>All</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <span class="field-label">Quick filters</span>
-                    <div class="quick-filter-group" id="quick-filter-group" role="group" aria-label="Quick filters">
-                        <button type="button" class="quick-filter-btn" data-quick="high_protein">High Protein</button>
-                        <button type="button" class="quick-filter-btn" data-quick="low_calorie">Under 400 kcal</button>
-                        <button type="button" class="quick-filter-btn" data-quick="low_carb">Low Carb</button>
-                        <button type="button" class="quick-filter-btn" data-quick="low_fat">Low Fat</button>
-                        <button type="button" class="quick-filter-btn" data-quick="best_efficiency">Best Protein Efficiency</button>
-                    </div>
-                </div>
-
-                <details class="more-filters-details" id="more-filters-details">
-                    <summary>More filters <span class="more-filters-hint">nutrition ranges, macro goal, dietary</span></summary>
-
-                    <div class="more-filters-body">
-                        <div class="range-filters-grid">
-                            <div class="range-field">
-                                <span class="field-label">Calories</span>
-                                <div class="range-inputs">
-                                    <input type="number" id="min-calories" min="0" step="1" placeholder="Min" aria-label="Minimum Calories">
-                                    <span class="range-sep" aria-hidden="true">–</span>
-                                    <input type="number" id="max-calories" min="0" step="1" placeholder="Max" aria-label="Maximum Calories">
-                                </div>
-                            </div>
-                            <div class="range-field">
-                                <span class="field-label">Protein (g)</span>
-                                <div class="range-inputs">
-                                    <input type="number" id="min-protein" min="0" step="1" placeholder="Min" aria-label="Minimum Protein">
-                                    <span class="range-sep" aria-hidden="true">–</span>
-                                    <input type="number" id="max-protein" min="0" step="1" placeholder="Max" aria-label="Maximum Protein">
-                                </div>
-                            </div>
-                            <div class="range-field">
-                                <span class="field-label">Carbs (g)</span>
-                                <div class="range-inputs">
-                                    <input type="number" id="min-carbs" min="0" step="1" placeholder="Min" aria-label="Minimum Carbohydrates">
-                                    <span class="range-sep" aria-hidden="true">–</span>
-                                    <input type="number" id="max-carbs" min="0" step="1" placeholder="Max" aria-label="Maximum Carbohydrates">
-                                </div>
-                            </div>
-                            <div class="range-field">
-                                <span class="field-label">Fat (g)</span>
-                                <div class="range-inputs">
-                                    <input type="number" id="min-fat" min="0" step="1" placeholder="Min" aria-label="Minimum Fat">
-                                    <span class="range-sep" aria-hidden="true">–</span>
-                                    <input type="number" id="max-fat" min="0" step="1" placeholder="Max" aria-label="Maximum Fat">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="goal-subsection">
-                            <div class="range-filters-grid">
-                                <div class="field">
-                                    <label for="target-calories">Target calories</label>
-                                    <input type="number" id="target-calories" min="0" step="1" placeholder="e.g. 600">
-                                </div>
-                                <div class="field">
-                                    <label for="target-protein">Target protein (g)</label>
-                                    <input type="number" id="target-protein" min="0" step="1" placeholder="e.g. 40">
-                                </div>
-                                <div class="field">
-                                    <label for="target-carbs">Target carbs (g)</label>
-                                    <input type="number" id="target-carbs" min="0" step="1" placeholder="e.g. 50">
-                                </div>
-                                <div class="field">
-                                    <label for="target-fat">Target fat (g)</label>
-                                    <input type="number" id="target-fat" min="0" step="1" placeholder="e.g. 20">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field">
-                            <span class="field-label">Dietary</span>
-                            <div class="quick-filter-group" id="diet-filter-group" role="group" aria-label="Dietary filters"></div>
-                        </div>
-
-                        <div class="field">
-                            <span class="field-label">Exclude allergens</span>
-                            <div class="quick-filter-group" id="allergen-filter-group" role="group" aria-label="Allergen exclusion filters"></div>
-                            <label class="strict-allergen-label">
-                                <input type="checkbox" id="strict-allergens-toggle">
-                                Also hide items that may contain traces (strict mode)
-                            </label>
-                        </div>
-                    </div>
-                </details>
-
-                <div class="search-footer-row">
-                    <div class="field sort-field">
-                        <label for="sort-select">Sort</label>
-                        <select id="sort-select">
-                            <option value="relevance">Best match to search</option>
-                            <option value="macro_match">Best match to macro goal</option>
-                            <option value="protein_desc">Highest protein</option>
-                            <option value="protein_asc">Lowest protein</option>
-                            <option value="calories_asc">Lowest calories</option>
-                            <option value="calories_desc">Highest calories</option>
-                            <option value="carbs_asc">Lowest carbs</option>
-                            <option value="carbs_desc">Highest carbs</option>
-                            <option value="fat_asc">Lowest fat</option>
-                            <option value="fat_desc">Highest fat</option>
-                            <option value="efficiency_desc">Best protein efficiency</option>
-                            <option value="name_asc">Name A–Z</option>
-                            <option value="name_desc">Name Z–A</option>
-                        </select>
-                    </div>
-                    <button type="button" class="clear-btn" id="clear-filters-btn">Clear filters</button>
-                </div>
-            </section>
-
-            <section class="panel results-panel" id="search-results-panel" aria-live="polite">
-                <div id="search-results-empty" class="state-message">
-                    Search or set filters to see menu items.
-                </div>
-                <div id="search-results-loading" class="state-message" hidden>
-                    Searching…
-                </div>
-                <div id="search-results-error" class="state-message state-error" hidden></div>
-
-                <div id="search-results-content" hidden>
-                    <p class="state-message" id="search-results-warning" hidden></p>
-                    <p class="results-count" id="search-results-count"></p>
-                    <div class="results-grid" id="search-results-grid"></div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Mode 3: Build My Meal -->
-        <div id="build-meal-view" role="tabpanel" aria-labelledby="tab-build-meal" hidden>
-            <section class="panel input-panel" aria-labelledby="build-meal-heading">
-                <h2 id="build-meal-heading">Build My Meal</h2>
-                <p class="hint-text">Enter your targets and we'll combine real menu items to get as close as possible.</p>
-
-                <form id="build-meal-form" class="match-form" novalidate>
-                    <div class="field">
-                        <label for="build-meal-restaurant">Choose a restaurant</label>
-                        <select id="build-meal-restaurant" name="restaurant" required>
-                            <option value="" disabled selected>Loading restaurants…</option>
-                        </select>
-                    </div>
-
-                    <div class="field-row">
-                        <div class="field">
-                            <label for="build-meal-calories">Calories</label>
-                            <input type="number" id="build-meal-calories" name="calories" min="0" step="1" placeholder="e.g. 700" required>
-                        </div>
-                        <div class="field">
-                            <label for="build-meal-protein">Protein (g)</label>
-                            <input type="number" id="build-meal-protein" name="protein" min="0" step="1" placeholder="e.g. 50" required>
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label for="build-meal-category">Category</label>
-                        <select id="build-meal-category" name="category">
-                            <option value="all" selected>All categories</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="cta" id="build-meal-submit-btn">Find my meal</button>
-                </form>
-            </section>
-
-            <section class="panel results-panel" id="build-meal-results-panel" aria-live="polite">
-                <div id="build-meal-empty" class="state-message">
-                    Choose a restaurant to start building your meal.
-                </div>
-
-                <div id="build-meal-loading" class="state-message" hidden></div>
-
-                <div id="build-meal-error" class="state-message state-error" hidden></div>
-
-                <div id="build-meal-content" hidden>
-                    <h2>Meal combinations</h2>
-                    <div class="target-summary" id="build-meal-target-summary"></div>
-                    <div class="meal-results-grid" id="build-meal-grid"></div>
                 </div>
             </section>
         </div>
