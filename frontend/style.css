@@ -1253,3 +1253,11 @@
         scroll-behavior: auto !important;
     }
     }
+
+    .result-card[data-result-type="bundle"] .category-chip {
+    justify-self: center;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

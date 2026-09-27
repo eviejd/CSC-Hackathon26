@@ -1226,6 +1226,19 @@ function buildBundleCard(bundle) {
 
 
 // ---- Graph view (D3) ------------------------------------------------------------
+//
+// This view shows a deterministic branching hierarchy of the strongest matches
+// (>=75%) rather than a force-directed "spider web" of every item. Layout is
+// computed with d3.tree() (a pure function of the data — no physics, no
+// randomness), so the same matches always land in the same positions.
+
+const GRAPH_MIN_MATCH_PCT = 75;   // hard floor — nothing below this appears at all
+const GRAPH_MAX_ROOTS = 5;        // "1-5 main nodes in the centre"
+const GRAPH_MAX_CHILDREN = 2;     // keeps branching binary/tidy instead of dense
+const GRAPH_MAX_NODES = 30;       // readability cap when there are many 75%+ results
+const GRAPH_NODE_SPACING_X = 150;
+const GRAPH_LEVEL_SPACING_Y = 150;
+const GRAPH_MARGIN = 70;
 
 function setGraphState(state) {
     graphEmpty.hidden = state !== "empty";
@@ -1276,19 +1289,93 @@ async function drawGraph() {
     renderGraph();
 }
 
+// A single overall "match %" per item, reused from the two closeness scores the
+// backend already computes for every graph node (cal_pct, protein_pct) — no new
+// matching/scoring logic, just averaging numbers the API already returns.
+function overallMatchPct(d) {
+    return Math.round((d.cal_pct + d.protein_pct) / 2);
+}
+
+// Turns a flat, match%-sorted list of nodes into a forest of small binary trees:
+// the top matches become root/central nodes, and every remaining qualifying node
+// is attached as a child of the next available parent (round-robin across trees,
+// breadth-first), so higher matches always end up closer to the centre.
+function buildMatchHierarchy(sortedNodes) {
+    const rootCount = sortedNodes.length <= 3
+        ? 1
+        : Math.min(GRAPH_MAX_ROOTS, Math.max(1, Math.round(sortedNodes.length / 5)));
+
+    const roots = sortedNodes.slice(0, rootCount).map(d => ({ data: d, children: [] }));
+    const rest = sortedNodes.slice(rootCount);
+
+    // Every tree node starts eligible to receive children; as each gets one, it's
+    // appended to this same queue so its own children slot in right after it —
+    // that's what keeps the branching breadth-first instead of one long chain.
+    const frontier = [...roots];
+    let cursor = 0;
+    for (const item of rest) {
+        while (frontier[cursor % frontier.length].children.length >= GRAPH_MAX_CHILDREN) {
+            cursor++;
+        }
+        const parent = frontier[cursor % frontier.length];
+        const node = { data: item, children: [] };
+        parent.children.push(node);
+        frontier.push(node); // eligible for its own children once we reach it
+    }
+
+    return roots;
+}
+
 function renderGraph() {
     const data = lastGraphData;
-    const activeCategory = categorySelect.value;
-    const NODE_RADIUS = 40;
 
     graphContainer.innerHTML = "";
-    const width = graphContainer.clientWidth || 800;
-    const height = 800;
+    document.getElementById("graph-cap-note")?.remove();
+    const containerWidth = graphContainer.clientWidth || 800;
+
+    // ---- filter -> sort -> cap -> build the hierarchy (steps 1-6 of the spec) ----
+    const qualifying = data.nodes
+        .filter(d => !removedNodeIds.has(d.id))
+        .map(d => ({ ...d, matchPct: overallMatchPct(d) }))
+        .filter(d => d.matchPct >= GRAPH_MIN_MATCH_PCT)
+        .sort((a, b) => b.matchPct - a.matchPct || a.name.localeCompare(b.name));
+
+    if (qualifying.length === 0) {
+        setGraphState("empty");
+        graphEmpty.textContent = `No items are a ${GRAPH_MIN_MATCH_PCT}%+ match for this combination yet — try adjusting your targets.`;
+        return;
+    }
+
+    const shown = qualifying.slice(0, GRAPH_MAX_NODES);
+    const roots = buildMatchHierarchy(shown);
+
+    // ---- deterministic tidy-tree layout (no simulation, no randomness) ----
+    const virtualRoot = d3.hierarchy({ children: roots }, d => d.children);
+    d3.tree().nodeSize([GRAPH_NODE_SPACING_X, GRAPH_LEVEL_SPACING_Y])(virtualRoot);
+
+    const treeNodes = virtualRoot.descendants().filter(d => d.depth > 0);
+    const treeLinks = virtualRoot.links().filter(l => l.source.depth > 0);
+
+    const xs = treeNodes.map(d => d.x);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const contentWidth = (maxX - minX) + GRAPH_MARGIN * 2;
+    const maxDepth = Math.max(...treeNodes.map(d => d.depth));
+    const contentHeight = (maxDepth + 1) * GRAPH_LEVEL_SPACING_Y + GRAPH_MARGIN;
+
+    // shift every node so the whole forest is centred on the container's own
+    // width — this is the single source of truth for both the svg size below
+    // and every node position, so the two always agree
+    const offsetX = containerWidth / 2 - (minX + maxX) / 2;
+    const offsetY = GRAPH_MARGIN;
+    treeNodes.forEach(d => {
+        d.px = d.x + offsetX;
+        d.py = d.y + offsetY;
+    });
 
     const svg = d3.select("#graph-container")
         .append("svg")
-        .attr("width", width)
-        .attr("height", height);
+        .attr("width", containerWidth)
+        .attr("height", contentHeight);
 
     const zoomLayer = svg.append("g");
     const zoom = d3.zoom()
@@ -1296,109 +1383,107 @@ function renderGraph() {
         .on("zoom", event => zoomLayer.attr("transform", event.transform));
     svg.call(zoom);
 
+    // if the tree is wider than the visible area, start zoomed out just enough
+    // to fit it (around its own centre) so nothing important starts off-screen
+    if (contentWidth > containerWidth) {
+        const fitScale = Math.max(0.3, containerWidth / contentWidth);
+        const cx = containerWidth / 2;
+        svg.call(zoom.transform, d3.zoomIdentity
+            .translate(cx, 0)
+            .scale(fitScale)
+            .translate(-cx, 0));
+    }
+
     const defs = svg.append("defs");
 
-    // nodes the user hasn't removed
-    const nodes = data.nodes
-        .filter(d => !removedNodeIds.has(d.id))
-        .map(d => ({ ...d }));
-    const visibleIds = new Set(nodes.map(n => n.id));
-
-    const EDGE_MIN_PCT = 55;
-    const links = data.edges
-        .filter(d => visibleIds.has(d.source) && visibleIds.has(d.target)) // drop edges to removed nodes
-        .map(d => {
-            const meaningfulTags = activeCategory !== "all"
-                ? d.shared_tags.filter(t => t !== activeCategory)
-                : d.shared_tags;
-            return { ...d, meaningfulTags };
-        })
-        .filter(d => d.meaningfulTags.length > 0)
-        .filter(d => Math.max(d.source_match_pct, d.target_match_pct) >= EDGE_MIN_PCT);
-
-    links.forEach((link, i) => {
+    // ---- links: parent -> child only, one line per connection, none crossing ----
+    treeLinks.forEach((link, i) => {
         const gradId = `edge-grad-${i}`;
         link.gradientId = gradId;
         const grad = defs.append("linearGradient")
             .attr("id", gradId)
-            .attr("gradientUnits", "userSpaceOnUse");
+            .attr("gradientUnits", "userSpaceOnUse")
+            .attr("x1", link.source.px).attr("y1", link.source.py)
+            .attr("x2", link.target.px).attr("y2", link.target.py);
         grad.append("stop").attr("offset", "0%")
-            .attr("stop-color", `rgba(161,140,112,${Math.max(0.1, link.source_match_pct / 100)})`);
+            .attr("stop-color", `rgba(161,140,112,${Math.max(0.25, link.source.data.data.matchPct / 100)})`);
         grad.append("stop").attr("offset", "100%")
-            .attr("stop-color", `rgba(161,140,112,${Math.max(0.1, link.target_match_pct / 100)})`);
+            .attr("stop-color", `rgba(161,140,112,${Math.max(0.25, link.target.data.data.matchPct / 100)})`);
     });
 
-    const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).id(d => d.id).distance(220).strength(0.15))
-        .force("charge", d3.forceManyBody().strength(-450))
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collide", d3.forceCollide(NODE_RADIUS + 12));
-
-    const link = zoomLayer.append("g")
+    zoomLayer.append("g")
         .selectAll("line")
-        .data(links)
+        .data(treeLinks)
         .join("line")
+        .attr("x1", d => d.source.px).attr("y1", d => d.source.py)
+        .attr("x2", d => d.target.px).attr("y2", d => d.target.py)
         .attr("stroke", d => `url(#${d.gradientId})`)
-        .attr("stroke-width", 1.5);
+        .attr("stroke-width", 2);
 
+    // ---- nodes ----
     const node = zoomLayer.append("g")
         .selectAll("g")
-        .data(nodes)
+        .data(treeNodes)
         .join("g")
+        .attr("transform", d => `translate(${d.px},${d.py})`)
         .style("cursor", "pointer")
-        .call(d3.drag()
-            .clickDistance(4) // small jitter still counts as a click, not a drag
-            .on("start", (event, d) => {
-                if (!event.active) simulation.alphaTarget(0.3).restart();
-                d.fx = d.x; d.fy = d.y;
-            })
-            .on("drag", (event, d) => { d.fx = event.x; d.fy = event.y; })
-            .on("end", (event, d) => {
-                if (!event.active) simulation.alphaTarget(0);
-                d.fx = null; d.fy = null;
-            }))
         .on("click", (event, d) => {
-            removedNodeIds.add(d.id);
-            renderGraph(); // re-render from the same cached data, no new fetch
+            removedNodeIds.add(d.data.data.id);
+            renderGraph(); // rebuild the hierarchy from the remaining matches, no new fetch
         });
 
+    // central (depth 1) nodes are drawn larger and bolder — the visual hierarchy
+    // itself communicates "closer to centre = stronger match", not just colour
+    const radius = d => d.depth === 1 ? 46 : 34;
+
     defs.selectAll("clipPath")
-        .data(nodes)
+        .data(treeNodes)
         .join("clipPath")
-        .attr("id", d => `clip-${d.id}`)
+        .attr("id", d => `clip-${d.data.data.id}`)
         .append("circle")
-        .attr("r", NODE_RADIUS - 3);
+        .attr("r", d => radius(d) - 3);
 
     node.append("circle")
-        .attr("r", NODE_RADIUS + 3)
+        .attr("r", d => radius(d) + 3)
         .attr("fill", "none")
         .attr("stroke", "#000")
-        .attr("stroke-width", 1);
+        .attr("stroke-width", d => d.depth === 1 ? 1.5 : 1);
 
     node.append("circle")
-        .attr("r", NODE_RADIUS + 1)
+        .attr("r", d => radius(d) + 1)
         .attr("fill", "none")
-        .attr("stroke", d => outlineColor(d.protein_pct))
-        .attr("stroke-width", 5);
+        .attr("stroke", d => outlineColor(d.data.data.protein_pct))
+        .attr("stroke-width", d => d.depth === 1 ? 6 : 4);
 
     node.append("circle")
-        .attr("r", NODE_RADIUS - 3)
-        .attr("fill", d => fillColor(d.cal_pct));
+        .attr("r", d => radius(d) - 3)
+        .attr("fill", d => fillColor(d.data.data.cal_pct));
 
-    node.filter(d => d.image)
+    node.filter(d => d.data.data.image)
         .append("image")
-        .attr("href", d => d.image)
-        .attr("xlink:href", d => d.image)
-        .attr("x", -NODE_RADIUS + 3)
-        .attr("y", -NODE_RADIUS + 3)
-        .attr("width", (NODE_RADIUS - 3) * 2)
-        .attr("height", (NODE_RADIUS - 3) * 2)
-        .attr("clip-path", d => `url(#clip-${d.id})`)
+        .attr("href", d => d.data.data.image)
+        .attr("xlink:href", d => d.data.data.image)
+        .attr("x", d => -radius(d) + 3)
+        .attr("y", d => -radius(d) + 3)
+        .attr("width", d => (radius(d) - 3) * 2)
+        .attr("height", d => (radius(d) - 3) * 2)
+        .attr("clip-path", d => `url(#clip-${d.data.data.id})`)
         .attr("preserveAspectRatio", "xMidYMid slice")
         .attr("opacity", 0.85);
 
+    // match % badge — bold and unmissable, sits right on the node
+    node.append("text")
+        .attr("text-anchor", "middle")
+        .attr("y", d => -radius(d) - 10)
+        .attr("font-size", d => d.depth === 1 ? "13px" : "11px")
+        .attr("font-weight", "700")
+        .attr("fill", "var(--color-primary-dark)")
+        .attr("pointer-events", "none")
+        .text(d => `${d.data.data.matchPct}% match`);
+
     node.each(function (d) {
-        const words = d.name.split(" ");
+        const item = d.data.data;
+        const words = item.name.split(" ");
         const lines = [];
         let current = "";
         words.forEach(w => {
@@ -1410,7 +1495,7 @@ function renderGraph() {
             }
         });
         if (current.trim()) lines.push(current.trim());
-        const shown = lines.slice(0, 2);
+        const shownLines = lines.slice(0, 2);
 
         const text = d3.select(this).append("text")
             .attr("text-anchor", "middle")
@@ -1419,8 +1504,8 @@ function renderGraph() {
             .attr("pointer-events", "none");
 
         const lineHeight = 11;
-        const startY = NODE_RADIUS + 16;
-        shown.forEach((line, i) => {
+        const startY = radius(d) + 16;
+        shownLines.forEach((line, i) => {
             text.append("tspan")
                 .attr("x", 0)
                 .attr("y", startY + i * lineHeight)
@@ -1429,16 +1514,20 @@ function renderGraph() {
     });
 
     node.append("title")
-        .text(d => `${d.name}\n${d.calories ?? "?"} kcal, ${d.protein_g ?? "?"}g protein`);
-
-    simulation.on("tick", () => {
-        link
-            .attr("x1", d => d.source.x).attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
-        node.attr("transform", d => `translate(${d.x},${d.y})`);
-    });
+        .text(d => {
+            const item = d.data.data;
+            return `${item.name}\n${item.matchPct}% match\n${item.calories ?? "?"} kcal, ${item.protein_g ?? "?"}g protein`;
+        });
 
     setGraphState("content");
+
+    if (qualifying.length > shown.length) {
+        const note = document.createElement("p");
+        note.id = "graph-cap-note";
+        note.className = "hint-text";
+        note.textContent = `Showing the top ${shown.length} of ${qualifying.length} matches at ${GRAPH_MIN_MATCH_PCT}%+ to keep this readable.`;
+        graphContainer.before(note);
+    }
 }
 
 showGraphBtn.addEventListener("click", () => {
