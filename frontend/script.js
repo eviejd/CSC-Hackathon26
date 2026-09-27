@@ -1,7 +1,5 @@
 const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
 
-// ---- Shared element references -------------------------------------------------
-
 const matchForm = document.getElementById("match-form");
 const caloriesInput = document.getElementById("calories");
 const proteinInput = document.getElementById("protein");
