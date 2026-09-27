@@ -26,6 +26,8 @@ const targetFat = document.getElementById("target-fat");
 
 const quickFilterGroup = document.getElementById("quick-filter-group");
 const dietFilterGroup = document.getElementById("diet-filter-group");
+const allergenFilterGroup = document.getElementById("allergen-filter-group");
+const strictAllergensToggle = document.getElementById("strict-allergens-toggle");
 const clearFiltersBtn = document.getElementById("clear-filters-btn");
 
 const resultsEmpty = document.getElementById("results-empty");
@@ -48,6 +50,7 @@ const DIET_FILTER_LABELS = {
 
 let activeQuickFilter = null;
 let activeDietFilters = new Set();
+let activeAllergenFilters = new Set();
 
 
 // ---- Image presentation --------------------------------------------------------
@@ -400,6 +403,32 @@ async function populateDietFilters() {
     }
 }
 
+async function populateAllergenFilters() {
+    try {
+        const res = await fetch(`${API_BASE}/allergens`);
+        if (!res.ok) throw new Error(`Server returned ${res.status}`);
+        const allergens = await res.json();
+
+        if (allergens.length === 0) {
+            allergenFilterGroup.innerHTML = `<span class="hint-text">No allergen data available.</span>`;
+            return;
+        }
+
+        allergenFilterGroup.innerHTML = "";
+        allergens.forEach(code => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "quick-filter-btn";
+            btn.dataset.allergen = code;
+            btn.textContent = formatCategory(code); // reuses your existing "gluten" -> "Gluten" helper
+            allergenFilterGroup.appendChild(btn);
+        });
+    } catch (err) {
+        console.error("Failed to load allergens:", err);
+        allergenFilterGroup.innerHTML = `<span class="hint-text">Couldn't load allergen filters.</span>`;
+    }
+}
+
 
 // ---- Filter control listeners --------------------------------------------------
 
@@ -497,6 +526,20 @@ function attachFilterListeners() {
         }
     );
 
+    allergenFilterGroup.addEventListener("click", event => {
+        const btn = event.target.closest(".quick-filter-btn");
+        if (!btn) return;
+        const key = btn.dataset.allergen;
+
+        if (activeAllergenFilters.has(key)) {
+            activeAllergenFilters.delete(key);
+            btn.classList.remove("is-active");
+        } else {
+            activeAllergenFilters.add(key);
+            btn.classList.add("is-active");
+        }
+    });
+
 
     // Clear filters
     clearFiltersBtn.addEventListener(
@@ -559,6 +602,18 @@ function attachFilterListeners() {
                     ".quick-filter-btn"
                 )
                 .forEach(b =>
+                    b.classList.remove(
+                        "is-active"
+                    )
+                );
+
+            activeAllergenFilters.clear();
+            strictAllergensToggle.checked = false;
+            allergenFilterGroup
+                .querySelectorAll(
+                    ".quick-filter-btn"
+                )
+                .forEach(b => 
                     b.classList.remove(
                         "is-active"
                     )
@@ -660,6 +715,13 @@ function buildSearchParams() {
                 activeDietFilters
             ).join(",")
         );
+    }
+
+    if (activeAllergenFilters.size > 0) {
+        params.set("exclude_allergens", Array.from(activeAllergenFilters).join(","));
+    }
+    if (strictAllergensToggle.checked) {
+        params.set("strict_allergens", "true");
     }
 
     // No sort parameter is sent.
@@ -1206,6 +1268,7 @@ async function init() {
         ),
 
         populateDietFilters(),
+        populateAllergenFilters(),
     ]);
 
     attachFilterListeners();

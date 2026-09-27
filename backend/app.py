@@ -394,6 +394,15 @@ def get_tags():
         "dietary_filters": available_dietary_filters,
     })
 
+@app.route("/api/allergens", methods=["GET"])
+def get_allergens():
+    try:
+        with open(INGREDIENTS_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return jsonify([])
+    return jsonify(data.get("allergen_codes", []))
+
 
 # ---- Relevance scoring shared by individual items and auto-generated bundles --------
 
