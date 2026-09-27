@@ -864,7 +864,8 @@
     .food-card-image.mcdonalds-image {
     object-fit: cover;
     object-position: center bottom;
-    transform: scale(1);
+    transform: scale(1.6);
+    transform-origin: center bottom;
     }
 
     .food-card-placeholder {

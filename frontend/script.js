@@ -70,13 +70,9 @@ const API_BASE = "https://macro-aware-picks-backend.onrender.com/api";
     }
 
     if (restaurant.includes("mcdonald")) {
-        if (category === "burger") return { scale: 1.25, position: "center 58%" };
-        if (category === "breakfast") return { scale: 1.25, position: "center 60%" };
-        if (category === "desserts") return { scale: 1.14, position: "center 48%" };
-        if (category === "chicken" && !item.name.toLowerCase().includes("wrap")) {
-        return { scale: 1.24, position: "center 58%" };
-        }
+        return { scale: 1, position: "center bottom" };
     }
+        
 
     return { scale: 1.16, position: "center center" };
     }
