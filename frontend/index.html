@@ -23,19 +23,6 @@
                 <p class="brand-tagline">Map your macros to the menu</p>
             </div>
         </div>
-
-        <div class="header-nav-bar">
-            <div class="wrap">
-                <nav class="site-nav" aria-label="Main Navigation">
-                    <a href="index.html" class="nav-link is-current" aria-current="page">
-                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Search &amp; Match
-                    </a>
-                    <a href="explore.html" class="nav-link">
-                        <i class="fa-solid fa-compass" aria-hidden="true"></i> Explore Menu
-                    </a>
-                </nav>
-            </div>
-        </div>
     </header>
 
     <main class="wrap">
@@ -197,13 +184,34 @@
                 <div id="results-error" class="state-message state-error" hidden></div>
 
                 <div id="results-content" hidden>
-                    <h2 id="results-heading">Best picks for your goals</h2>
+                    <div class="results-heading-row">
+                        <h2 id="results-heading">Best picks for your goals</h2>
+                        <button type="button" class="clear-btn" id="show-graph-btn">Show graph</button>
+                    </div>
 
                     <p class="results-count" id="results-count"></p>
 
                     <div class="target-summary" id="target-summary"></div>
 
                     <div class="results-grid" id="results-grid"></div>
+                </div>
+
+                <div id="graph-view" hidden>
+                    <div class="results-heading-row">
+                        <h2>How your matches connect</h2>
+                        <button type="button" class="clear-btn" id="graph-back-btn">&larr; Back to results</button>
+                    </div>
+
+                    <div id="graph-empty" class="state-message">
+                        Set your targets and pick a craving to see the map.
+                    </div>
+                    <div id="graph-loading" class="state-message" hidden>Building your map…</div>
+                    <div id="graph-legend" class="hint-text" hidden>
+                        Fill color = calorie closeness. Outline color = protein closeness. Lines connect similar items.
+                        Click a node to remove it.
+                        <button type="button" id="graph-reset-btn" class="clear-btn" style="margin-left: 1rem;">Reset graph</button>
+                    </div>
+                    <div id="graph-container" hidden></div>
                 </div>
             </section>
         </div>
@@ -214,6 +222,7 @@
         <p class="wrap">Nutrition information sourced from restaurant-provided data. Values may change.</p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
